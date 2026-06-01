@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Casey Keown — Freelance Web Developer serving Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt, and Nelson Counties and the Louisville Metro Area." />
+  <title>Casey Keown — Freelance Web Development</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink:        #0e0e0e;
+      --ink-2:      #2b2b2b;
+      --ink-3:      #5a5a5a;
+      --rule:       #d4d0cb;
+      --paper:      #f8f6f2;
+      --paper-alt:  #f0ede7;
+      --accent:     #8b7355;
+      --accent-lt:  #b89e7f;
+      --white:      #ffffff;
+
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'DM Sans', system-ui, sans-serif;
+
+      --gap-xs:  0.5rem;
+      --gap-sm:  1rem;
+      --gap-md:  2rem;
+      --gap-lg:  4rem;
+      --gap-xl:  7rem;
+
+      --max-w:   1160px;
+      --side:    clamp(1.5rem, 5vw, 5rem);
+
+      --ease:    cubic-bezier(0.4, 0, 0.2, 1);
+      --dur:     0.35s;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    /* ─── Scroll-fade utility ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Layout helpers ────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--side);
+    }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0;
+    }
+
+    /* ─── Header / Nav ──────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.4rem var(--side);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      background: rgba(248, 246, 242, 0.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--rule);
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.15rem;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav a {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-3);
+      margin-left: 2.2rem;
+      transition: color var(--dur) var(--ease);
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.55rem 1.3rem;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      transition: background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+    }
+    .nav-cta:hover {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: calc(6rem + var(--gap-lg)) var(--side) var(--gap-xl);
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle background watermark numeral */
+    #hero::before {
+      content: 'CK';
+      position: absolute;
+      bottom: -2rem;
+      right: -1rem;
+      font-family: var(--serif);
+      font-size: clamp(16rem, 30vw, 28rem);
+      font-weight: 300;
+      color: var(--paper-alt);
+      letter-spacing: -0.06em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap-lg);
+      align-items: end;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: var(--max-w);
+    }
+
+    .hero-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-location {
+      margin-top: var(--gap-md);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      line-height: 1.9;
+    }
+
+    .hero-right {
+      padding-bottom: 0.5rem;
+    }
+
+    .hero-bio {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+      line-height: 1.75;
+      color: var(--ink-2);
+      margin-bottom: var(--gap-md);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn-ghost {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink-3);
+      transition: color var(--dur) var(--ease);
+    }
+    .btn-ghost:hover {
+      color: var(--accent);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.45;
+    }
+    .hero-scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      animation: scroll-tick 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-tick {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ─── Section common ────────────────────────────────────────── */
+    section {
+      padding: var(--gap-xl) var(--side);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--gap-md);
+      align-items: baseline;
+      margin-bottom: var(--gap-lg);
+    }
+    .section-number {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .section-rule {
+      grid-column: 2;
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin-top: 0.6rem;
+    }
+
+    /* ─── Services ──────────────────────────────────────────────── */
+    #services {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    #services .section-title {
+      color: var(--paper);
+    }
+    #services .section-number {
+      color: var(--accent-lt);
+    }
+    #services .section-rule {
+      border-top-color: rgba(255,255,255,0.1);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .service-card {
+      padding: 3rem 2.5rem;
+      background: var(--ink);
+      transition: background var(--dur) var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.45s var(--ease);
+    }
+    .service-card:hover {
+      background: #161616;
+    }
+    .service-card:hover::after {
+      width: 100%;
+    }
+
+    .service-index {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-name {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+      line-height: 1.2;
+      color: var(--paper);
+      margin-bottom: 1rem;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      color: rgba(240, 237, 231, 0.6);
+      line-height: 1.75;
+    }
+
+    /* ─── About strip ───────────────────────────────────────────── */
+    #about {
+      background: var(--paper-alt);
+    }
+    .about-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--gap-lg);
+      align-items: start;
+    }
+    .about-label-col {
+      padding-top: 0.35rem;
+    }
+    .about-label-col .section-number {
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .about-label-col h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+      line-height: 1.2;
+    }
+    .about-body p {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      color: var(--ink-2);
+      line-height: 1.85;
+      margin-bottom: 1.4rem;
+    }
+    .about-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ─── Contact ───────────────────────────────────────────────── */
+    #contact {
+      background: var(--paper);
+    }
+
+    .contact-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--gap-lg);
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .contact-info p {
+      font-size: 0.9rem;
+      color: var(--ink-3);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .contact-detail {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .contact-detail + a {
+      font-size: 0.9rem;
+      color: var(--ink);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1.5rem;
+      transition: color var(--dur) var(--ease);
+    }
+    .contact-detail + a:hover {
+      color: var(--accent);
+    }
+
+    /* ─── Form ──────────────────────────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .form-field {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+    .form-field:nth-child(odd) {
+      padding-right: 1.5rem;
+      border-right: 1px solid var(--rule);
+    }
+    .form-field:nth-child(even) {
+      padding-left: 1.5rem;
+    }
+    .form-field.full-width {
+      grid-column: 1 / -1;
+      padding-right: 0;
+      border-right: none;
+      padding-left: 0;
+    }
+    .form-field:last-of-type {
+      border-bottom: none;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 0.95rem;
+      color: var(--ink);
+      padding: 0.2rem 0;
+      transition: color var(--dur) var(--ease);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-field input::placeholder {
+      color: var(--rule);
+    }
+    .form-field select {
+      cursor: pointer;
+      color: var(--ink-3);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a5a5a'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0 center;
+      padding-right: 1.2rem;
+    }
+    .form-field select option {
+      color: var(--ink);
+    }
+
+    /* Focus line animation */
+    .form-field::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.4s var(--ease);
+    }
+    .form-field.full-width::after {
+      display: none;
+    }
+    .form-field:focus-within::after {
+      width: 100%;
+    }
+
+    /* Checkbox field */
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .checkbox-field label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+    .toggle-group {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--ink-3);
+      transition: color var(--dur) var(--ease);
+    }
+    .toggle-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: border-color var(--dur) var(--ease);
+    }
+    .toggle-label input[type="radio"]:checked {
+      border-color: var(--accent);
+    }
+    .toggle-label input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .toggle-label:has(input:checked) {
+      color: var(--ink);
+    }
+
+    .form-submit-row {
+      grid-column: 1 / -1;
+      padding-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--ink-3);
+    }
+
+    .btn-submit {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .btn-submit:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(240,237,231,0.45);
+      padding: 3rem var(--side);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 1rem;
+      color: rgba(240,237,231,0.7);
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,237,231,0.35);
+      text-decoration: none;
+      transition: color var(--dur) var(--ease);
+    }
+    .footer-links a:hover {
+      color: var(--accent-lt);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: var(--gap-md);
+      }
+      #hero::before {
+        font-size: 40vw;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: var(--gap-md);
+      }
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: var(--gap-md);
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-field:nth-child(odd) {
+        padding-right: 0;
+        border-right: none;
+      }
+      .form-field:nth-child(even) {
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --gap-xl: 5rem;
+        --gap-lg: 3rem;
+      }
+      nav {
+        display: none;
+      }
+      .hero-cta-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .form-submit-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .section-header {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .section-rule {
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── Header ────────────────────────────────────────────────── -->
+  <header id="site-header">
+    <a href="#hero" class="logo">Casey <span>Keown</span></a>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Work With Me</a>
+    </nav>
+  </header>
+
+  <!-- ─── Hero ──────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-inner">
+
+      <div class="hero-left reveal">
+        <span class="hero-label">Freelance Web Development</span>
+        <h1 class="hero-headline">
+          Precise craft.<br />
+          <em>Thoughtful</em><br />
+          execution.
+        </h1>
+        <p class="hero-location">
+          Grayson · Breckinridge · Meade · Hardin<br />
+          LaRue · Bullitt · Nelson<br />
+          Louisville Metro Area
+        </p>
+      </div>
+
+      <div class="hero-right reveal" style="transition-delay:.15s">
+        <p class="hero-bio">
+          Immersed in technology from age seven, with a background spanning high-school HTML and graphic design to a seven-year career as a law enforcement officer analyzing complex digital forensic extractions. Bringing sharp, analytical precision and a lifelong passion for computing back to freelance web development.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn-primary">Start a Project</a>
+          <a href="#services" class="btn-ghost">View Services &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Services ──────────────────────────────────────────────── -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-number">01</span>
+        <h2 class="section-title" style="color:var(--paper)">Core Capabilities</h2>
+        <hr class="section-rule" style="border-top-color:rgba(255,255,255,0.1)" />
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card reveal">
+          <span class="service-index">01 / Front-End</span>
+          <h3 class="service-name">Front-End<br />Development</h3>
+          <p class="service-desc">Crafting the user-facing layer with semantic HTML, modern CSS, and JavaScript. Capable of working in component frameworks including React and Vue for scalable, maintainable interfaces.</p>
+        </div>
+
+        <div class="service-card reveal" style="transition-delay:.1s">
+          <span class="service-index">02 / Back-End</span>
+          <h3 class="service-name">Back-End &amp;<br />Databases</h3>
+          <p class="service-desc">Server-side logic, REST API design, and database architecture using Node.js, Python, and MongoDB — purpose-built to the requirements of each project, not a templated stack.</p>
+        </div>
+
+        <div class="service-card reveal" style="transition-delay:.05s">
+          <span class="service-index">03 / Platforms</span>
+          <h3 class="service-name">Platform<br />Customization</h3>
+          <p class="service-desc">Deep customization on CMS and commerce platforms including WordPress, Shopify, and Webflow. Theme development, plugin integration, and workflow optimization done right.</p>
+        </div>
+
+        <div class="service-card reveal" style="transition-delay:.15s">
+          <span class="service-index">04 / Performance</span>
+          <h3 class="service-name">Maintenance<br />&amp; SEO</h3>
+          <p class="service-desc">Fast load times, mobile-first design, Core Web Vitals compliance, and on-page SEO fundamentals. Sites that perform as well as they look, and rank as well as they perform.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── About ─────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="about-inner">
+
+      <div class="about-label-col reveal">
+        <span class="section-number">02</span>
+        <h2>The<br />Background</h2>
+      </div>
+
+      <div class="about-body reveal" style="transition-delay:.12s">
+        <p>Most developers bring code. This practice brings something harder to acquire: the habit of working under pressure, reading complex systems quickly, and producing reliable output when ambiguity is not an option.</p>
+        <p>Seven years as a law enforcement detective meant parsing digital forensic extractions, reconstructing timelines, and presenting technical findings to non-technical audiences. It demanded the same discipline that good software development requires — rigor, clarity, and accountability for the work.</p>
+        <p>Web development was the original passion. The detective work sharpened the process. The result is a freelance practice built on precision, honest communication, and work that holds up.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- ─── Contact ───────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="contact-inner">
+
+      <div class="contact-info reveal">
+        <span class="section-number" style="display:block;margin-bottom:1rem">03</span>
+        <h2>Start a<br />Conversation</h2>
+        <p>Share some details about your project and I'll be in touch within one business day.</p>
+        <span class="contact-detail">Email</span>
+        <a href="mailto:caseykeown@gmail.com">caseykeown@gmail.com</a>
+        <span class="contact-detail">Service Area</span>
+        <a href="#hero">Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt &amp; Nelson Counties — Louisville Metro</a>
+      </div>
+
+      <div class="reveal" style="transition-delay:.1s">
+        <form
+          action="https://formsubmit.co/caseykeown@gmail.com"
+          method="POST"
+          novalidate
+        >
+          <!-- FormSubmit config -->
+          <input type="hidden" name="_subject" value="New Project Inquiry — CaseyKeown.dev" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+
+          <div class="form-grid">
+
+            <div class="form-field">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+
+            <div class="form-field">
+              <label for="business">Business Name</label>
+              <input type="text" id="business" name="business_name" placeholder="Acme Co." />
+            </div>
+
+            <div class="form-field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+
+            <div class="form-field">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(270) 555-0100" />
+            </div>
+
+            <div class="form-field full-width">
+              <label for="address">Address</label>
+              <input type="text" id="address" name="address" placeholder="123 Main St, Elizabethtown, KY" />
+            </div>
+
+            <div class="form-field">
+              <label for="budget">Estimated Budget</label>
+              <input type="text" id="budget" name="budget" placeholder="$500 – $2,000" />
+            </div>
+
+            <div class="form-field">
+              <label for="timeline">Timeline Needed</label>
+              <select id="timeline" name="timeline" required>
+                <option value="" disabled selected>Select a timeframe</option>
+                <option value="1-2 weeks">1&ndash;2 weeks</option>
+                <option value="3-5 weeks">3&ndash;5 weeks</option>
+                <option value="6+ weeks">6+ weeks</option>
+              </select>
+            </div>
+
+            <div class="form-field full-width">
+              <div class="checkbox-field">
+                <label>Own a Domain?</label>
+                <div class="toggle-group">
+                  <label class="toggle-label">
+                    <input type="radio" name="owns_domain" value="Yes" /> Yes
+                  </label>
+                  <label class="toggle-label">
+                    <input type="radio" name="owns_domain" value="No" checked /> No
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.form-grid -->
+
+          <div class="form-submit-row">
+            <span class="form-note">Your information is never shared or sold.</span>
+            <button type="submit" class="btn-submit">Send Inquiry</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Footer ────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Casey Keown</span>
+      <span class="footer-copy">&copy; <span id="yr"></span> Casey Keown. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#hero">Top</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Scripts ───────────────────────────────────────────────── -->
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Sticky header
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
