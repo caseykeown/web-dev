@@ -113,15 +113,14 @@
     }
 
     .logo {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: 1.15rem;
-      letter-spacing: 0.03em;
-      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
     }
-    .logo span {
-      color: var(--accent);
+    .logo img {
+      height: 42px;
+      width: auto;
+      display: block;
     }
 
     nav a {
@@ -165,20 +164,17 @@
       overflow: hidden;
     }
 
-    /* subtle background watermark numeral */
-    #hero::before {
-      content: 'CK';
+    /* logo watermark in hero */
+    .hero-watermark {
       position: absolute;
-      bottom: -2rem;
-      right: -1rem;
-      font-family: var(--serif);
-      font-size: clamp(16rem, 30vw, 28rem);
-      font-weight: 300;
-      color: var(--paper-alt);
-      letter-spacing: -0.06em;
-      line-height: 1;
+      bottom: -4rem;
+      right: -3rem;
+      width: clamp(22rem, 40vw, 36rem);
+      height: auto;
+      opacity: 0.07;
       pointer-events: none;
       user-select: none;
+      filter: grayscale(1);
     }
 
     .hero-inner {
@@ -689,11 +685,11 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    .footer-logo {
-      font-family: var(--serif);
-      font-weight: 300;
-      font-size: 1rem;
-      color: rgba(240,237,231,0.7);
+    .footer-logo img {
+      height: 32px;
+      width: auto;
+      opacity: 0.7;
+      display: block;
     }
     .footer-copy {
       font-size: 0.75rem;
@@ -783,7 +779,9 @@
 
   <!-- ─── Header ────────────────────────────────────────────────── -->
   <header id="site-header">
-    <a href="#hero" class="logo">Casey <span>Keown</span></a>
+    <a href="#hero" class="logo">
+      <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo.png" alt="Casey Keown" />
+    </a>
     <nav>
       <a href="#services">Services</a>
       <a href="#about">About</a>
@@ -793,6 +791,12 @@
 
   <!-- ─── Hero ──────────────────────────────────────────────────── -->
   <section id="hero">
+    <img
+      src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo.png"
+      alt=""
+      aria-hidden="true"
+      class="hero-watermark"
+    />
     <div class="hero-inner">
 
       <div class="hero-left reveal">
@@ -988,7 +992,9 @@
   <!-- ─── Footer ────────────────────────────────────────────────── -->
   <footer>
     <div class="footer-inner">
-      <span class="footer-logo">Casey Keown</span>
+      <span class="footer-logo">
+        <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo.png" alt="Casey Keown" />
+      </span>
       <span class="footer-copy">&copy; <span id="yr"></span> Casey Keown. All rights reserved. For more info, contact me@caseykeown.com</span>
       <div class="footer-links">
         <a href="#hero">Top</a>
