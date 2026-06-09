@@ -91,7 +91,11 @@
       font-family: var(--mono);
       font-size: 0.62rem;
       letter-spacing: 0.13em;
-      padding: 0.32rem 0;
+      line-height: 1;
+      height: 1.7rem;            /* fixed height — keeps JS measurement consistent */
+      display: flex;
+      align-items: center;
+      padding: 0;
       overflow: hidden;
       white-space: nowrap;
     }
@@ -1170,6 +1174,7 @@
       border: 2px solid var(--mission-org);
       cursor: pointer;
       position: relative;
+      flex-shrink: 0;
       clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
       transition: background var(--dur) var(--ease);
     }
@@ -1210,7 +1215,14 @@
 
       .services-grid { grid-template-columns: 1fr; }
       .philosophy-inner { grid-template-columns: 1fr; }
-      .philosophy-figure { display: none; }
+      .philosophy-figure {
+        display: flex;
+        order: -1; /* Stacks the drummer above the text on mobile */
+        margin-bottom: 1rem;
+      }
+      .phil-army-img {
+        width: clamp(180px, 45vw, 260px); /* Scales appropriately for mobile */
+      }
       .about-inner { grid-template-columns: 1fr; gap: 2rem; }
       .about-left { position: static; }
       .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -1219,18 +1231,25 @@
       .form-field:nth-child(even) { padding-left: 0; }
     }
     @media (max-width: 600px) {
-      /* 1.x — Hamburger nav (Option B: below ticker, z-index 9400) */
+      /* Tighten header padding so logo + toggle sit cleanly under the ticker */
+      #site-header { padding: 0.7rem var(--side); }
+      .logo-name { font-size: 1.15rem; }
+
+      /* 1.x — Hamburger nav fix */
       .menu-toggle { display: flex; }
+
+      /* Prevents logo text from colliding with the hamburger menu */
+      .logo-sub { display: none; }
+
       nav {
-        position: fixed;
-        top: calc(1.7rem + 56px);
+        position: absolute;
+        top: 100%; /* Automatically drops exactly below the header */
         left: 0;
         right: 0;
         flex-direction: column;
         background: rgba(10,10,10,0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border-top: 1px solid var(--mission-org);
         border-bottom: 1px solid var(--mission-org);
         padding: 1rem;
         gap: 0.5rem;
@@ -1238,10 +1257,8 @@
         visibility: hidden;
         transform: translateY(-10px);
         transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
-        z-index: 9400;
+        z-index: -1; /* Keeps it strictly behind the header border */
       }
-      #site-header.scrolled ~ nav,
-      #site-header.scrolled + nav { top: 56px; }
       nav.open {
         opacity: 1;
         visibility: visible;
@@ -1279,7 +1296,7 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .cta-cluster { flex-direction: column; align-items: flex-start; }
     }
-  
+
     /* ═══════════════════════════════════════════════════════════════
        REDUCED MOTION — accessibility fallback
     ═══════════════════════════════════════════════════════════════ */
@@ -1692,15 +1709,18 @@
 
     const header = document.getElementById('site-header');
     const ticker = document.getElementById('hud-ticker');
+    const toggle = document.getElementById('menu-toggle');
+    const nav    = document.getElementById('primary-nav');
+
+    function getTickerH() { return ticker.offsetHeight; }
 
     function updateHeader() {
-      const tickerH = ticker.offsetHeight;
       if (window.scrollY > 40) {
         header.classList.add('scrolled');
         header.style.top = '0';
       } else {
         header.classList.remove('scrolled');
-        header.style.top = tickerH + 'px';
+        header.style.top = getTickerH() + 'px';
       }
     }
     updateHeader();
@@ -1728,6 +1748,7 @@
       window.addEventListener('load', matchEmbedWidth);
       window.addEventListener('resize', matchEmbedWidth);
     })();
+
     /* ── Mobile hamburger nav ── */
     (function() {
       const toggle = document.getElementById('menu-toggle');
@@ -1777,6 +1798,7 @@
       });
     })();
 
+    /* ── Service card encryption hover effect ── */
     (function() {
       const CHARS = '01';
       const DENSITY = 60; // characters per line approx
@@ -1798,7 +1820,6 @@
       }
 
       function scramble(stream) {
-        // Randomly mutate ~15% of non-space chars each frame
         return stream.replace(/[01]/g, ch => Math.random() < 0.15 ? CHARS[Math.floor(Math.random() * 2)] : ch);
       }
 
