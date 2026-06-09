@@ -1,1950 +1,1853 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Casey Keown — Mission Critical Web Development. Serving Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt, and Nelson Counties and the Louisville Metro Area." />
-  <title>Casey Keown | Mission Critical Web Development | Kentucky</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ═══════════════════════════════════════════════════════════════
-       RESET & TOKENS
-    ═══════════════════════════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      /* Exact palette from brief */
-      --cmd-black:   #0A0A0A;
-      --tac-green:   #1F2A1F;
-      --lei-green:   #556B4D;
-      --mission-org: #E66A1A;
-      --org-lt:      #FF8C3A;
-      --org-dk:      #B84E0E;
-      --org-dim:     rgba(230,106,26,0.12);
-      --clean-white: #F5F5F5;
-      --ghost:       rgba(245,245,245,0.7);
-      --ghost-dim:   rgba(245,245,245,0.2);
-      --ghost-faint: rgba(245,245,245,0.08);
-
-      /* Camo tones */
-      --camo-tan:  #B8A06A;
-      --camo-rust: #8C4A2A;
-      --camo-dkgr: #2D3A22;
-      --camo-blk:  #1A1A14;
-
-      --mono:      'Share Tech Mono', monospace;
-      --cond:      'Barlow Condensed', sans-serif;
-      --body:      'Barlow', sans-serif;
-      --disp:      'Bebas Neue', sans-serif;
-
-      --side: clamp(1.5rem, 4vw, 4rem);
-      --max-w: 1240px;
-      --ease: cubic-bezier(0.4,0,0.2,1);
-      --dur: 0.3s;
-    }
-
-    html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
-
-    body {
-      background: var(--cmd-black);
-      color: var(--clean-white);
-      font-family: var(--body);
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-      cursor: crosshair;
-    }
-    /* Explicit cursor states for accessibility */
-    a, button, [role="button"], .nav-cta, .btn-primary, .btn-ghost, .btn-submit,
-    .toggle-label, .toggle-label input, .service-card { cursor: pointer; }
-    input[type="text"], input[type="email"], input[type="tel"], select, textarea { cursor: text; }
-    select { cursor: pointer; }
-
-
-    ::selection { background: var(--mission-org); color: var(--cmd-black); }
-
-:root {
-  /* add alongside your existing variables */
-  --mono:   ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
-  --signal: #6f8f4f;
-}
-
-/* ─── Operator File (About) ─────────────────────────────────── */
-.intel-marker {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: 1.5rem;
-  padding: 0.5rem 0.95rem;
-  border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.45);
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-}
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--signal);
-  box-shadow: 0 0 0 0 rgba(111, 143, 79, 0.45);
-  animation: pulse 2.4s var(--ease) infinite;
-}
-@keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(111, 143, 79, 0.45); }
-  70%  { box-shadow: 0 0 0 7px rgba(111, 143, 79, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(111, 143, 79, 0); }
-}
-
-.operator-file {
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-top: 2px solid var(--accent);
-  padding: 2.5rem 2.75rem 2.75rem;
-}
-
-.file-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 2rem;
-  padding-bottom: 1.4rem;
-  margin-bottom: 1.8rem;
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.file-kicker {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.6rem;
-}
-.operator-file p { margin-bottom: 1.8rem; }
-.operator-file p:last-child { margin-bottom: 0; }
-
-@media (max-width: 600px) {
-  .operator-file { padding: 1.75rem 1.5rem 2rem; }
-  .file-header { gap: 0.4rem 1.2rem; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .status-dot { animation: none; }
-}
-
-
-    /* ═══════════════════════════════════════════════════════════════
-       GLOBAL SCANLINE
-    ═══════════════════════════════════════════════════════════════ */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
-      pointer-events: none;
-      z-index: 9000;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       HUD TICKER
-    ═══════════════════════════════════════════════════════════════ */
-    #hud-ticker {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 9500;
-      background: var(--mission-org);
-      color: var(--cmd-black);
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.13em;
-      line-height: 1;
-      height: 1.7rem;            /* fixed height — keeps JS measurement consistent */
-      display: flex;
-      align-items: center;
-      padding: 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .ticker-track {
-      display: inline-block;
-      animation: ticker-scroll 40s linear infinite;
-    }
-    .ticker-track:hover { animation-play-state: paused; }
-    @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .t-sep { margin: 0 1.8rem; opacity: 0.5; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       HEADER / NAV
-    ═══════════════════════════════════════════════════════════════ */
-    #site-header {
-      position: fixed;
-      top: 1.7rem;
-      left: 0; right: 0;
-      z-index: 500;
-      padding: 0.9rem var(--side);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), top 0.2s var(--ease);
-      border-bottom: 1px solid transparent;
-    }
-    #site-header.scrolled {
-      background: rgba(10,10,10,0.97);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom-color: var(--mission-org);
-    }
-
-    .logo-wrap { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
-    .logo-img { width: 36px; height: 36px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(230,106,26,0.85)) drop-shadow(0 0 14px rgba(230,106,26,0.45)); }
-    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-    .logo-name { font-family: var(--disp); font-size: 1.35rem; letter-spacing: 0.08em; color: var(--clean-white); }
-    .logo-sub  { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.2em; color: var(--mission-org); text-transform: uppercase; }
-
-    nav { display: flex; align-items: center; gap: 0.2rem; }
-    nav a {
-      font-family: var(--cond);
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ghost);
-      padding: 0.38rem 0.85rem;
-      border: 1px solid transparent;
-      transition: all var(--dur) var(--ease);
-    }
-    nav a:hover { color: var(--mission-org); border-color: var(--mission-org); }
-    .nav-fb { display: inline-flex; align-items: center; gap: 0.35rem; }
-    .nav-fb svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
-    .nav-cta { background: var(--mission-org) !important; color: var(--cmd-black) !important; border-color: var(--mission-org) !important; font-weight: 700; }
-    .nav-cta:hover { background: var(--org-lt) !important; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       HERO — THREE COLUMN COMMAND CENTER
-    ═══════════════════════════════════════════════════════════════ */
-    #hero {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: calc(4rem + var(--side)) var(--side) 4rem;
-      position: relative;
-      overflow: hidden;
-      background: var(--cmd-black);
-    }
-
-    /* ── Background layers ── */
-    .hero-bg-topo {
-      position: absolute;
-      inset: 0;
-      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.05;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Hex grid SVG overlay */
-    .hero-bg-hex {
-      position: absolute;
-      inset: 0;
-      opacity: 0.06;
-      pointer-events: none;
-      z-index: 1;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z' fill='none' stroke='%23556B4D' stroke-width='0.8'/%3E%3Cpath d='M28 66 L56 50 L56 84 L28 100 L0 84 L0 50 Z' fill='none' stroke='%23556B4D' stroke-width='0.8'/%3E%3C/svg%3E");
-      background-size: 56px 100px;
-    }
-
-    /* Camo texture layer */
-    .hero-bg-camo {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.18;
-      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
-      background-repeat: repeat;
-      background-size: 900px 600px;
-      background-position: center;
-      filter: brightness(0.35) contrast(1.1) saturate(0.7);
-      mix-blend-mode: multiply;
-    }
-
-    /* Vignette */
-    .hero-bg-vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(10,10,10,0.75) 100%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* Orange coordinate crosshairs */
-    .coord-marker {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      z-index: 3;
-      pointer-events: none;
-    }
-    .coord-marker::before,
-    .coord-marker::after {
-      content: '';
-      position: absolute;
-      background: var(--mission-org);
-      opacity: 0.45;
-    }
-    .coord-marker::before { width: 100%; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
-    .coord-marker::after  { width: 1px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
-    .cm-1 { top: 18%; left: 12%; }
-    .cm-2 { top: 70%; left: 8%; }
-    .cm-3 { top: 25%; right: 10%; }
-    .cm-4 { top: 65%; right: 15%; }
-    .cm-5 { top: 45%; left: 48%; }
-
-    /* Coord labels */
-    .coord-label {
-      position: absolute;
-      font-family: var(--mono);
-      font-size: 0.48rem;
-      letter-spacing: 0.12em;
-      color: var(--mission-org);
-      opacity: 0.4;
-      z-index: 3;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .cl-1 { top: calc(18% + 14px); left: 12%; }
-    .cl-2 { top: calc(70% + 14px); left: 8%; }
-    .cl-3 { top: calc(25% + 14px); right: 10%; text-align: right; }
-    .cl-4 { top: calc(65% + 14px); right: 15%; text-align: right; }
-
-    /* Corner brackets */
-    .corner { position: absolute; width: 44px; height: 44px; z-index: 4; pointer-events: none; }
-    .corner-tl { top: 5.5rem; left: var(--side); border-top: 1.5px solid var(--mission-org); border-left: 1.5px solid var(--mission-org); }
-    .corner-tr { top: 5.5rem; right: var(--side); border-top: 1.5px solid var(--mission-org); border-right: 1.5px solid var(--mission-org); }
-    .corner-bl { bottom: 1.5rem; left: var(--side); border-bottom: 1.5px solid var(--mission-org); border-left: 1.5px solid var(--mission-org); }
-    .corner-br { bottom: 1.5rem; right: var(--side); border-bottom: 1.5px solid var(--mission-org); border-right: 1.5px solid var(--mission-org); }
-
-    /* Camo bar at bottom */
-    .hero-camo-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 5px;
-      background: linear-gradient(90deg,
-        var(--camo-tan) 0%, var(--camo-rust) 12%, var(--camo-blk) 25%,
-        var(--camo-dkgr) 38%, var(--camo-tan) 50%, var(--camo-blk) 62%,
-        var(--camo-rust) 75%, var(--camo-dkgr) 88%, var(--camo-tan) 100%
-      );
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    /* ── Three column command layout ── */
-    .command-grid {
-      position: relative;
-      z-index: 10;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 3rem;
-      align-items: end;
-      min-height: 70vh;
-      padding-bottom: 5.5rem;
-    }
-
-    /* ── LEFT COLUMN ── */
-    .cmd-left {
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-      align-self: start;
-      padding-top: 3.5rem;
-    }
-
-    .cmd-logo-block {
-      position: relative;
-    }
-    .cmd-logo-img {
-      width: clamp(60px, 7vw, 90px);
-      height: auto;
-      object-fit: contain;
-      display: block;
-      margin-bottom: 1rem;
-      margin-top: -1.5rem;
-      filter:
-        drop-shadow(0 0 10px rgba(230,106,26,0.7))
-        drop-shadow(0 0 22px rgba(230,106,26,0.35));
-    }
-    .cmd-logo-name {
-      font-family: var(--disp);
-      font-size: clamp(2.2rem, 4vw, 3.8rem);
-      line-height: 0.95;
-      letter-spacing: 0.05em;
-      color: var(--clean-white);
-      display: block;
-    }
-    .cmd-logo-title {
-      font-family: var(--cond);
-      font-weight: 400;
-      font-size: clamp(0.72rem, 1.1vw, 0.9rem);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ghost);
-      display: block;
-      margin-top: 0.5rem;
-    }
-    .cmd-divider {
-      width: clamp(60px, 8vw, 120px);
-      height: 2px;
-      background: var(--mission-org);
-      margin: 1rem 0;
-      position: relative;
-    }
-    .cmd-divider::after {
-      content: '';
-      position: absolute;
-      right: -6px;
-      top: -3px;
-      width: 8px;
-      height: 8px;
-      background: var(--mission-org);
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    }
-    .cmd-doctrine {
-      font-family: var(--disp);
-      font-size: clamp(1rem, 1.8vw, 1.5rem);
-      letter-spacing: 0.1em;
-      color: var(--mission-org);
-      line-height: 1.3;
-    }
-
-    .cmd-stat-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .cmd-stat {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      color: var(--ghost-dim);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .cmd-stat .s-key { color: var(--mission-org); min-width: 100px; }
-    .cmd-stat .s-val { color: var(--ghost); }
-    .s-ping { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--mission-org); animation: blink 1.6s step-end infinite; flex-shrink: 0; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    /* ── CENTER COLUMN — ARMY MAN ── */
-    .cmd-center {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      position: relative;
-    }
-
-    .army-stage {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-    }
-
-    /* Grid floor under army man */
-    .army-stage::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 340px;
-      height: 120px;
-      background:
-        repeating-linear-gradient(0deg, rgba(85,107,77,0.15) 0px, rgba(85,107,77,0.15) 1px, transparent 1px, transparent 30px),
-        repeating-linear-gradient(90deg, rgba(85,107,77,0.15) 0px, rgba(85,107,77,0.15) 1px, transparent 1px, transparent 30px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Leibermuster fade behind army man */
-    .army-camo-fade {
-      position: absolute;
-      inset: -20px -40px 0;
-      pointer-events: none;
-      z-index: 1;
-      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
-      background-repeat: repeat;
-      background-size: 600px 400px;
-      background-position: center;
-      filter: brightness(0.4) saturate(0.6);
-      opacity: 0.4;
-      mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, black 20%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, black 20%, transparent 75%);
-    }
-
-    /* Dramatic glow under feet */
-    .army-glow {
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 220px;
-      height: 40px;
-      background: radial-gradient(ellipse, rgba(230,106,26,0.22) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .army-man-img {
-      width: clamp(220px, 26vw, 380px);
-      height: clamp(220px, 26vw, 380px);
-      object-fit: cover;
-      border-radius: 50%;
-      opacity: 0.5;
-      position: relative;
-      z-index: 3;
-      border: 2px solid rgba(230,106,26,0.25);
-      box-shadow:
-        0 0 0 6px rgba(230,106,26,0.06),
-        0 0 40px rgba(230,106,26,0.15),
-        0 30px 60px rgba(0,0,0,0.8);
-    }
-
-    /* Target reticle overlay */
-    .target-ring {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -52%);
-      width: clamp(260px, 32vw, 460px);
-      height: clamp(260px, 32vw, 460px);
-      border: 1px solid rgba(230,106,26,0.12);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 4;
-    }
-    .target-ring::before {
-      content: '';
-      position: absolute;
-      inset: 16px;
-      border: 1px solid rgba(230,106,26,0.07);
-      border-radius: 50%;
-    }
-    /* tick marks */
-    .target-ring::after {
-      content: '';
-      position: absolute;
-      top: -6px; left: 50%;
-      transform: translateX(-50%);
-      width: 1px; height: 12px;
-      background: rgba(230,106,26,0.35);
-    }
-
-    /* Tagline below army man */
-    .cmd-tagline {
-      position: absolute;
-      bottom: -2.2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--mission-org);
-      opacity: 0.8;
-      z-index: 5;
-    }
-
-    /* ── RIGHT COLUMN — MISSION BRIEF ── */
-    .cmd-right {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      padding-top: 3.5rem;
-    }
-
-    .brief-panel {
-      border: 1px solid rgba(230,106,26,0.25);
-      border-left: 2px solid var(--mission-org);
-      background: rgba(31,42,31,0.35);
-      backdrop-filter: blur(4px);
-      padding: 1.6rem 1.8rem;
-      position: relative;
-    }
-    .brief-panel::before {
-      content: attr(data-label);
-      position: absolute;
-      top: -0.55rem;
-      left: 1rem;
-      background: var(--cmd-black);
-      padding: 0 0.6rem;
-      font-family: var(--mono);
-      font-size: 0.5rem;
-      letter-spacing: 0.22em;
-      color: var(--mission-org);
-      text-transform: uppercase;
-    }
-
-    .brief-heading {
-      font-family: var(--disp);
-      font-size: clamp(1.2rem, 2vw, 1.8rem);
-      letter-spacing: 0.08em;
-      color: var(--clean-white);
-      margin-bottom: 1rem;
-      line-height: 1.1;
-    }
-
-    .brief-lines {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .brief-line {
-      font-family: var(--cond);
-      font-weight: 300;
-      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-      letter-spacing: 0.04em;
-      color: var(--ghost);
-      line-height: 1.5;
-      padding-left: 1rem;
-      border-left: 1px solid rgba(230,106,26,0.2);
-      transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-    }
-    .brief-line:hover {
-      border-left-color: var(--mission-org);
-      color: var(--clean-white);
-    }
-    .brief-line.accent { color: var(--mission-org); font-weight: 600; border-left-color: var(--mission-org); }
-    .brief-gap { height: 0.6rem; }
-
-    .intel-grid {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.4rem 1.2rem;
-    }
-    .intel-key {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      color: var(--mission-org);
-      white-space: nowrap;
-      padding-top: 0.1rem;
-    }
-    .intel-val {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      color: var(--ghost);
-      padding-top: 0.1rem;
-    }
-
-    /* Uptime bar */
-    .uptime-bar-wrap {
-      margin-top: 0.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .uptime-bar {
-      flex: 1;
-      height: 3px;
-      background: rgba(245,245,245,0.1);
-      position: relative;
-      overflow: hidden;
-    }
-    .uptime-bar::after {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 99.9%;
-      background: var(--mission-org);
-    }
-    .uptime-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--mission-org);
-      white-space: nowrap;
-    }
-
-    .cta-cluster {
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.85rem 1.8rem;
-      background: var(--mission-org);
-      color: var(--cmd-black);
-      font-family: var(--cond);
-      font-weight: 700;
-      font-size: 0.82rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 2px solid var(--mission-org);
-      transition: all var(--dur) var(--ease);
-      clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
-    }
-    .btn-primary:hover { background: transparent; color: var(--mission-org); }
-    .btn-primary::before { content: '◉'; font-size: 0.65rem; }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 1.4rem;
-      font-family: var(--cond);
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ghost);
-      border: 1px solid rgba(245,245,245,0.2);
-      transition: all var(--dur) var(--ease);
-    }
-    .btn-ghost:hover { color: var(--mission-org); border-color: var(--mission-org); }
-
-    /* Scroll hint */
-    .hero-scroll {
-      position: absolute;
-      bottom: 1.2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      z-index: 10;
-    }
-    .hero-scroll span {
-      font-family: var(--mono);
-      font-size: 0.52rem;
-      letter-spacing: 0.22em;
-      color: var(--mission-org);
-      opacity: 0.6;
-      text-transform: uppercase;
-    }
-    .scroll-line { width: 1px; height: 2.5rem; background: rgba(230,106,26,0.2); position: relative; overflow: hidden; }
-    .scroll-line::after {
-      content: ''; position: absolute; top: -100%; width: 100%; height: 100%;
-      background: var(--mission-org);
-      animation: scroll-tick 1.8s ease-in-out infinite;
-    }
-    @keyframes scroll-tick { 0%{top:-100%} 100%{top:100%} }
-
-    /* ═══════════════════════════════════════════════════════════════
-       MISSION BRIEF STRIPE
-    ═══════════════════════════════════════════════════════════════ */
-    #mission-stripe {
-      background: var(--mission-org);
-      padding: 1rem var(--side);
-      position: relative;
-      overflow: hidden;
-    }
-    #mission-stripe::after {
-      content: '/// MISSION CRITICAL SYSTEM /// WHEN FAILURE ISN\'T AN OPTION /// MISSION CRITICAL SYSTEM /// WHEN FAILURE ISN\'T AN OPTION ///';
-      position: absolute;
-      right: 0; top: 50%; transform: translateY(-50%);
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      color: rgba(0,0,0,0.1);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .stripe-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .stripe-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(0,0,0,0.55); white-space: nowrap; }
-    .stripe-text { font-family: var(--cond); font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; color: var(--cmd-black); text-transform: uppercase; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       REVEAL
-    ═══════════════════════════════════════════════════════════════ */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
-    .reveal.in-view { opacity: 1; transform: none; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       SERVICES
-    ═══════════════════════════════════════════════════════════════ */
-    #services {
-      background: var(--tac-green);
-      padding: 6rem var(--side);
-      position: relative;
-      overflow: hidden;
-    }
-    #services::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(85,107,77,0.08) 0, rgba(85,107,77,0.08) 1px, transparent 1px, transparent 40px),
-        repeating-linear-gradient(90deg, rgba(85,107,77,0.08) 0, rgba(85,107,77,0.08) 1px, transparent 1px, transparent 40px);
-      pointer-events: none;
-    }
-
-    .section-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.6rem;
-    }
-    .eyebrow-num { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; color: var(--mission-org); }
-    .eyebrow-line { width: 50px; height: 1px; background: var(--mission-org); opacity: 0.4; }
-
-    .section-title {
-      font-family: var(--disp);
-      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
-      line-height: 0.92;
-      letter-spacing: 0.04em;
-      color: var(--clean-white);
-      margin-bottom: 3rem;
-    }
-
-    .services-header { max-width: var(--max-w); margin: 0 auto var(--size, 3rem); }
-
-    .services-grid {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: rgba(85,107,77,0.3);
-      border: 1px solid rgba(85,107,77,0.3);
-    }
-
-    .service-card {
-      background: var(--tac-green);
-      padding: 2.5rem 2.2rem;
-      position: relative;
-      overflow: hidden;
-      transition: background var(--dur) var(--ease);
-    }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 0;
-      background: var(--mission-org);
-      transition: height 0.45s var(--ease);
-    }
-    .service-card:hover { background: #0e140e; }
-    .service-card:hover::before { height: 100%; }
-
-    /* Encrypted state */
-    .service-card.encrypting .service-name,
-    .service-card.encrypting .service-desc,
-    .service-card.encrypting .service-idx {
-      opacity: 0;
-      transition: opacity 0.08s;
-    }
-    .service-card .encrypt-overlay {
-      position: absolute;
-      inset: 0;
-      padding: 2.5rem 2.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.12s;
-    }
-    .service-card.encrypting .encrypt-overlay {
-      opacity: 1;
-    }
-    .encrypt-stream {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      line-height: 1.65;
-      letter-spacing: 0.08em;
-      color: var(--mission-org);
-      word-break: break-all;
-      white-space: pre-wrap;
-      text-shadow: 0 0 8px rgba(230,106,26,0.5);
-    }
-    .encrypt-stream .e-char {
-      display: inline-block;
-      transition: none;
-    }
-
-    .service-idx { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; color: var(--mission-org); opacity: 0.8; display: block; margin-bottom: 1rem; transition: opacity 0.08s; }
-    .service-name { font-family: var(--disp); font-size: clamp(1.7rem, 2.8vw, 2.4rem); letter-spacing: 0.04em; color: var(--clean-white); margin-bottom: 0.7rem; line-height: 1; transition: opacity 0.08s; }
-    .service-desc { font-family: var(--cond); font-weight: 300; font-size: 0.92rem; color: var(--ghost); line-height: 1.7; transition: opacity 0.08s; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       PHILOSOPHY
-    ═══════════════════════════════════════════════════════════════ */
-    #philosophy {
-      background: var(--cmd-black);
-      padding: 6rem var(--side);
-      position: relative;
-      overflow: hidden;
-    }
-    #philosophy::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
-      background-size: cover;
-      background-position: center 60%;
-      opacity: 0.04;
-      pointer-events: none;
-    }
-
-    .philosophy-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 4rem;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .philosophy-figure {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      position: relative;
-    }
-    .philosophy-figure::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 260px; height: 260px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(230,106,26,0.1) 0%, transparent 70%);
-    }
-    .phil-army-img {
-      width: clamp(200px, 28vw, 360px);
-      height: auto;
-      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.9)) drop-shadow(0 0 30px rgba(230,106,26,0.12));
-      position: relative;
-      z-index: 1;
-    }
-
-    .philosophy-content {}
-    .phil-headline {
-      font-family: var(--disp);
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      line-height: 0.95;
-      letter-spacing: 0.04em;
-      color: var(--clean-white);
-      margin-bottom: 2rem;
-    }
-    .phil-headline .ph-org { color: var(--mission-org); }
-
-    .phil-body p {
-      font-family: var(--cond);
-      font-weight: 300;
-      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-      line-height: 1.85;
-      color: var(--ghost);
-      margin-bottom: 1.2rem;
-    }
-    .phil-body p:last-child { margin-bottom: 0; }
-
-    .field-intel {
-      margin-top: 2rem;
-      padding: 1.2rem 1.5rem;
-      border: 1px solid var(--mission-org);
-      background: var(--org-dim);
-      position: relative;
-    }
-    .field-intel::before {
-      content: 'FIELD INTELLIGENCE';
-      position: absolute;
-      top: -0.52rem; left: 1rem;
-      background: var(--cmd-black);
-      padding: 0 0.6rem;
-      font-family: var(--mono);
-      font-size: 0.5rem;
-      letter-spacing: 0.22em;
-      color: var(--mission-org);
-    }
-    .field-intel p {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      line-height: 1.9;
-      color: rgba(245,245,245,0.7);
-      margin: 0 !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       ABOUT
-    ═══════════════════════════════════════════════════════════════ */
-    #about {
-      background: var(--tac-green);
-      padding: 6rem var(--side);
-      position: relative;
-      overflow: hidden;
-    }
-    #about::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
-      background-repeat: repeat;
-      background-size: 800px 550px;
-      background-position: center;
-      filter: brightness(0.3) saturate(0.6);
-      opacity: 0.15;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-    }
-
-    .about-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      align-items: start;
-      position: relative;
-      z-index: 1;
-    }
-    .about-left { position: sticky; top: 6rem; }
-    .about-left h2 {
-      font-family: var(--disp);
-      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
-      line-height: 0.95;
-      letter-spacing: 0.04em;
-      color: var(--clean-white);
-      margin-top: 0.8rem;
-    }
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.18em;
-      color: var(--cmd-black);
-      background: rgba(230,106,26,0.9);
-      padding: 0.28rem 0.7rem;
-      margin-top: 1.2rem;
-    }
-    .status-badge::before { content: '●'; animation: blink 1.5s step-end infinite; }
-    .about-body p {
-      font-family: var(--cond);
-      font-weight: 300;
-      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-      color: var(--ghost);
-      line-height: 1.85;
-      margin-bottom: 1.3rem;
-    }
-    .about-body p:last-child { margin-bottom: 0; }
-    .about-body strong { color: var(--clean-white); font-weight: 600; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       CONTACT
-    ═══════════════════════════════════════════════════════════════ */
-    #contact {
-      background: var(--cmd-black);
-      padding: 6rem var(--side);
-      position: relative;
-      overflow: hidden;
-    }
-    #contact::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.04;
-      pointer-events: none;
-    }
-    #contact::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: grayscale(1) brightness(0.2) contrast(1.5);
-      opacity: 0.15;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .contact-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 4rem;
-      align-items: start;
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-info h2 {
-      font-family: var(--disp);
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      line-height: 0.92;
-      letter-spacing: 0.04em;
-      color: var(--clean-white);
-      margin-bottom: 1.2rem;
-    }
-    .contact-info h2 span { color: var(--mission-org); }
-    .contact-info p { font-family: var(--cond); font-size: 0.95rem; color: var(--ghost); line-height: 1.8; margin-bottom: 2rem; }
-    .c-detail { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; color: var(--mission-org); display: block; margin-bottom: 0.3rem; }
-    .c-detail + a { font-family: var(--cond); font-size: 0.92rem; color: var(--ghost); text-decoration: none; display: block; margin-bottom: 1.4rem; transition: color var(--dur) var(--ease); }
-    .c-detail + a:hover { color: var(--mission-org); }
-
-    .fb-embed-wrap {
-      margin-top: 1.2rem;
-      width: fit-content;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    /* Form */
-    .form-panel {
-      background: rgba(31,42,31,0.4);
-      border: 1px solid rgba(85,107,77,0.35);
-      padding: 2rem;
-      position: relative;
-      backdrop-filter: blur(4px);
-    }
-    .form-panel::before {
-      content: '// INITIATE CONTACT PROTOCOL';
-      display: block;
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: var(--mission-org);
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(85,107,77,0.3);
-    }
-
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; }
-
-    .form-field {
-      padding: 1.2rem 0;
-      border-bottom: 1px solid rgba(85,107,77,0.3);
-      position: relative;
-    }
-    .form-field:nth-child(odd) { padding-right: 1.5rem; border-right: 1px solid rgba(85,107,77,0.3); }
-    .form-field:nth-child(even) { padding-left: 1.5rem; }
-    .form-field.full-width { grid-column: 1/-1; padding-right: 0; border-right: none; padding-left: 0; }
-    .form-field:last-of-type { border-bottom: none; }
-    .form-field label { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mission-org); margin-bottom: 0.5rem; }
-    .form-field input, .form-field select {
-      width: 100%; background: transparent; border: none; outline: none;
-      font-family: var(--cond); font-weight: 400; font-size: 0.95rem;
-      color: var(--clean-white); padding: 0.2rem 0;
-      appearance: none; -webkit-appearance: none;
-      transition: color var(--dur) var(--ease);
-    }
-    .form-field input::placeholder { color: rgba(245,245,245,0.18); font-family: var(--cond); }
-    .form-field select {
-      cursor: pointer; color: var(--ghost);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23E66A1A'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 0 center; padding-right: 1.2rem;
-    }
-    .form-field select option { background: var(--tac-green); color: var(--clean-white); }
-    .form-field::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 1px; background: var(--mission-org); transition: width 0.4s var(--ease); }
-    .form-field.full-width::after { display: none; }
-    .form-field:focus-within::after { width: 100%; }
-
-    .checkbox-field { display: flex; align-items: center; gap: 1.5rem; }
-    .checkbox-field label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; color: var(--mission-org); flex-shrink: 0; }
-    .toggle-group { display: flex; gap: 0.8rem; }
-    .toggle-label { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-family: var(--cond); font-size: 0.88rem; color: var(--ghost); transition: color var(--dur) var(--ease); }
-    .toggle-label input[type="radio"] { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 1px solid rgba(85,107,77,0.5); border-radius: 50%; position: relative; flex-shrink: 0; cursor: pointer; transition: border-color var(--dur) var(--ease); }
-    .toggle-label input[type="radio"]:checked { border-color: var(--mission-org); }
-    .toggle-label input[type="radio"]:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--mission-org); }
-    .toggle-label:has(input:checked) { color: var(--clean-white); }
-
-    .form-submit-row { grid-column: 1/-1; padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
-    .form-note { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; color: var(--ghost-dim); }
-    .btn-submit {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.9rem 2.2rem; background: var(--mission-org); color: var(--cmd-black);
-      font-family: var(--cond); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.18em;
-      text-transform: uppercase; border: 2px solid var(--mission-org); cursor: pointer;
-      transition: all var(--dur) var(--ease); appearance: none;
-      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
-    }
-    .btn-submit:hover { background: transparent; color: var(--mission-org); }
-    .btn-submit::before { content: '◉'; font-size: 0.65rem; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════════════════════════ */
-    footer {
-      background: #060806;
-      border-top: 4px solid transparent;
-      border-image: linear-gradient(90deg,
-        var(--camo-tan) 0%, var(--camo-rust) 12%, var(--camo-blk) 25%,
-        var(--camo-dkgr) 38%, var(--camo-tan) 50%, var(--camo-blk) 62%,
-        var(--camo-rust) 75%, var(--camo-dkgr) 88%, var(--camo-tan) 100%
-      ) 1;
-      padding: 2.5rem var(--side);
-    }
-    .footer-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .footer-logo-wrap { display: flex; align-items: center; gap: 0.6rem; }
-    .footer-logo-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.6; }
-    .footer-logo-text { font-family: var(--disp); font-size: 1rem; letter-spacing: 0.06em; color: var(--ghost-dim); }
-    .footer-copy { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ghost-dim); }
-    .footer-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
-    .footer-links a { font-family: var(--cond); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost-dim); text-decoration: none; transition: color var(--dur) var(--ease); }
-    .footer-links a:hover { color: var(--mission-org); }
-
-    /* ═══════════════════════════════════════════════════════════════
-       HAMBURGER MENU BUTTON
-    ═══════════════════════════════════════════════════════════════ */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      background: transparent;
-      border: 2px solid var(--mission-org);
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-      clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
-      transition: background var(--dur) var(--ease);
-    }
-    .menu-toggle:hover { background: rgba(230,106,26,0.1); }
-    .menu-toggle .bar {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--mission-org);
-      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
-      transform-origin: center;
-    }
-    .menu-toggle[aria-expanded="true"] .bar-top { transform: translateY(8px) rotate(45deg); }
-    .menu-toggle[aria-expanded="true"] .bar-mid { opacity: 0; }
-    .menu-toggle[aria-expanded="true"] .bar-bot { transform: translateY(-8px) rotate(-45deg); }
-
-    body.menu-open { overflow: hidden; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════════════════════════ */
-    @media (max-width: 1000px) {
-      .command-grid { grid-template-columns: 1fr 1fr; }
-      .cmd-center { display: none; }
-    }
-    @media (max-width: 760px) {
-     #site-header {
-        background: rgba(10,10,10,0.97);
-        -webkit-backdrop-filter: blur(20px);
-        backdrop-filter: blur(20px);
-        border-bottom-color: var(--mission-org);
-      }
-
-      .command-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3rem; }
-      /* 2.1 — Restore operator headshot, stacked between identity and brief */
-      .cmd-center { display: flex; order: 2; }
-      .cmd-left { order: 1; padding-top: 1.5rem; }
-      .cmd-right { order: 3; padding-top: 0.5rem; }
-      .army-man-img {
-        width: clamp(180px, 50vw, 280px) !important;
-        height: clamp(180px, 50vw, 280px) !important;
-      }
-      .target-ring { width: clamp(220px, 60vw, 340px); height: clamp(220px, 60vw, 340px); }
-      .cmd-tagline { bottom: -2rem; font-size: 0.55rem; }
-
-      .services-grid { grid-template-columns: 1fr; }
-      .philosophy-inner { grid-template-columns: 1fr; }
-      .philosophy-figure {
-        display: flex;
-        order: -1; /* Stacks the drummer above the text on mobile */
-        margin-bottom: 1rem;
-      }
-      .phil-army-img {
-        width: clamp(180px, 45vw, 260px); /* Scales appropriately for mobile */
-      }
-      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .about-left { position: static; }
-      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-field:nth-child(odd) { padding-right: 0; border-right: none; }
-      .form-field:nth-child(even) { padding-left: 0; }
-    }
-    @media (max-width: 600px) {
-      /* Tighten header padding so logo + toggle sit cleanly under the ticker */
-      #site-header { padding: 0.7rem var(--side); }
-      .logo-name { font-size: 1.15rem; }
-
-      /* 1.x — Hamburger nav fix */
-      .menu-toggle { display: flex; }
-
-      /* Prevents logo text from colliding with the hamburger menu */
-      .logo-sub { display: none; }
-
-      nav {
-        position: absolute;
-        top: 100%; /* Automatically drops exactly below the header */
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background: rgba(10,10,10,0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--mission-org);
-        padding: 1rem;
-        gap: 0.5rem;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
-        z-index: -1; /* Keeps it strictly behind the header border */
-      }
-      nav.open {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-      nav a {
-        width: 100%;
-        text-align: center;
-        padding: 0.9rem 1rem;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid transparent;
-      }
-      nav a:hover { border-color: var(--mission-org); }
-      .nav-fb { gap: 0.5rem; }
-
-      /* 2.5 — Hide coordinate markers on mobile */
-      .coord-marker, .coord-label { display: none !important; }
-
-      /* 2.3 — Reduce panel padding */
-      .form-panel { padding: 1.25rem; }
-      .brief-panel { padding: 1.25rem 1.4rem; }
-      .service-card { padding: 1.5rem 1.4rem; }
-
-      /* 2.2 — Slow ticker for readability */
-      .ticker-track { animation-duration: 80s; }
-
-      /* 2.4 — Reduce hex grid visual noise */
-      .hero-bg-hex { opacity: 0.03; background-size: 112px 200px; }
-
-      .hero-scroll { display: none; }
-      .form-submit-row { flex-direction: column; align-items: flex-start; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .cta-cluster { flex-direction: column; align-items: flex-start; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       REDUCED MOTION — accessibility fallback
-    ═══════════════════════════════════════════════════════════════ */
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation: none !important; }
-      .s-ping, .hero-label::before, .status-badge::before { animation: none !important; opacity: 1 !important; }
-      .scroll-line::after { animation: none !important; }
-      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Casey Keown — Mission Critical Web Development. Serving Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt, and Nelson Counties and the Louisville Metro Area." />
+  <title>Casey Keown | Mission Critical Web Development | Kentucky</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       RESET & TOKENS
+    ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Exact palette from brief */
+      --cmd-black:   #0A0A0A;
+      --tac-green:   #1F2A1F;
+      --lei-green:   #556B4D;
+      --mission-org: #E66A1A;
+      --org-lt:      #FF8C3A;
+      --org-dk:      #B84E0E;
+      --org-dim:     rgba(230,106,26,0.12);
+      --clean-white: #F5F5F5;
+      --ghost:       rgba(245,245,245,0.7);
+      --ghost-dim:   rgba(245,245,245,0.2);
+      --ghost-faint: rgba(245,245,245,0.08);
+
+      /* Camo tones */
+      --camo-tan:  #B8A06A;
+      --camo-rust: #8C4A2A;
+      --camo-dkgr: #2D3A22;
+      --camo-blk:  #1A1A14;
+
+      --mono:      'Share Tech Mono', monospace;
+      --cond:      'Barlow Condensed', sans-serif;
+      --body:      'Barlow', sans-serif;
+      --disp:      'Bebas Neue', sans-serif;
+
+      --side: clamp(1.5rem, 4vw, 4rem);
+      --max-w: 1240px;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+      --dur: 0.3s;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--cmd-black);
+      color: var(--clean-white);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+    /* Explicit cursor states for accessibility */
+    a, button, [role="button"], .nav-cta, .btn-primary, .btn-ghost, .btn-submit,
+    .toggle-label, .toggle-label input, .service-card { cursor: pointer; }
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea { cursor: text; }
+    select { cursor: pointer; }
+
+
+    ::selection { background: var(--mission-org); color: var(--cmd-black); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       GLOBAL SCANLINE
+    ═══════════════════════════════════════════════════════════════ */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HUD TICKER
+    ═══════════════════════════════════════════════════════════════ */
+    #hud-ticker {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9500;
+      background: var(--mission-org);
+      color: var(--cmd-black);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.13em;
+      line-height: 1;
+      height: 1.7rem;            /* fixed height — keeps JS measurement consistent */
+      display: flex;
+      align-items: center;
+      padding: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-block;
+      animation: ticker-scroll 40s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .t-sep { margin: 0 1.8rem; opacity: 0.5; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HEADER / NAV
+    ═══════════════════════════════════════════════════════════════ */
+    #site-header {
+      position: fixed;
+      top: 1.7rem;
+      left: 0; right: 0;
+      z-index: 500;
+      padding: 0.9rem var(--side);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), top 0.2s var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+    #site-header.scrolled {
+      top: 0;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: var(--mission-org);
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
+    .logo-img { width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(230,106,26,0.85)) drop-shadow(0 0 14px rgba(230,106,26,0.45)); }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-name { font-family: var(--disp); font-size: 1.35rem; letter-spacing: 0.08em; color: var(--clean-white); }
+    .logo-sub  { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.2em; color: var(--mission-org); text-transform: uppercase; }
+
+    nav { display: flex; align-items: center; gap: 0.2rem; }
+    nav a {
+      font-family: var(--cond);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ghost);
+      padding: 0.38rem 0.85rem;
+      border: 1px solid transparent;
+      transition: all var(--dur) var(--ease);
+    }
+    nav a:hover { color: var(--mission-org); border-color: var(--mission-org); }
+    .nav-fb { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .nav-fb svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+    .nav-cta { background: var(--mission-org) !important; color: var(--cmd-black) !important; border-color: var(--mission-org) !important; font-weight: 700; }
+    .nav-cta:hover { background: var(--org-lt) !important; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HERO — THREE COLUMN COMMAND CENTER
+    ═══════════════════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(4rem + var(--side)) var(--side) 4rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--cmd-black);
+    }
+
+    /* ── Background layers ── */
+    .hero-bg-topo {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hex grid SVG overlay */
+    .hero-bg-hex {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z' fill='none' stroke='%23556B4D' stroke-width='0.8'/%3E%3Cpath d='M28 66 L56 50 L56 84 L28 100 L0 84 L0 50 Z' fill='none' stroke='%23556B4D' stroke-width='0.8'/%3E%3C/svg%3E");
+      background-size: 56px 100px;
+    }
+
+    /* Camo texture layer */
+    .hero-bg-camo {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.18;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-repeat: repeat;
+      background-size: 900px 600px;
+      background-position: center;
+      filter: brightness(0.35) contrast(1.1) saturate(0.7);
+      mix-blend-mode: multiply;
+    }
+
+    /* Vignette */
+    .hero-bg-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(10,10,10,0.75) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Orange coordinate crosshairs */
+    .coord-marker {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .coord-marker::before,
+    .coord-marker::after {
+      content: '';
+      position: absolute;
+      background: var(--mission-org);
+      opacity: 0.45;
+    }
+    .coord-marker::before { width: 100%; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+    .coord-marker::after  { width: 1px; height: 100%; left: 50%; top: 0; transform: translateX(-50%); }
+    .cm-1 { top: 18%; left: 12%; }
+    .cm-2 { top: 70%; left: 8%; }
+    .cm-3 { top: 25%; right: 10%; }
+    .cm-4 { top: 65%; right: 15%; }
+    .cm-5 { top: 45%; left: 48%; }
+
+    /* Coord labels */
+    .coord-label {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 0.48rem;
+      letter-spacing: 0.12em;
+      color: var(--mission-org);
+      opacity: 0.4;
+      z-index: 3;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .cl-1 { top: calc(18% + 14px); left: 12%; }
+    .cl-2 { top: calc(70% + 14px); left: 8%; }
+    .cl-3 { top: calc(25% + 14px); right: 10%; text-align: right; }
+    .cl-4 { top: calc(65% + 14px); right: 15%; text-align: right; }
+
+    /* Corner brackets */
+    .corner { position: absolute; width: 44px; height: 44px; z-index: 4; pointer-events: none; }
+    .corner-tl { top: 5.5rem; left: var(--side); border-top: 1.5px solid var(--mission-org); border-left: 1.5px solid var(--mission-org); }
+    .corner-tr { top: 5.5rem; right: var(--side); border-top: 1.5px solid var(--mission-org); border-right: 1.5px solid var(--mission-org); }
+    .corner-bl { bottom: 1.5rem; left: var(--side); border-bottom: 1.5px solid var(--mission-org); border-left: 1.5px solid var(--mission-org); }
+    .corner-br { bottom: 1.5rem; right: var(--side); border-bottom: 1.5px solid var(--mission-org); border-right: 1.5px solid var(--mission-org); }
+
+    /* Camo bar at bottom */
+    .hero-camo-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg,
+        var(--camo-tan) 0%, var(--camo-rust) 12%, var(--camo-blk) 25%,
+        var(--camo-dkgr) 38%, var(--camo-tan) 50%, var(--camo-blk) 62%,
+        var(--camo-rust) 75%, var(--camo-dkgr) 88%, var(--camo-tan) 100%
+      );
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* ── Three column command layout ── */
+    .command-grid {
+      position: relative;
+      z-index: 10;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 3rem;
+      align-items: end;
+      min-height: 70vh;
+      padding-bottom: 5.5rem;
+    }
+
+    /* ── LEFT COLUMN ── */
+    .cmd-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      align-self: start;
+      padding-top: 3.5rem;
+    }
+
+    .cmd-logo-block {
+      position: relative;
+    }
+    .cmd-logo-img {
+      width: clamp(60px, 7vw, 90px);
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 1rem;
+      margin-top: -1.5rem;
+      filter:
+        drop-shadow(0 0 10px rgba(230,106,26,0.7))
+        drop-shadow(0 0 22px rgba(230,106,26,0.35));
+    }
+    .cmd-logo-name {
+      font-family: var(--disp);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 0.95;
+      letter-spacing: 0.05em;
+      color: var(--clean-white);
+      display: block;
+    }
+    .cmd-logo-title {
+      font-family: var(--cond);
+      font-weight: 400;
+      font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ghost);
+      display: block;
+      margin-top: 0.5rem;
+    }
+    .cmd-divider {
+      width: clamp(60px, 8vw, 120px);
+      height: 2px;
+      background: var(--mission-org);
+      margin: 1rem 0;
+      position: relative;
+    }
+    .cmd-divider::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      background: var(--mission-org);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .cmd-doctrine {
+      font-family: var(--disp);
+      font-size: clamp(1rem, 1.8vw, 1.5rem);
+      letter-spacing: 0.1em;
+      color: var(--mission-org);
+      line-height: 1.3;
+    }
+
+    .cmd-stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .cmd-stat {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      color: var(--ghost-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .cmd-stat .s-key { color: var(--mission-org); min-width: 100px; }
+    .cmd-stat .s-val { color: var(--ghost); }
+    .s-ping { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--mission-org); animation: blink 1.6s step-end infinite; flex-shrink: 0; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── CENTER COLUMN — ARMY MAN ── */
+    .cmd-center {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
+    }
+
+    .army-stage {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    /* Grid floor under army man */
+    .army-stage::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 340px;
+      height: 120px;
+      background:
+        repeating-linear-gradient(0deg, rgba(85,107,77,0.15) 0px, rgba(85,107,77,0.15) 1px, transparent 1px, transparent 30px),
+        repeating-linear-gradient(90deg, rgba(85,107,77,0.15) 0px, rgba(85,107,77,0.15) 1px, transparent 1px, transparent 30px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Leibermuster fade behind army man */
+    .army-camo-fade {
+      position: absolute;
+      inset: -20px -40px 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-repeat: repeat;
+      background-size: 600px 400px;
+      background-position: center;
+      filter: brightness(0.4) saturate(0.6);
+      opacity: 0.4;
+      mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, black 20%, transparent 75%);
+    }
+
+    /* Dramatic glow under feet */
+    .army-glow {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 40px;
+      background: radial-gradient(ellipse, rgba(230,106,26,0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .army-man-img {
+      width: clamp(220px, 26vw, 380px);
+      height: clamp(220px, 26vw, 380px);
+      object-fit: cover;
+      border-radius: 50%;
+      opacity: 0.5;
+      position: relative;
+      z-index: 3;
+      border: 2px solid rgba(230,106,26,0.25);
+      box-shadow:
+        0 0 0 6px rgba(230,106,26,0.06),
+        0 0 40px rgba(230,106,26,0.15),
+        0 30px 60px rgba(0,0,0,0.8);
+    }
+
+    /* Target reticle overlay */
+    .target-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -52%);
+      width: clamp(260px, 32vw, 460px);
+      height: clamp(260px, 32vw, 460px);
+      border: 1px solid rgba(230,106,26,0.12);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .target-ring::before {
+      content: '';
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(230,106,26,0.07);
+      border-radius: 50%;
+    }
+    /* tick marks */
+    .target-ring::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 12px;
+      background: rgba(230,106,26,0.35);
+    }
+
+    /* Tagline below army man */
+    .cmd-tagline {
+      position: absolute;
+      bottom: -2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mission-org);
+      opacity: 0.8;
+      z-index: 5;
+    }
+
+    /* ── RIGHT COLUMN — MISSION BRIEF ── */
+    .cmd-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-top: 3.5rem;
+    }
+
+    .brief-panel {
+      border: 1px solid rgba(230,106,26,0.25);
+      border-left: 2px solid var(--mission-org);
+      background: rgba(31,42,31,0.35);
+      backdrop-filter: blur(4px);
+      padding: 1.6rem 1.8rem;
+      position: relative;
+    }
+    .brief-panel::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -0.55rem;
+      left: 1rem;
+      background: var(--cmd-black);
+      padding: 0 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.22em;
+      color: var(--mission-org);
+      text-transform: uppercase;
+    }
+
+    .brief-heading {
+      font-family: var(--disp);
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      letter-spacing: 0.08em;
+      color: var(--clean-white);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .brief-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .brief-line {
+      font-family: var(--cond);
+      font-weight: 300;
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      letter-spacing: 0.04em;
+      color: var(--ghost);
+      line-height: 1.5;
+      padding-left: 1rem;
+      border-left: 1px solid rgba(230,106,26,0.2);
+      transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+    }
+    .brief-line:hover {
+      border-left-color: var(--mission-org);
+      color: var(--clean-white);
+    }
+    .brief-line.accent { color: var(--mission-org); font-weight: 600; border-left-color: var(--mission-org); }
+    .brief-gap { height: 0.6rem; }
+
+    .intel-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.4rem 1.2rem;
+    }
+    .intel-key {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--mission-org);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+    }
+    .intel-val {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--ghost);
+      padding-top: 0.1rem;
+    }
+
+    /* Uptime bar */
+    .uptime-bar-wrap {
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .uptime-bar {
+      flex: 1;
+      height: 3px;
+      background: rgba(245,245,245,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .uptime-bar::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 99.9%;
+      background: var(--mission-org);
+    }
+    .uptime-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--mission-org);
+      white-space: nowrap;
+    }
+
+    .cta-cluster {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      background: var(--mission-org);
+      color: var(--cmd-black);
+      font-family: var(--cond);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--mission-org);
+      transition: all var(--dur) var(--ease);
+      clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+    }
+    .btn-primary:hover { background: transparent; color: var(--mission-org); }
+    .btn-primary::before { content: '◉'; font-size: 0.65rem; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.4rem;
+      font-family: var(--cond);
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ghost);
+      border: 1px solid rgba(245,245,245,0.2);
+      transition: all var(--dur) var(--ease);
+    }
+    .btn-ghost:hover { color: var(--mission-org); border-color: var(--mission-org); }
+
+    /* Scroll hint */
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      z-index: 10;
+    }
+    .hero-scroll span {
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.22em;
+      color: var(--mission-org);
+      opacity: 0.6;
+      text-transform: uppercase;
+    }
+    .scroll-line { width: 1px; height: 2.5rem; background: rgba(230,106,26,0.2); position: relative; overflow: hidden; }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; width: 100%; height: 100%;
+      background: var(--mission-org);
+      animation: scroll-tick 1.8s ease-in-out infinite;
+    }
+    @keyframes scroll-tick { 0%{top:-100%} 100%{top:100%} }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MISSION BRIEF STRIPE
+    ═══════════════════════════════════════════════════════════════ */
+    #mission-stripe {
+      background: var(--mission-org);
+      padding: 1rem var(--side);
+      position: relative;
+      overflow: hidden;
+    }
+    #mission-stripe::after {
+      content: '/// MISSION CRITICAL SYSTEM /// WHEN FAILURE ISN\'T AN OPTION /// MISSION CRITICAL SYSTEM /// WHEN FAILURE ISN\'T AN OPTION ///';
+      position: absolute;
+      right: 0; top: 50%; transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      color: rgba(0,0,0,0.1);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .stripe-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .stripe-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(0,0,0,0.55); white-space: nowrap; }
+    .stripe-text { font-family: var(--cond); font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; color: var(--cmd-black); text-transform: uppercase; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       REVEAL
+    ═══════════════════════════════════════════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+    .reveal.in-view { opacity: 1; transform: none; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════════════════════════════ */
+    #services {
+      background: var(--tac-green);
+      padding: 6rem var(--side);
+      position: relative;
+      overflow: hidden;
+    }
+    #services::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(85,107,77,0.08) 0, rgba(85,107,77,0.08) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, rgba(85,107,77,0.08) 0, rgba(85,107,77,0.08) 1px, transparent 1px, transparent 40px);
+      pointer-events: none;
+    }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+    .eyebrow-num { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; color: var(--mission-org); }
+    .eyebrow-line { width: 50px; height: 1px; background: var(--mission-org); opacity: 0.4; }
+
+    .section-title {
+      font-family: var(--disp);
+      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      color: var(--clean-white);
+      margin-bottom: 3rem;
+    }
+
+    .services-header { max-width: var(--max-w); margin: 0 auto var(--size, 3rem); }
+
+    .services-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(85,107,77,0.3);
+      border: 1px solid rgba(85,107,77,0.3);
+    }
+
+    .service-card {
+      background: var(--tac-green);
+      padding: 2.5rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--dur) var(--ease);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--mission-org);
+      transition: height 0.45s var(--ease);
+    }
+    .service-card:hover { background: #0e140e; }
+    .service-card:hover::before { height: 100%; }
+
+    /* Encrypted state */
+    .service-card.encrypting .service-name,
+    .service-card.encrypting .service-desc,
+    .service-card.encrypting .service-idx {
+      opacity: 0;
+      transition: opacity 0.08s;
+    }
+    .service-card .encrypt-overlay {
+      position: absolute;
+      inset: 0;
+      padding: 2.5rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s;
+    }
+    .service-card.encrypting .encrypt-overlay {
+      opacity: 1;
+    }
+    .encrypt-stream {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.65;
+      letter-spacing: 0.08em;
+      color: var(--mission-org);
+      word-break: break-all;
+      white-space: pre-wrap;
+      text-shadow: 0 0 8px rgba(230,106,26,0.5);
+    }
+    .encrypt-stream .e-char {
+      display: inline-block;
+      transition: none;
+    }
+
+    .service-idx { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; color: var(--mission-org); opacity: 0.8; display: block; margin-bottom: 1rem; transition: opacity 0.08s; }
+    .service-name { font-family: var(--disp); font-size: clamp(1.7rem, 2.8vw, 2.4rem); letter-spacing: 0.04em; color: var(--clean-white); margin-bottom: 0.7rem; line-height: 1; transition: opacity 0.08s; }
+    .service-desc { font-family: var(--cond); font-weight: 300; font-size: 0.92rem; color: var(--ghost); line-height: 1.7; transition: opacity 0.08s; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PHILOSOPHY
+    ═══════════════════════════════════════════════════════════════ */
+    #philosophy {
+      background: var(--cmd-black);
+      padding: 6rem var(--side);
+      position: relative;
+      overflow: hidden;
+    }
+    #philosophy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
+      background-size: cover;
+      background-position: center 60%;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .philosophy-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .philosophy-figure {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
+    }
+    .philosophy-figure::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,106,26,0.1) 0%, transparent 70%);
+    }
+    .phil-army-img {
+      width: clamp(200px, 28vw, 360px);
+      height: auto;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.9)) drop-shadow(0 0 30px rgba(230,106,26,0.12));
+      position: relative;
+      z-index: 1;
+    }
+
+    .philosophy-content {}
+    .phil-headline {
+      font-family: var(--disp);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      color: var(--clean-white);
+      margin-bottom: 2rem;
+    }
+    .phil-headline .ph-org { color: var(--mission-org); }
+
+    .phil-body p {
+      font-family: var(--cond);
+      font-weight: 300;
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      line-height: 1.85;
+      color: var(--ghost);
+      margin-bottom: 1.2rem;
+    }
+    .phil-body p:last-child { margin-bottom: 0; }
+
+    .field-intel {
+      margin-top: 2rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--mission-org);
+      background: var(--org-dim);
+      position: relative;
+    }
+    .field-intel::before {
+      content: 'FIELD INTELLIGENCE';
+      position: absolute;
+      top: -0.52rem; left: 1rem;
+      background: var(--cmd-black);
+      padding: 0 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.22em;
+      color: var(--mission-org);
+    }
+    .field-intel p {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.9;
+      color: rgba(245,245,245,0.7);
+      margin: 0 !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════════════════════════ */
+    #about {
+      background: var(--tac-green);
+      padding: 6rem var(--side);
+      position: relative;
+      overflow: hidden;
+    }
+    #about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-repeat: repeat;
+      background-size: 800px 550px;
+      background-position: center;
+      filter: brightness(0.3) saturate(0.6);
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .about-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    .about-left { position: sticky; top: 6rem; }
+    .about-left h2 {
+      font-family: var(--disp);
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      color: var(--clean-white);
+      margin-top: 0.8rem;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      color: var(--cmd-black);
+      background: rgba(230,106,26,0.9);
+      padding: 0.28rem 0.7rem;
+      margin-top: 1.2rem;
+    }
+    .status-badge::before { content: '●'; animation: blink 1.5s step-end infinite; }
+    .about-body p {
+      font-family: var(--cond);
+      font-weight: 300;
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      color: var(--ghost);
+      line-height: 1.85;
+      margin-bottom: 1.3rem;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body strong { color: var(--clean-white); font-weight: 600; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════════════════════════ */
+    #contact {
+      background: var(--cmd-black);
+      padding: 6rem var(--side);
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    #contact::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: grayscale(1) brightness(0.2) contrast(1.5);
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-info h2 {
+      font-family: var(--disp);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      color: var(--clean-white);
+      margin-bottom: 1.2rem;
+    }
+    .contact-info h2 span { color: var(--mission-org); }
+    .contact-info p { font-family: var(--cond); font-size: 0.95rem; color: var(--ghost); line-height: 1.8; margin-bottom: 2rem; }
+    .c-detail { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; color: var(--mission-org); display: block; margin-bottom: 0.3rem; }
+    .c-detail + a { font-family: var(--cond); font-size: 0.92rem; color: var(--ghost); text-decoration: none; display: block; margin-bottom: 1.4rem; transition: color var(--dur) var(--ease); }
+    .c-detail + a:hover { color: var(--mission-org); }
+
+    .fb-embed-wrap {
+      margin-top: 1.2rem;
+      width: fit-content;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* Form */
+    .form-panel {
+      background: rgba(31,42,31,0.4);
+      border: 1px solid rgba(85,107,77,0.35);
+      padding: 2rem;
+      position: relative;
+      backdrop-filter: blur(4px);
+    }
+    .form-panel::before {
+      content: '// INITIATE CONTACT PROTOCOL';
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--mission-org);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(85,107,77,0.3);
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; }
+
+    .form-field {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(85,107,77,0.3);
+      position: relative;
+    }
+    .form-field:nth-child(odd) { padding-right: 1.5rem; border-right: 1px solid rgba(85,107,77,0.3); }
+    .form-field:nth-child(even) { padding-left: 1.5rem; }
+    .form-field.full-width { grid-column: 1/-1; padding-right: 0; border-right: none; padding-left: 0; }
+    .form-field:last-of-type { border-bottom: none; }
+    .form-field label { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mission-org); margin-bottom: 0.5rem; }
+    .form-field input, .form-field select {
+      width: 100%; background: transparent; border: none; outline: none;
+      font-family: var(--cond); font-weight: 400; font-size: 0.95rem;
+      color: var(--clean-white); padding: 0.2rem 0;
+      appearance: none; -webkit-appearance: none;
+      transition: color var(--dur) var(--ease);
+    }
+    .form-field input::placeholder { color: rgba(245,245,245,0.18); font-family: var(--cond); }
+    .form-field select {
+      cursor: pointer; color: var(--ghost);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23E66A1A'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0 center; padding-right: 1.2rem;
+    }
+    .form-field select option { background: var(--tac-green); color: var(--clean-white); }
+    .form-field::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 1px; background: var(--mission-org); transition: width 0.4s var(--ease); }
+    .form-field.full-width::after { display: none; }
+    .form-field:focus-within::after { width: 100%; }
+
+    .checkbox-field { display: flex; align-items: center; gap: 1.5rem; }
+    .checkbox-field label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; color: var(--mission-org); flex-shrink: 0; }
+    .toggle-group { display: flex; gap: 0.8rem; }
+    .toggle-label { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-family: var(--cond); font-size: 0.88rem; color: var(--ghost); transition: color var(--dur) var(--ease); }
+    .toggle-label input[type="radio"] { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 1px solid rgba(85,107,77,0.5); border-radius: 50%; position: relative; flex-shrink: 0; cursor: pointer; transition: border-color var(--dur) var(--ease); }
+    .toggle-label input[type="radio"]:checked { border-color: var(--mission-org); }
+    .toggle-label input[type="radio"]:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--mission-org); }
+    .toggle-label:has(input:checked) { color: var(--clean-white); }
+
+    .form-submit-row { grid-column: 1/-1; padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .form-note { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; color: var(--ghost-dim); }
+    .btn-submit {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2.2rem; background: var(--mission-org); color: var(--cmd-black);
+      font-family: var(--cond); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.18em;
+      text-transform: uppercase; border: 2px solid var(--mission-org); cursor: pointer;
+      transition: all var(--dur) var(--ease); appearance: none;
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+    }
+    .btn-submit:hover { background: transparent; color: var(--mission-org); }
+    .btn-submit::before { content: '◉'; font-size: 0.65rem; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════ */
+    footer {
+      background: #060806;
+      border-top: 4px solid transparent;
+      border-image: linear-gradient(90deg,
+        var(--camo-tan) 0%, var(--camo-rust) 12%, var(--camo-blk) 25%,
+        var(--camo-dkgr) 38%, var(--camo-tan) 50%, var(--camo-blk) 62%,
+        var(--camo-rust) 75%, var(--camo-dkgr) 88%, var(--camo-tan) 100%
+      ) 1;
+      padding: 2.5rem var(--side);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 0.6rem; }
+    .footer-logo-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.6; }
+    .footer-logo-text { font-family: var(--disp); font-size: 1rem; letter-spacing: 0.06em; color: var(--ghost-dim); }
+    .footer-copy { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ghost-dim); }
+    .footer-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .footer-links a { font-family: var(--cond); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost-dim); text-decoration: none; transition: color var(--dur) var(--ease); }
+    .footer-links a:hover { color: var(--mission-org); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HAMBURGER MENU BUTTON
+    ═══════════════════════════════════════════════════════════════ */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      background: transparent;
+      border: 2px solid var(--mission-org);
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+      transition: background var(--dur) var(--ease);
+    }
+    .menu-toggle:hover { background: rgba(230,106,26,0.1); }
+    .menu-toggle .bar {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--mission-org);
+      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+      transform-origin: center;
+    }
+    .menu-toggle[aria-expanded="true"] .bar-top { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] .bar-mid { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] .bar-bot { transform: translateY(-8px) rotate(-45deg); }
+
+    body.menu-open { overflow: hidden; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 1000px) {
+      .command-grid { grid-template-columns: 1fr 1fr; }
+      .cmd-center { display: none; }
+    }
+    @media (max-width: 760px) {
+      .command-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3rem; }
+      /* 2.1 — Restore operator headshot, stacked between identity and brief */
+      .cmd-center { display: flex; order: 2; }
+      .cmd-left { order: 1; padding-top: 1.5rem; }
+      .cmd-right { order: 3; padding-top: 0.5rem; }
+      .army-man-img {
+        width: clamp(180px, 50vw, 280px) !important;
+        height: clamp(180px, 50vw, 280px) !important;
+      }
+      .target-ring { width: clamp(220px, 60vw, 340px); height: clamp(220px, 60vw, 340px); }
+      .cmd-tagline { bottom: -2rem; font-size: 0.55rem; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .philosophy-inner { grid-template-columns: 1fr; }
+      .philosophy-figure {
+        display: flex;
+        order: -1; /* Stacks the drummer above the text on mobile */
+        margin-bottom: 1rem;
+      }
+      .phil-army-img {
+        width: clamp(180px, 45vw, 260px); /* Scales appropriately for mobile */
+      }
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .about-left { position: static; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-field:nth-child(odd) { padding-right: 0; border-right: none; }
+      .form-field:nth-child(even) { padding-left: 0; }
+    }
+    @media (max-width: 600px) {
+      /* Tighten header padding so logo + toggle sit cleanly under the ticker */
+      #site-header { padding: 0.7rem var(--side); }
+      .logo-name { font-size: 1.15rem; }
+
+      /* 1.x — Hamburger nav fix */
+      .menu-toggle { display: flex; }
+
+      /* Prevents logo text from colliding with the hamburger menu */
+      .logo-sub { display: none; }
+
+      nav {
+        position: absolute;
+        top: 100%; /* Automatically drops exactly below the header */
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(10,10,10,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--mission-org);
+        padding: 1rem;
+        gap: 0.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+        z-index: -1; /* Keeps it strictly behind the header border */
+      }
+      nav.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      nav a {
+        width: 100%;
+        text-align: center;
+        padding: 0.9rem 1rem;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+      }
+      nav a:hover { border-color: var(--mission-org); }
+      .nav-fb { gap: 0.5rem; }
+
+      /* 2.5 — Hide coordinate markers on mobile */
+      .coord-marker, .coord-label { display: none !important; }
+
+      /* 2.3 — Reduce panel padding */
+      .form-panel { padding: 1.25rem; }
+      .brief-panel { padding: 1.25rem 1.4rem; }
+      .service-card { padding: 1.5rem 1.4rem; }
+
+      /* 2.2 — Slow ticker for readability */
+      .ticker-track { animation-duration: 80s; }
+
+      /* 2.4 — Reduce hex grid visual noise */
+      .hero-bg-hex { opacity: 0.03; background-size: 112px 200px; }
+
+      .hero-scroll { display: none; }
+      .form-submit-row { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .cta-cluster { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       REDUCED MOTION — accessibility fallback
+    ═══════════════════════════════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none !important; }
+      .s-ping, .hero-label::before, .status-badge::before { animation: none !important; opacity: 1 !important; }
+      .scroll-line::after { animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
 </style>
 </head>
 <body>
 
-  <!-- HUD TICKER -->
-  <div id="hud-ticker">
-    <span class="ticker-track">
-      SYSTEM STATUS: OPERATIONAL
-      <span class="t-sep">◆</span>
-      MISSION: BUILD HIGH-PERFORMANCE WEBSITES
-      <span class="t-sep">◆</span>
-      OPERATOR: CASEY KEOWN
-      <span class="t-sep">◆</span>
-      DOCTRINE: RELIABILITY. EXECUTION. NO EXCUSES.
-      <span class="t-sep">◆</span>
-      THEATER: HARDIN · GRAYSON · BRECKINRIDGE · MEADE · LARUE · BULLITT · NELSON · LOUISVILLE METRO
-      <span class="t-sep">◆</span>
-      OBJECTIVE: MISSION CRITICAL DIGITAL INFRASTRUCTURE
-      <span class="t-sep">◆</span>
-      WHEN FAILURE ISN'T AN OPTION
-      <span class="t-sep">◆</span>
-      STATUS: ACCEPTING NEW DEPLOYMENTS
-      <span class="t-sep">◆</span>
-      SYSTEM STATUS: OPERATIONAL
-      <span class="t-sep">◆</span>
-      MISSION: BUILD HIGH-PERFORMANCE WEBSITES
-      <span class="t-sep">◆</span>
-      OPERATOR: CASEY KEOWN
-      <span class="t-sep">◆</span>
-      DOCTRINE: RELIABILITY. EXECUTION. NO EXCUSES.
-      <span class="t-sep">◆</span>
-      THEATER: HARDIN · GRAYSON · BRECKINRIDGE · MEADE · LARUE · BULLITT · NELSON · LOUISVILLE METRO
-      <span class="t-sep">◆</span>
-      OBJECTIVE: MISSION CRITICAL DIGITAL INFRASTRUCTURE
-      <span class="t-sep">◆</span>
-      WHEN FAILURE ISN'T AN OPTION
-      <span class="t-sep">◆</span>
-      STATUS: ACCEPTING NEW DEPLOYMENTS
-      <span class="t-sep">◆</span>
-    </span>
-  </div>
+  <!-- HUD TICKER -->
+  <div id="hud-ticker">
+    <span class="ticker-track">
+      SYSTEM STATUS: OPERATIONAL
+      <span class="t-sep">◆</span>
+      MISSION: BUILD HIGH-PERFORMANCE WEBSITES
+      <span class="t-sep">◆</span>
+      OPERATOR: CASEY KEOWN
+      <span class="t-sep">◆</span>
+      DOCTRINE: RELIABILITY. EXECUTION. NO EXCUSES.
+      <span class="t-sep">◆</span>
+      THEATER: HARDIN · GRAYSON · BRECKINRIDGE · MEADE · LARUE · BULLITT · NELSON · LOUISVILLE METRO
+      <span class="t-sep">◆</span>
+      OBJECTIVE: MISSION CRITICAL DIGITAL INFRASTRUCTURE
+      <span class="t-sep">◆</span>
+      WHEN FAILURE ISN'T AN OPTION
+      <span class="t-sep">◆</span>
+      STATUS: ACCEPTING NEW DEPLOYMENTS
+      <span class="t-sep">◆</span>
+      SYSTEM STATUS: OPERATIONAL
+      <span class="t-sep">◆</span>
+      MISSION: BUILD HIGH-PERFORMANCE WEBSITES
+      <span class="t-sep">◆</span>
+      OPERATOR: CASEY KEOWN
+      <span class="t-sep">◆</span>
+      DOCTRINE: RELIABILITY. EXECUTION. NO EXCUSES.
+      <span class="t-sep">◆</span>
+      THEATER: HARDIN · GRAYSON · BRECKINRIDGE · MEADE · LARUE · BULLITT · NELSON · LOUISVILLE METRO
+      <span class="t-sep">◆</span>
+      OBJECTIVE: MISSION CRITICAL DIGITAL INFRASTRUCTURE
+      <span class="t-sep">◆</span>
+      WHEN FAILURE ISN'T AN OPTION
+      <span class="t-sep">◆</span>
+      STATUS: ACCEPTING NEW DEPLOYMENTS
+      <span class="t-sep">◆</span>
+    </span>
+  </div>
 
-  <!-- HEADER -->
-  <header id="site-header">
-    <a href="#hero" class="logo-wrap">
-      <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo-white.png" alt="CK" class="logo-img" onerror="this.style.display='none'" />
-      <div class="logo-text">
-        <span class="logo-name">CASEY KEOWN</span>
-        <span class="logo-sub">Mission Critical Web Development</span>
-      </div>
-    </a>
-    <button
-      id="menu-toggle"
-      class="menu-toggle"
-      aria-label="Toggle navigation"
-      aria-controls="primary-nav"
-      aria-expanded="false"
-    >
-      <span class="bar bar-top"></span>
-      <span class="bar bar-mid"></span>
-      <span class="bar bar-bot"></span>
-    </button>
-    <nav id="primary-nav">
-      <a href="#services">Capabilities</a>
-      <a href="#philosophy">Mission</a>
-      <a href="#about">About</a>
-      <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener" class="nav-fb">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook
-      </a>
-      <a href="#contact" class="nav-cta">Deploy</a>
-    </nav>
-  </header>
+  <!-- HEADER -->
+  <header id="site-header">
+    <a href="#hero" class="logo-wrap">
+      <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo-white.png" alt="CK" class="logo-img" onerror="this.style.display='none'" />
+      <div class="logo-text">
+        <span class="logo-name">CASEY KEOWN</span>
+        <span class="logo-sub">Mission Critical Web Development</span>
+      </div>
+    </a>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="Toggle navigation"
+      aria-controls="primary-nav"
+      aria-expanded="false"
+    >
+      <span class="bar bar-top"></span>
+      <span class="bar bar-mid"></span>
+      <span class="bar bar-bot"></span>
+    </button>
+    <nav id="primary-nav">
+      <a href="#services">Capabilities</a>
+      <a href="#philosophy">Mission</a>
+      <a href="#about">About</a>
+      <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener" class="nav-fb">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a href="#contact" class="nav-cta">Deploy</a>
+    </nav>
+  </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg-topo"></div>
-    <div class="hero-bg-hex"></div>
-    <div class="hero-bg-camo"></div>
-    <div class="hero-bg-vignette"></div>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-topo"></div>
+    <div class="hero-bg-hex"></div>
+    <div class="hero-bg-camo"></div>
+    <div class="hero-bg-vignette"></div>
 
-    <!-- Coordinate markers -->
-    <div class="coord-marker cm-1"></div>
-    <div class="coord-marker cm-2"></div>
-    <div class="coord-marker cm-3"></div>
-    <div class="coord-marker cm-4"></div>
-    <div class="coord-marker cm-5"></div>
-    <span class="coord-label cl-1">37°16'N 85°55'W</span>
-    <span class="coord-label cl-2">GRID REF: KY-HAR-001</span>
-    <span class="coord-label cl-3">ALT: 738ft ASL</span>
-    <span class="coord-label cl-4">SECTOR: LOUISVILLE METRO</span>
+    <!-- Coordinate markers -->
+    <div class="coord-marker cm-1"></div>
+    <div class="coord-marker cm-2"></div>
+    <div class="coord-marker cm-3"></div>
+    <div class="coord-marker cm-4"></div>
+    <div class="coord-marker cm-5"></div>
+    <span class="coord-label cl-1">37°16'N 85°55'W</span>
+    <span class="coord-label cl-2">GRID REF: KY-HAR-001</span>
+    <span class="coord-label cl-3">ALT: 738ft ASL</span>
+    <span class="coord-label cl-4">SECTOR: LOUISVILLE METRO</span>
 
-    <!-- Corner brackets -->
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
+    <!-- Corner brackets -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
 
-    <div class="hero-camo-bar"></div>
+    <div class="hero-camo-bar"></div>
 
-    <div class="command-grid">
+    <div class="command-grid">
 
-      <!-- LEFT: Identity -->
-      <div class="cmd-left reveal">
-        <div class="cmd-logo-block">
-          <span class="cmd-logo-name">CASEY KEOWN</span>
-          <span class="cmd-logo-title">Custom Web Architecture</span>
-          <div class="cmd-divider"></div>
-          <div class="cmd-doctrine">
-            MISSION-CRITICAL<br />DIGITAL INFRASTRUCTURE
-          </div>
-        </div>
+      <!-- LEFT: Identity -->
+      <div class="cmd-left reveal">
+        <div class="cmd-logo-block">
+          <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo-white.png" alt="Casey Keown" class="cmd-logo-img" onerror="this.style.display='none'" />
+          <span class="cmd-logo-name">CASEY KEOWN</span>
+          <span class="cmd-logo-title">Custom Web Architecture</span>
+          <div class="cmd-divider"></div>
+          <div class="cmd-doctrine">
+            MISSION-CRITICAL<br />DIGITAL INFRASTRUCTURE
+          </div>
+        </div>
 
-        <div class="cmd-stat-row">
-          <div class="cmd-stat">
-            <span class="s-ping"></span>
-            <span class="s-key">STATUS</span>
-            <span class="s-val">OPERATIONAL</span>
-          </div>
-          <div class="cmd-stat">
-            <span class="s-ping" style="animation-delay:.4s"></span>
-            <span class="s-key">UPTIME</span>
-            <span class="s-val">99.9%</span>
-          </div>
-          <div class="cmd-stat">
-            <span class="s-ping" style="animation-delay:.8s; background: var(--camo-tan);"></span>
-            <span class="s-key">MISSION TYPE</span>
-            <span class="s-val">WEB ARCHITECTURE</span>
-          </div>
-          <div class="cmd-stat">
-            <span class="s-ping" style="animation-delay:1.2s; background: var(--lei-green);"></span>
-            <span class="s-key">LOCATION</span>
-            <span class="s-val">CASEYKEOWN.COM</span>
-          </div>
-        </div>
-      </div>
+        <div class="cmd-stat-row">
+          <div class="cmd-stat">
+            <span class="s-ping"></span>
+            <span class="s-key">STATUS</span>
+            <span class="s-val">OPERATIONAL</span>
+          </div>
+          <div class="cmd-stat">
+            <span class="s-ping" style="animation-delay:.4s"></span>
+            <span class="s-key">UPTIME</span>
+            <span class="s-val">99.9%</span>
+          </div>
+          <div class="cmd-stat">
+            <span class="s-ping" style="animation-delay:.8s; background: var(--camo-tan);"></span>
+            <span class="s-key">MISSION TYPE</span>
+            <span class="s-val">WEB ARCHITECTURE</span>
+          </div>
+          <div class="cmd-stat">
+            <span class="s-ping" style="animation-delay:1.2s; background: var(--lei-green);"></span>
+            <span class="s-key">LOCATION</span>
+            <span class="s-val">CASEYKEOWN.COM</span>
+          </div>
+        </div>
+      </div>
 
-      <!-- CENTER: Army man -->
-      <div class="cmd-center">
-        <div class="army-stage">
-          <div class="army-camo-fade"></div>
-          <div class="army-glow"></div>
-          <div class="target-ring"></div>
-          <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/operator.png" alt="Mission Ready" class="army-man-img" onerror="this.style.display='none'" />
-          <span class="cmd-tagline">"WHEN FAILURE ISN'T AN OPTION"</span>
-        </div>
-      </div>
+      <!-- CENTER: Army man -->
+      <div class="cmd-center">
+        <div class="army-stage">
+          <div class="army-camo-fade"></div>
+          <div class="army-glow"></div>
+          <div class="target-ring"></div>
+          <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/operator.png" alt="Mission Ready" class="army-man-img" onerror="this.style.display='none'" />
+          <span class="cmd-tagline">"WHEN FAILURE ISN'T AN OPTION"</span>
+        </div>
+      </div>
 
-      <!-- RIGHT: Mission Brief -->
-      <div class="cmd-right reveal" style="transition-delay:.15s">
-        <div class="brief-panel" data-label="// MISSION OBJECTIVE">
-          <h2 class="brief-heading">MISSION OBJECTIVE</h2>
-          <div class="brief-lines">
-            <div class="brief-line">Design systems that perform under pressure.</div>
-            <div class="brief-gap"></div>
-            <div class="brief-line">Deploy websites that are fast, secure, and reliable.</div>
-            <div class="brief-gap"></div>
-            <div class="brief-line accent">No excuses.</div>
-            <div class="brief-line accent">No missed deadlines.</div>
-            <div class="brief-line accent">Mission accomplished.</div>
-          </div>
-        </div>
+      <!-- RIGHT: Mission Brief -->
+      <div class="cmd-right reveal" style="transition-delay:.15s">
+        <div class="brief-panel" data-label="// MISSION OBJECTIVE">
+          <h2 class="brief-heading">MISSION OBJECTIVE</h2>
+          <div class="brief-lines">
+            <div class="brief-line">Design systems that perform under pressure.</div>
+            <div class="brief-gap"></div>
+            <div class="brief-line">Deploy websites that are fast, secure, and reliable.</div>
+            <div class="brief-gap"></div>
+            <div class="brief-line accent">No excuses.</div>
+            <div class="brief-line accent">No missed deadlines.</div>
+            <div class="brief-line accent">Mission accomplished.</div>
+          </div>
+        </div>
 
-        <div class="brief-panel" data-label="// TACTICAL DATA">
-          <div class="intel-grid">
-            <span class="intel-key">STATUS</span>
-            <span class="intel-val" style="color:var(--mission-org)">● OPERATIONAL</span>
-            <span class="intel-key">UPTIME</span>
-            <span class="intel-val">
-              <div class="uptime-bar-wrap">
-                <div class="uptime-bar"></div>
-                <span class="uptime-label">99.9%</span>
-              </div>
-            </span>
-            <span class="intel-key">MISSION TYPE</span>
-            <span class="intel-val">WEB ARCHITECTURE</span>
-            <span class="intel-key">LOCATION</span>
-            <span class="intel-val">CASEYKEOWN.COM</span>
-          </div>
-        </div>
+        <div class="brief-panel" data-label="// TACTICAL DATA">
+          <div class="intel-grid">
+            <span class="intel-key">STATUS</span>
+            <span class="intel-val" style="color:var(--mission-org)">● OPERATIONAL</span>
+            <span class="intel-key">UPTIME</span>
+            <span class="intel-val">
+              <div class="uptime-bar-wrap">
+                <div class="uptime-bar"></div>
+                <span class="uptime-label">99.9%</span>
+              </div>
+            </span>
+            <span class="intel-key">MISSION TYPE</span>
+            <span class="intel-val">WEB ARCHITECTURE</span>
+            <span class="intel-key">LOCATION</span>
+            <span class="intel-val">CASEYKEOWN.COM</span>
+          </div>
+        </div>
 
-        <div class="cta-cluster">
-          <a href="#contact" class="btn-primary">Start Mission</a>
-          <a href="#services" class="btn-ghost">View Capabilities &rarr;</a>
-        </div>
-      </div>
+        <div class="cta-cluster">
+          <a href="#contact" class="btn-primary">Start Mission</a>
+          <a href="#services" class="btn-ghost">View Capabilities &rarr;</a>
+        </div>
+      </div>
 
-    </div><!-- /command-grid -->
+    </div><!-- /command-grid -->
 
-    <div class="hero-scroll" aria-hidden="true">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-  <!-- MISSION STRIPE -->
-  <div id="mission-stripe">
-    <div class="stripe-inner">
-      <span class="stripe-tag">// SITREP</span>
-      <span class="stripe-text">Mission Critical System &mdash; Essential to the survival of your business. When it fails, operations stop. Casey Keown doesn't fail.</span>
-    </div>
-  </div>
+  <!-- MISSION STRIPE -->
+  <div id="mission-stripe">
+    <div class="stripe-inner">
+      <span class="stripe-tag">// SITREP</span>
+      <span class="stripe-text">Mission Critical System &mdash; Essential to the survival of your business. When it fails, operations stop. Casey Keown doesn't fail.</span>
+    </div>
+  </div>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="services-header reveal">
-      <div class="section-eyebrow">
-        <span class="eyebrow-num">// MISSION ASSETS — 01</span>
-        <div class="eyebrow-line"></div>
-      </div>
-      <h2 class="section-title">CORE<br/>CAPABILITIES</h2>
-    </div>
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header reveal">
+      <div class="section-eyebrow">
+        <span class="eyebrow-num">// MISSION ASSETS — 01</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title">CORE<br/>CAPABILITIES</h2>
+    </div>
 
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
-        <span class="service-idx">// 01 — FRONT-END</span>
-        <h3 class="service-name">FRONT-END<br/>DEVELOPMENT</h3>
-        <p class="service-desc">Crafting the user-facing layer with semantic HTML, modern CSS, and JavaScript. Component frameworks including React and Vue for scalable, maintainable interfaces built to last.</p>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.07s">
-        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
-        <span class="service-idx">// 02 — BACK-END</span>
-        <h3 class="service-name">BACK-END &amp;<br/>DATABASES</h3>
-        <p class="service-desc">Server-side logic, REST API design, and database architecture using Node.js, Python, and MongoDB — purpose-built to the requirements of each mission, not a templated stack.</p>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.04s">
-        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
-        <span class="service-idx">// 03 — PLATFORMS</span>
-        <h3 class="service-name">PLATFORM<br/>CUSTOMIZATION</h3>
-        <p class="service-desc">Deep customization on CMS and commerce platforms including WordPress, Shopify, and Webflow. Theme development, plugin integration, and workflow optimization done right.</p>
-      </div>
-      <div class="service-card reveal" style="transition-delay:.11s">
-        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
-        <span class="service-idx">// 04 — PERFORMANCE</span>
-        <h3 class="service-name">MAINTENANCE<br/>&amp; SEO</h3>
-        <p class="service-desc">Fast load times, mobile-first design, Core Web Vitals compliance, and on-page SEO fundamentals. Sites that perform as well as they look, and rank as well as they perform.</p>
-      </div>
-    </div>
-  </section>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
+        <span class="service-idx">// 01 — FRONT-END</span>
+        <h3 class="service-name">FRONT-END<br/>DEVELOPMENT</h3>
+        <p class="service-desc">Crafting the user-facing layer with semantic HTML, modern CSS, and JavaScript. Component frameworks including React and Vue for scalable, maintainable interfaces built to last.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.07s">
+        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
+        <span class="service-idx">// 02 — BACK-END</span>
+        <h3 class="service-name">BACK-END &amp;<br/>DATABASES</h3>
+        <p class="service-desc">Server-side logic, REST API design, and database architecture using Node.js, Python, and MongoDB — purpose-built to the requirements of each mission, not a templated stack.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.04s">
+        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
+        <span class="service-idx">// 03 — PLATFORMS</span>
+        <h3 class="service-name">PLATFORM<br/>CUSTOMIZATION</h3>
+        <p class="service-desc">Deep customization on CMS and commerce platforms including WordPress, Shopify, and Webflow. Theme development, plugin integration, and workflow optimization done right.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.11s">
+        <div class="encrypt-overlay"><div class="encrypt-stream"></div></div>
+        <span class="service-idx">// 04 — PERFORMANCE</span>
+        <h3 class="service-name">MAINTENANCE<br/>&amp; SEO</h3>
+        <p class="service-desc">Fast load times, mobile-first design, Core Web Vitals compliance, and on-page SEO fundamentals. Sites that perform as well as they look, and rank as well as they perform.</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- PHILOSOPHY -->
-  <section id="philosophy">
-    <div class="philosophy-inner">
-      <div class="philosophy-figure reveal">
-        <img src="drummer.png" alt="Mission Ready" class="phil-army-img" onerror="this.style.display='none'" />
-      </div>
-      <div class="philosophy-content reveal" style="transition-delay:.12s">
-        <div class="section-eyebrow" style="margin-bottom:.8rem">
-          <span class="eyebrow-num">// MISSION DOCTRINE — 02</span>
-        </div>
-        <h2 class="phil-headline">
-          NO OBSTACLE.<br/>
-          <span class="ph-org">NO EXCUSE.</span><br/>
-          MISSION COMPLETE.
-        </h2>
-        <div class="phil-body">
-          <p>They were one of my favorite toys growing up. But there's a deeper reason behind the army man.</p>
-          <p>My child grew up watching Toy Story — and to me, the green army men are some of the most underrated, inspiring characters in the movie. No matter the obstacle, they complete the mission. When one of their own gets knocked down, they don't quit or make excuses. They pick him up, regroup, and keep moving forward.</p>
-          <p>That mindset means something to me.</p>
-          <div class="field-intel">
-            <p>When you work with Casey Keown, that's the kind of work ethic you can expect.<br/>
-            Mission-focused. Reliable. No excuses. We get the job done.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="philosophy-inner">
+      <div class="philosophy-figure reveal">
+        <img src="drummer.png" alt="Mission Ready" class="phil-army-img" onerror="this.style.display='none'" />
+      </div>
+      <div class="philosophy-content reveal" style="transition-delay:.12s">
+        <div class="section-eyebrow" style="margin-bottom:.8rem">
+          <span class="eyebrow-num">// MISSION DOCTRINE — 02</span>
+        </div>
+        <h2 class="phil-headline">
+          NO OBSTACLE.<br/>
+          <span class="ph-org">NO EXCUSE.</span><br/>
+          MISSION COMPLETE.
+        </h2>
+        <div class="phil-body">
+          <p>They were one of my favorite toys growing up. But there's a deeper reason behind the army man.</p>
+          <p>My child grew up watching Toy Story — and to me, the green army men are some of the most underrated, inspiring characters in the movie. No matter the obstacle, they complete the mission. When one of their own gets knocked down, they don't quit or make excuses. They pick him up, regroup, and keep moving forward.</p>
+          <p>That mindset means something to me.</p>
+          <div class="field-intel">
+            <p>When you work with Casey Keown, that's the kind of work ethic you can expect.<br/>
+            Mission-focused. Reliable. No excuses. We get the job done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- ─── About / Operator File ─────────────────────────────────── -->
-<section id="about">
-  <div class="about-inner">
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-left reveal">
+        <div class="section-eyebrow">
+          <span class="eyebrow-num">// INTEL — 03</span>
+        </div>
+        <h2>OPERATOR<br/>FILE</h2>
+        <span class="status-badge">ACTIVE OPERATOR</span>
+      </div>
+      <div class="about-body reveal" style="transition-delay:.12s">
+        <p>Most developers have technical training. Casey adds something less common: the ability to perform under pressure, interpret complex systems quickly, and deliver dependable results in situations where ambiguity cannot be ignored.</p>
+        <p><strong>Seven years in law enforcement</strong> analyzing digital forensic data, rebuilding timelines from fragmented information, and explaining technical findings to audiences without technical backgrounds. The work depended on the same standards expected in strong software development: rigor, clarity, and full accountability for outcomes.</p>
+        <p>Web development was the starting point. Investigative work refined the process. The result is a freelance practice grounded in precision, direct communication, and work that is built to hold under scrutiny.</p>
+      </div>
+    </div>
+  </section>
 
-    <div class="about-label-col reveal">
-      <span class="intel-marker">// Intel — 02</span>
-      <h2>Operator<br />File</h2>
-      <span class="status-chip">
-        <span class="status-dot" aria-hidden="true"></span>
-        Status · Active Operator
-      </span>
-    </div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <div class="section-eyebrow" style="margin-bottom:.8rem">
+          <span class="eyebrow-num">// COMMS — 04</span>
+        </div>
+        <h2>INITIATE<br/><span>CONTACT</span></h2>
+        <p>Share your project details and I'll respond within one business day.</p>
+        <span class="c-detail">// Secure Channel</span>
+        <a href="mailto:me@caseykeown.com">me@caseykeown.com</a>
+        <span class="c-detail">// Theater of Operations</span>
+        <a href="#hero" id="theater-anchor">Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt &amp; Nelson Counties — Louisville Metro</a>
+        <div class="fb-embed-wrap">
+          <iframe
+            src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D122095893081361558%26id%3D61590846744430%26substory_index%3D2926127644399012&show_text=true&width=500"
+            style="border:none;overflow:hidden;display:block;width:100%;height:534px;"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          ></iframe>
+        </div>
+      </div>
 
-    <div class="about-body operator-file reveal" style="transition-delay:.12s">
-      <div class="file-header">
-        <span>Operator File · CK-01</span>
-        <span>Clearance · Public</span>
-        <span>Sector · Central KY</span>
-      </div>
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="form-panel">
+          <form action="https://formsubmit.co/4e44f783c323d3776a8aea2157f2e229" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New Project Inquiry — CaseyKeown.dev" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-field">
+                <label for="business">Business Name</label>
+                <input type="text" id="business" name="business_name" placeholder="Acme Co." />
+              </div>
+              <div class="form-field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="(270) 555-0100" />
+              </div>
+              <div class="form-field full-width">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="123 Main St, Elizabethtown, KY" />
+              </div>
+              <div class="form-field">
+                <label for="budget">Estimated Budget</label>
+                <input type="text" id="budget" name="budget" placeholder="$100 – $1,000" />
+              </div>
+              <div class="form-field">
+                <label for="timeline">Timeline Needed</label>
+                <select id="timeline" name="timeline" required>
+                  <option value="" disabled selected>Select timeframe</option>
+                  <option value="1-2 weeks">1–2 Weeks</option>
+                  <option value="3-5 weeks">3–5 Weeks</option>
+                  <option value="6+ weeks">6+ Weeks</option>
+                </select>
+              </div>
+              <div class="form-field full-width">
+                <div class="checkbox-field">
+                  <label>Own a Domain?</label>
+                  <div class="toggle-group">
+                    <label class="toggle-label"><input type="radio" name="owns_domain" value="Yes" /> Yes</label>
+                    <label class="toggle-label"><input type="radio" name="owns_domain" value="No" checked /> No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-submit-row">
+              <span class="form-note">// Your information is never shared or sold.</span>
+              <button type="submit" class="btn-submit">Transmit</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-      <span class="file-kicker">// Capability</span>
-      <p>Most developers have technical training. Casey brings something less common: the ability to perform under pressure, interpret complex systems at speed, and deliver dependable results in conditions where ambiguity cannot be ignored.</p>
+    </div>
+  </section>
 
-      <span class="file-kicker">// Field Record</span>
-      <p>Seven years of active law enforcement service, analyzing digital forensic extractions, rebuilding timelines from fragmented data, and translating technical findings for audiences with no technical background. The standards that govern that work are the same ones that govern the code: rigor, clarity, and full accountability for every outcome.</p>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo-wrap">
+        <img src="ck-logo.png" alt="CK" class="footer-logo-img" onerror="this.style.display='none'" />
+        <span class="footer-logo-text">CASEY KEOWN</span>
+      </div>
+      <span class="footer-copy">&copy; <span id="yr"></span> CASEY KEOWN // ALL RIGHTS RESERVED // me@caseykeown.com</span>
+      <div class="footer-links">
+        <a href="#hero">Top</a>
+        <a href="#services">Capabilities</a>
+        <a href="#philosophy">Mission</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+  </footer>
 
-      <span class="file-kicker">// Operating Model</span>
-      <p>This practice is law enforcement owned and operated. Web development was the starting point. Investigative work refined the process. The result is a freelance operation built on precision, direct communication, and work engineered to hold under scrutiny.</p>
-    </div>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
 
-  </div>
-</section>
+    const header = document.getElementById('site-header');
+    const ticker = document.getElementById('hud-ticker');
+    const toggle = document.getElementById('menu-toggle');
+    const nav    = document.getElementById('primary-nav');
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-inner">
-      <div class="contact-info reveal">
-        <div class="section-eyebrow" style="margin-bottom:.8rem">
-          <span class="eyebrow-num">// COMMS — 04</span>
-        </div>
-        <h2>INITIATE<br/><span>CONTACT</span></h2>
-        <p>Share your project details and I'll respond within one business day.</p>
-        <span class="c-detail">// Secure Channel</span>
-        <a href="mailto:me@caseykeown.com">me@caseykeown.com</a>
-        <span class="c-detail">// Theater of Operations</span>
-        <a href="#hero" id="theater-anchor">Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt &amp; Nelson Counties — Louisville Metro</a>
-        <div class="fb-embed-wrap">
-          <iframe
-            src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D122095893081361558%26id%3D61590846744430%26substory_index%3D2926127644399012&show_text=true&width=500"
-            style="border:none;overflow:hidden;display:block;width:100%;height:534px;"
-            scrolling="no"
-            frameborder="0"
-            allowfullscreen="true"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          ></iframe>
-        </div>
-      </div>
+    function getTickerH() { return ticker.offsetHeight; }
 
-      <div class="reveal" style="transition-delay:.1s">
-        <div class="form-panel">
-          <form action="https://formsubmit.co/4e44f783c323d3776a8aea2157f2e229" method="POST" novalidate>
-            <input type="hidden" name="_subject" value="New Project Inquiry — CaseyKeown.dev" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Jane Smith" required />
-              </div>
-              <div class="form-field">
-                <label for="business">Business Name</label>
-                <input type="text" id="business" name="business_name" placeholder="Acme Co." />
-              </div>
-              <div class="form-field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="jane@example.com" required />
-              </div>
-              <div class="form-field">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="(270) 555-0100" />
-              </div>
-              <div class="form-field full-width">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="123 Main St, Elizabethtown, KY" />
-              </div>
-              <div class="form-field">
-                <label for="budget">Estimated Budget</label>
-                <input type="text" id="budget" name="budget" placeholder="$100 – $1,000" />
-              </div>
-              <div class="form-field">
-                <label for="timeline">Timeline Needed</label>
-                <select id="timeline" name="timeline" required>
-                  <option value="" disabled selected>Select timeframe</option>
-                  <option value="1-2 weeks">1–2 Weeks</option>
-                  <option value="3-5 weeks">3–5 Weeks</option>
-                  <option value="6+ weeks">6+ Weeks</option>
-                </select>
-              </div>
-              <div class="form-field full-width">
-                <div class="checkbox-field">
-                  <label>Own a Domain?</label>
-                  <div class="toggle-group">
-                    <label class="toggle-label"><input type="radio" name="owns_domain" value="Yes" /> Yes</label>
-                    <label class="toggle-label"><input type="radio" name="owns_domain" value="No" checked /> No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-submit-row">
-              <span class="form-note">// Your information is never shared or sold.</span>
-              <button type="submit" class="btn-submit">Transmit</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    function updateHeader() {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+        header.style.top = '0';
+      } else {
+        header.classList.remove('scrolled');
+        header.style.top = getTickerH() + 'px';
+      }
+    }
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('resize', updateHeader, { passive: true });
 
-    </div>
-  </section>
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+  <script>
+    /* Match fb embed width to theater anchor */
+    (function() {
+      function matchEmbedWidth() {
+        const anchor = document.getElementById('theater-anchor');
+        const wrap = document.querySelector('.fb-embed-wrap');
+        if (anchor && wrap) {
+          wrap.style.width = anchor.offsetWidth + 'px';
+        }
+      }
+      window.addEventListener('load', matchEmbedWidth);
+      window.addEventListener('resize', matchEmbedWidth);
+    })();
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo-wrap">
-        <img src="ck-logo.png" alt="CK" class="footer-logo-img" onerror="this.style.display='none'" />
-        <span class="footer-logo-text">CASEY KEOWN</span>
-      </div>
-      <span class="footer-copy">&copy; <span id="yr"></span> CASEY KEOWN // ALL RIGHTS RESERVED // me@caseykeown.com</span>
-      <div class="footer-links">
-        <a href="#hero">Top</a>
-        <a href="#services">Capabilities</a>
-        <a href="#philosophy">Mission</a>
-        <a href="#contact">Contact</a>
-        <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-  </footer>
+    /* ── Mobile hamburger nav ── */
+    (function() {
+      const toggle = document.getElementById('menu-toggle');
+      const nav = document.getElementById('primary-nav');
+      const body = document.body;
+      if (!toggle || !nav) return;
 
-  <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
+      function setOpen(open) {
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        nav.classList.toggle('open', open);
+        body.classList.toggle('menu-open', open);
+      }
 
-       const header = document.getElementById('site-header');
+      function isOpen() {
+        return toggle.getAttribute('aria-expanded') === 'true';
+      }
 
-    function updateHeader() {
-      header.classList.toggle('scrolled', window.scrollY > 40);
-    }
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setOpen(!isOpen());
+      });
 
+      // Close on any nav link click
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setOpen(false));
+      });
 
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    reveals.forEach(el => io.observe(el));
-  </script>
-  <script>
-    /* Match fb embed width to theater anchor */
-    (function() {
-      function matchEmbedWidth() {
-        const anchor = document.getElementById('theater-anchor');
-        const wrap = document.querySelector('.fb-embed-wrap');
-        if (anchor && wrap) {
-          wrap.style.width = anchor.offsetWidth + 'px';
-        }
-      }
-      window.addEventListener('load', matchEmbedWidth);
-      window.addEventListener('resize', matchEmbedWidth);
-    })();
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen()) {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
 
-    /* ── Mobile hamburger nav ── */
-    (function() {
-      const toggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('primary-nav');
-      const body = document.body;
-      if (!toggle || !nav) return;
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (!isOpen()) return;
+        if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+          setOpen(false);
+        }
+      });
 
-      function setOpen(open) {
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        nav.classList.toggle('open', open);
-        body.classList.toggle('menu-open', open);
-      }
+      // Close if window expands beyond mobile breakpoint
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 600 && isOpen()) setOpen(false);
+      });
+    })();
 
-      function isOpen() {
-        return toggle.getAttribute('aria-expanded') === 'true';
-      }
+    /* ── Service card encryption hover effect ── */
+    (function() {
+      const CHARS = '01';
+      const DENSITY = 60; // characters per line approx
+      const LINES = 8;
+      const FRAME_MS = 45;
 
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setOpen(!isOpen());
-      });
+      function buildStream() {
+        let out = '';
+        for (let l = 0; l < LINES; l++) {
+          let line = '';
+          const len = DENSITY + Math.floor(Math.random() * 20);
+          for (let c = 0; c < len; c++) {
+            line += CHARS[Math.floor(Math.random() * CHARS.length)];
+            if (Math.random() < 0.12) line += ' ';
+          }
+          out += line + '\n';
+        }
+        return out;
+      }
 
-      // Close on any nav link click
-      nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => setOpen(false));
-      });
+      function scramble(stream) {
+        return stream.replace(/[01]/g, ch => Math.random() < 0.15 ? CHARS[Math.floor(Math.random() * 2)] : ch);
+      }
 
-      // Close on Escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isOpen()) {
-          setOpen(false);
-          toggle.focus();
-        }
-      });
+      const cards = document.querySelectorAll('.service-card');
 
-      // Close on outside click
-      document.addEventListener('click', (e) => {
-        if (!isOpen()) return;
-        if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-          setOpen(false);
-        }
-      });
+      cards.forEach(card => {
+        const overlay = card.querySelector('.encrypt-overlay');
+        const streamEl = card.querySelector('.encrypt-stream');
+        let interval = null;
+        let currentStream = '';
 
-      // Close if window expands beyond mobile breakpoint
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 600 && isOpen()) setOpen(false);
-      });
-    })();
+        card.addEventListener('mouseenter', () => {
+          card.classList.add('encrypting');
+          currentStream = buildStream();
+          streamEl.textContent = currentStream;
+          interval = setInterval(() => {
+            currentStream = scramble(currentStream);
+            streamEl.textContent = currentStream;
+          }, FRAME_MS);
+        });
 
-    /* ── Service card encryption hover effect ── */
-    (function() {
-      const CHARS = '01';
-      const DENSITY = 60; // characters per line approx
-      const LINES = 8;
-      const FRAME_MS = 45;
-
-      function buildStream() {
-        let out = '';
-        for (let l = 0; l < LINES; l++) {
-          let line = '';
-          const len = DENSITY + Math.floor(Math.random() * 20);
-          for (let c = 0; c < len; c++) {
-            line += CHARS[Math.floor(Math.random() * CHARS.length)];
-            if (Math.random() < 0.12) line += ' ';
-          }
-          out += line + '\n';
-        }
-        return out;
-      }
-
-      function scramble(stream) {
-        return stream.replace(/[01]/g, ch => Math.random() < 0.15 ? CHARS[Math.floor(Math.random() * 2)] : ch);
-      }
-
-      const cards = document.querySelectorAll('.service-card');
-
-      cards.forEach(card => {
-        const overlay = card.querySelector('.encrypt-overlay');
-        const streamEl = card.querySelector('.encrypt-stream');
-        let interval = null;
-        let currentStream = '';
-
-        card.addEventListener('mouseenter', () => {
-          card.classList.add('encrypting');
-          currentStream = buildStream();
-          streamEl.textContent = currentStream;
-          interval = setInterval(() => {
-            currentStream = scramble(currentStream);
-            streamEl.textContent = currentStream;
-          }, FRAME_MS);
-        });
-
-        card.addEventListener('mouseleave', () => {
-          card.classList.remove('encrypting');
-          clearInterval(interval);
-          interval = null;
-        });
-      });
-    })();
-  </script>
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('encrypting');
+          clearInterval(interval);
+          interval = null;
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
-
