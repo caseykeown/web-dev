@@ -197,7 +197,7 @@
       pointer-events: none;
       z-index: 1;
       opacity: 0.18;
-      background-image: url('https://imgs.search.brave.com/FgOJQc8U28qS3khtQ6D7TB1OEq6bIjfFdiX1jWKkGbs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNTMv/NTM2Lzk3Ni9zbWFs/bC9jYW1vdWZsYWdl/LXBhdHRlcm4tYmFj/a2dyb3VuZC1jbGFz/c2ljLWNsb3RoaW5n/LXN0eWxlLW1hc2tp/bmctY2Ftby1yZXBl/YXQtcHJpbnQtdmly/dHVhbC1iYWNrZ3Jv/dW5kLWZvci1vbmxp/bmUtY29uZmVyZW5j/ZXMtdmVjdG9yLmpw/Zw');
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
       background-repeat: repeat;
       background-size: 900px 600px;
       background-position: center;
@@ -1009,10 +1009,15 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 0 L56 16 L56 50 L28 66 L0 50 L0 16 Z' fill='none' stroke='%231F2A1F' stroke-width='0.6'/%3E%3Cpath d='M28 66 L56 50 L56 84 L28 100 L0 84 L0 50 Z' fill='none' stroke='%231F2A1F' stroke-width='0.6'/%3E%3C/svg%3E");
-      background-size: 56px 100px;
-      opacity: 0.3;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: grayscale(1) brightness(0.2) contrast(1.5);
+      opacity: 0.15;
+      mix-blend-mode: multiply;
       pointer-events: none;
+      z-index: 0;
     }
 
     .contact-inner {
