@@ -26,7 +26,7 @@
       --org-dk:      #B84E0E;
       --org-dim:     rgba(230,106,26,0.12);
       --clean-white: #F5F5F5;
-      --ghost:       rgba(245,245,245,0.5);
+      --ghost:       rgba(245,245,245,0.7);
       --ghost-dim:   rgba(245,245,245,0.2);
       --ghost-faint: rgba(245,245,245,0.08);
 
@@ -58,6 +58,12 @@
       overflow-x: hidden;
       cursor: crosshair;
     }
+    /* Explicit cursor states for accessibility */
+    a, button, [role="button"], .nav-cta, .btn-primary, .btn-ghost, .btn-submit,
+    .toggle-label, .toggle-label input, .service-card { cursor: pointer; }
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea { cursor: text; }
+    select { cursor: pointer; }
+
 
     ::selection { background: var(--mission-org); color: var(--cmd-black); }
 
@@ -190,30 +196,13 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.07;
-      background-image:
-        radial-gradient(ellipse 80px 50px at 8% 15%, var(--camo-blk) 80%, transparent),
-        radial-gradient(ellipse 110px 65px at 22% 8%, var(--camo-rust) 70%, transparent),
-        radial-gradient(ellipse 55px 85px at 35% 25%, var(--camo-blk) 75%, transparent),
-        radial-gradient(ellipse 95px 45px at 50% 10%, var(--camo-dkgr) 65%, transparent),
-        radial-gradient(ellipse 70px 75px at 63% 20%, var(--camo-blk) 80%, transparent),
-        radial-gradient(ellipse 120px 55px at 78% 7%, var(--camo-tan) 60%, transparent),
-        radial-gradient(ellipse 50px 90px at 90% 22%, var(--camo-blk) 75%, transparent),
-        radial-gradient(ellipse 100px 60px at 12% 42%, var(--camo-dkgr) 65%, transparent),
-        radial-gradient(ellipse 60px 80px at 27% 55%, var(--camo-blk) 78%, transparent),
-        radial-gradient(ellipse 115px 50px at 44% 38%, var(--camo-tan) 60%, transparent),
-        radial-gradient(ellipse 75px 65px at 58% 48%, var(--camo-rust) 68%, transparent),
-        radial-gradient(ellipse 55px 85px at 72% 35%, var(--camo-blk) 78%, transparent),
-        radial-gradient(ellipse 90px 55px at 86% 50%, var(--camo-dkgr) 62%, transparent),
-        radial-gradient(ellipse 65px 70px at 5% 68%, var(--camo-blk) 80%, transparent),
-        radial-gradient(ellipse 100px 50px at 18% 78%, var(--camo-tan) 58%, transparent),
-        radial-gradient(ellipse 80px 65px at 34% 70%, var(--camo-rust) 66%, transparent),
-        radial-gradient(ellipse 55px 80px at 50% 82%, var(--camo-blk) 78%, transparent),
-        radial-gradient(ellipse 105px 55px at 66% 72%, var(--camo-dkgr) 62%, transparent),
-        radial-gradient(ellipse 70px 75px at 80% 65%, var(--camo-blk) 75%, transparent),
-        radial-gradient(ellipse 90px 50px at 94% 80%, var(--camo-tan) 60%, transparent);
-      background-color: var(--camo-dkgr);
-      background-size: 600px 400px;
+      opacity: 0.18;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-repeat: repeat;
+      background-size: 900px 600px;
+      background-position: center;
+      filter: brightness(0.35) contrast(1.1) saturate(0.7);
+      mix-blend-mode: multiply;
     }
 
     /* Vignette */
@@ -421,19 +410,12 @@
       inset: -20px -40px 0;
       pointer-events: none;
       z-index: 1;
-      background-image:
-        radial-gradient(ellipse 70px 45px at 15% 20%, var(--camo-blk) 75%, transparent),
-        radial-gradient(ellipse 95px 55px at 35% 10%, var(--camo-rust) 65%, transparent),
-        radial-gradient(ellipse 60px 75px at 55% 25%, var(--camo-blk) 70%, transparent),
-        radial-gradient(ellipse 85px 40px at 75% 15%, var(--camo-dkgr) 60%, transparent),
-        radial-gradient(ellipse 50px 80px at 88% 30%, var(--camo-blk) 72%, transparent),
-        radial-gradient(ellipse 100px 50px at 20% 55%, var(--camo-dkgr) 58%, transparent),
-        radial-gradient(ellipse 65px 70px at 45% 60%, var(--camo-blk) 72%, transparent),
-        radial-gradient(ellipse 90px 45px at 65% 50%, var(--camo-tan) 55%, transparent),
-        radial-gradient(ellipse 75px 60px at 82% 65%, var(--camo-blk) 70%, transparent);
-      background-color: var(--camo-dkgr);
-      background-size: 300px 220px;
-      opacity: 0.22;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-repeat: repeat;
+      background-size: 600px 400px;
+      background-position: center;
+      filter: brightness(0.4) saturate(0.6);
+      opacity: 0.4;
       mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, black 20%, transparent 75%);
       -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, black 20%, transparent 75%);
     }
@@ -456,7 +438,7 @@
       height: clamp(220px, 26vw, 380px);
       object-fit: cover;
       border-radius: 50%;
-      opacity: 0.82;
+      opacity: 0.5;
       position: relative;
       z-index: 3;
       border: 2px solid rgba(230,106,26,0.25);
@@ -949,20 +931,13 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(ellipse 80px 55px at 5% 20%, var(--camo-blk) 78%, transparent),
-        radial-gradient(ellipse 110px 65px at 20% 10%, var(--camo-rust) 65%, transparent),
-        radial-gradient(ellipse 70px 90px at 38% 30%, var(--camo-blk) 72%, transparent),
-        radial-gradient(ellipse 100px 50px at 60% 12%, var(--camo-dkgr) 62%, transparent),
-        radial-gradient(ellipse 80px 80px at 78% 25%, var(--camo-blk) 70%, transparent),
-        radial-gradient(ellipse 120px 55px at 92% 15%, var(--camo-tan) 58%, transparent),
-        radial-gradient(ellipse 90px 70px at 15% 60%, var(--camo-blk) 72%, transparent),
-        radial-gradient(ellipse 75px 85px at 48% 65%, var(--camo-rust) 65%, transparent),
-        radial-gradient(ellipse 105px 55px at 70% 55%, var(--camo-blk) 70%, transparent),
-        radial-gradient(ellipse 85px 70px at 88% 68%, var(--camo-dkgr) 60%, transparent);
-      background-color: var(--camo-dkgr);
-      background-size: 500px 350px;
-      opacity: 0.07;
+      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/camo.webp');
+      background-repeat: repeat;
+      background-size: 800px 550px;
+      background-position: center;
+      filter: brightness(0.3) saturate(0.6);
+      opacity: 0.15;
+      mix-blend-mode: multiply;
       pointer-events: none;
     }
 
@@ -1199,7 +1174,23 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .cta-cluster { flex-direction: column; align-items: flex-start; }
     }
-  </style>
+  
+    /* ═══════════════════════════════════════════════════════════════
+       REDUCED MOTION — accessibility fallback
+    ═══════════════════════════════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none !important; }
+      .s-ping, .hero-label::before, .status-badge::before { animation: none !important; opacity: 1 !important; }
+      .scroll-line::after { animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+</style>
 </head>
 <body>
 
