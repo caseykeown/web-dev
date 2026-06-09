@@ -124,7 +124,7 @@
     }
 
     .logo-wrap { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
-    .logo-img { width: 38px; height: 38px; object-fit: contain; }
+    .logo-img { width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(230,106,26,0.85)) drop-shadow(0 0 14px rgba(230,106,26,0.45)); }
     .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
     .logo-name { font-family: var(--disp); font-size: 1.35rem; letter-spacing: 0.08em; color: var(--clean-white); }
     .logo-sub  { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.2em; color: var(--mission-org); text-transform: uppercase; }
@@ -449,13 +449,18 @@
     }
 
     .army-man-img {
-      width: clamp(220px, 26vw, 400px);
-      height: auto;
+      width: clamp(220px, 26vw, 380px);
+      height: clamp(220px, 26vw, 380px);
+      object-fit: cover;
+      border-radius: 50%;
+      opacity: 0.82;
       position: relative;
       z-index: 3;
-      filter:
-        drop-shadow(0 0 40px rgba(230,106,26,0.18))
-        drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+      border: 2px solid rgba(230,106,26,0.25);
+      box-shadow:
+        0 0 0 6px rgba(230,106,26,0.06),
+        0 0 40px rgba(230,106,26,0.15),
+        0 30px 60px rgba(0,0,0,0.8);
     }
 
     /* Target reticle overlay */
@@ -1236,7 +1241,7 @@
   <!-- HEADER -->
   <header id="site-header">
     <a href="#hero" class="logo-wrap">
-      <img src="ck-logo.png" alt="CK" class="logo-img" onerror="this.style.display='none'" />
+      <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo-white.png" alt="CK" class="logo-img" onerror="this.style.display='none'" />
       <div class="logo-text">
         <span class="logo-name">CASEY KEOWN</span>
         <span class="logo-sub">Mission Critical Web Development</span>
@@ -1324,7 +1329,7 @@
           <div class="army-camo-fade"></div>
           <div class="army-glow"></div>
           <div class="target-ring"></div>
-          <img src="drummer.png" alt="Mission Ready" class="army-man-img" onerror="this.style.display='none'" />
+          <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/operator.png" alt="Mission Ready" class="army-man-img" onerror="this.style.display='none'" />
           <span class="cmd-tagline">"WHEN FAILURE ISN'T AN OPTION"</span>
         </div>
       </div>
