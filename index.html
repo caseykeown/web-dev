@@ -298,7 +298,7 @@
       gap: 3rem;
       align-items: end;
       min-height: 70vh;
-      padding-bottom: 3.5rem;
+      padding-bottom: 5.5rem;
     }
 
     /* ── LEFT COLUMN ── */
@@ -312,12 +312,15 @@
       position: relative;
     }
     .cmd-logo-img {
-      width: clamp(100px, 14vw, 180px);
+      width: clamp(60px, 7vw, 90px);
       height: auto;
       object-fit: contain;
       display: block;
-      margin-bottom: 1.4rem;
-      filter: drop-shadow(0 0 20px rgba(230,106,26,0.25));
+      margin-bottom: 1rem;
+      margin-top: -1.5rem;
+      filter:
+        drop-shadow(0 0 10px rgba(230,106,26,0.7))
+        drop-shadow(0 0 22px rgba(230,106,26,0.35));
     }
     .cmd-logo-name {
       font-family: var(--disp);
@@ -496,7 +499,7 @@
     /* Tagline below army man */
     .cmd-tagline {
       position: absolute;
-      bottom: -2.8rem;
+      bottom: -2.2rem;
       left: 50%;
       transform: translateX(-50%);
       white-space: nowrap;
@@ -664,7 +667,7 @@
     /* Scroll hint */
     .hero-scroll {
       position: absolute;
-      bottom: 1.8rem;
+      bottom: 1.2rem;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -1290,7 +1293,7 @@
       <!-- LEFT: Identity -->
       <div class="cmd-left reveal">
         <div class="cmd-logo-block">
-          <img src="ck-logo.png" alt="Casey Keown" class="cmd-logo-img" onerror="this.style.display='none'" />
+          <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo-white.png" alt="Casey Keown" class="cmd-logo-img" onerror="this.style.display='none'" />
           <span class="cmd-logo-name">CASEY KEOWN</span>
           <span class="cmd-logo-title">Custom Web Architecture</span>
           <div class="cmd-divider"></div>
