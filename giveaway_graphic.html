@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Giveaway Graphic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Share+Tech+Mono&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .card {
+    width: 1200px;
+    height: 628px;
+    background: #0A0A0A;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  /* ── Camo texture overlay ── */
+  .camo-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url('/mnt/user-data/uploads/IMG_2502.jpeg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.06;
+    z-index: 0;
+  }
+
+  /* ── Stars / flag texture top strip ── */
+  .flag-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #B22234 0%, #B22234 33%, #FFFFFF 33%, #FFFFFF 66%, #3C3B6E 66%, #3C3B6E 100%);
+    z-index: 10;
+  }
+
+  /* ── HUD scan line ── */
+  .scanline {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(230, 106, 26, 0.012) 2px,
+      rgba(230, 106, 26, 0.012) 4px
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ── Corner brackets ── */
+  .corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    z-index: 5;
+    border-color: #E66A1A;
+    border-style: solid;
+  }
+  .corner.tl { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
+  .corner.tr { top: 16px; right: 16px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: 16px; left: 16px; border-width: 0 0 2px 2px; }
+  .corner.br { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+
+  /* ── HUD ticker top ── */
+  .ticker {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    height: 26px;
+    background: rgba(230, 106, 26, 0.92);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 8;
+    overflow: hidden;
+  }
+  .ticker-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    color: #0A0A0A;
+    white-space: nowrap;
+  }
+
+  /* ── Status bar bottom ── */
+  .status-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: rgba(10,10,10,0.97);
+    border-top: 1px solid rgba(230,106,26,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 8;
+  }
+  .status-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: rgba(245,245,245,0.4);
+  }
+  .status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #E66A1A;
+    margin-right: 6px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── Main layout ── */
+  .main {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    height: 100%;
+    padding: 30px 40px 34px 40px;
+    padding-top: 42px;
+  }
+
+  /* ── Left column ── */
+  .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 40px;
+  }
+
+  .mission-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: #E66A1A;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mission-label::before {
+    content: '//';
+    opacity: 0.5;
+  }
+
+  .headline-free {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    line-height: 0.88;
+    color: #E66A1A;
+    letter-spacing: 0.01em;
+    text-shadow: 0 0 60px rgba(230,106,26,0.25);
+  }
+
+  .headline-website {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 68px;
+    line-height: 0.95;
+    color: #F5F5F5;
+    letter-spacing: 0.02em;
+  }
+
+  .divider-line {
+    width: 60px;
+    height: 2px;
+    background: #E66A1A;
+    margin: 18px 0;
+  }
+
+  .sub-copy {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: rgba(245,245,245,0.55);
+    letter-spacing: 0.06em;
+    line-height: 1.65;
+    text-transform: uppercase;
+    max-width: 480px;
+  }
+  .sub-copy strong {
+    color: rgba(245,245,245,0.9);
+    font-weight: 600;
+  }
+
+  .entry-block {
+    margin-top: 22px;
+    background: rgba(230,106,26,0.08);
+    border: 1px solid rgba(230,106,26,0.3);
+    border-left: 3px solid #E66A1A;
+    padding: 14px 18px;
+    max-width: 480px;
+  }
+  .entry-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #E66A1A;
+    margin-bottom: 8px;
+  }
+  .entry-steps {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #F5F5F5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 2;
+  }
+  .entry-steps span {
+    color: #E66A1A;
+    margin-right: 6px;
+  }
+
+  /* ── Right column ── */
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Targeting reticle behind drummer */
+  .reticle {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(230,106,26,0.18);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -48%);
+  }
+  .reticle::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px dashed rgba(230,106,26,0.12);
+  }
+  .reticle-cross-h {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    right: -20px;
+    height: 1px;
+    background: rgba(230,106,26,0.1);
+  }
+  .reticle-cross-v {
+    position: absolute;
+    left: 50%;
+    top: -20px;
+    bottom: -20px;
+    width: 1px;
+    background: rgba(230,106,26,0.1);
+  }
+
+  .drummer-img {
+    width: 290px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 30px rgba(230,106,26,0.15));
+    margin-bottom: 4px;
+    margin-top: -10px;
+  }
+
+  .date-block {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+  }
+  .date-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: rgba(230,106,26,0.6);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .date-tag::before, .date-tag::after {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: rgba(230,106,26,0.3);
+  }
+
+  .draw-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: #F5F5F5;
+    letter-spacing: 0.08em;
+  }
+  .draw-date em {
+    color: #E66A1A;
+    font-style: normal;
+  }
+
+  .no-purchase {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 8.5px;
+    color: rgba(245,245,245,0.25);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  /* Stars decoration */
+  .stars-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .star {
+    color: #3C3B6E;
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  .star.orange { color: #E66A1A; opacity: 0.8; }
+
+  /* ── Logo watermark ── */
+  .logo-watermark {
+    position: absolute;
+    bottom: 34px;
+    left: 40px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.55;
+  }
+  .logo-watermark img {
+    width: 24px;
+    opacity: 0.7;
+    filter: invert(1);
+  }
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: rgba(245,245,245,0.5);
+  }
+
+  /* Vertical divider between columns */
+  .col-divider {
+    position: absolute;
+    top: 50px;
+    bottom: 40px;
+    right: 420px;
+    width: 1px;
+    background: rgba(230,106,26,0.12);
+    z-index: 5;
+  }
+
+  /* US flag stars subtle background right side */
+  .flag-stars-bg {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 80px;
+    color: rgba(60, 59, 110, 0.07);
+    z-index: 0;
+    line-height: 1;
+    letter-spacing: 4px;
+    pointer-events: none;
+    user-select: none;
+    font-family: serif;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- Background layers -->
+  <div class="camo-overlay"></div>
+  <div class="scanline"></div>
+  <div class="flag-stars-bg">★★★★★<br/>★★★★★<br/>★★★★★</div>
+
+  <!-- Top flag strip + ticker -->
+  <div class="flag-strip"></div>
+  <div class="ticker">
+    <span class="ticker-text">
+      OPERATION: FREE WEBSITE &nbsp;◆&nbsp; DRAWING DATE: JULY 4, 2026 &nbsp;◆&nbsp; OR UPON 250 ENTRIES — WHICHEVER COMES FIRST &nbsp;◆&nbsp; MISSION STATUS: ACTIVE &nbsp;◆&nbsp; caseykeown.com &nbsp;◆&nbsp; NO PURCHASE NECESSARY &nbsp;◆&nbsp; ENTER BELOW
+    </span>
+  </div>
+
+  <!-- Corner brackets -->
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- Column divider -->
+  <div class="col-divider"></div>
+
+  <!-- Main content -->
+  <div class="main">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div class="mission-label">MISSION BRIEF &nbsp;◆&nbsp; INDEPENDENCE DAY DEPLOYMENT</div>
+
+      <div class="headline-free">FREE</div>
+      <div class="headline-website">WEBSITE<br/>GIVEAWAY</div>
+
+      <div class="divider-line"></div>
+
+      <div class="sub-copy">
+        One business or individual receives a <strong>professionally built custom website</strong> — no purchase necessary. Law enforcement owned &amp; operated. Central Kentucky &amp; Louisville Metro.
+      </div>
+
+      <div class="entry-block">
+        <div class="entry-label">// ENTRY PROTOCOL</div>
+        <div class="entry-steps">
+          <span>01</span> Follow CASEY KEOWN | Custom Web Architecture<br/>
+          <span>02</span> Tag a business or friend in the comments
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <div class="reticle">
+        <div class="reticle-cross-h"></div>
+        <div class="reticle-cross-v"></div>
+      </div>
+
+      <img
+        class="drummer-img"
+        src="/mnt/user-data/uploads/IMG_2415.png"
+        alt="CK Drummer"
+      />
+
+      <div class="date-block">
+        <div class="date-tag">DRAWING DATE</div>
+        <div class="draw-date"><em>JULY 4,</em> 2026</div>
+        <div class="stars-row">
+          <span class="star">★</span>
+          <span class="star orange">★</span>
+          <span class="star">★</span>
+          <span class="star orange">★</span>
+          <span class="star">★</span>
+        </div>
+        <div class="no-purchase">OR AT 250 ENTRIES — WHICHEVER COMES FIRST &nbsp;◆&nbsp; NO PURCHASE NECESSARY</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Logo watermark -->
+  <div class="logo-watermark">
+    <img src="/mnt/user-data/uploads/IMG_2415.png" alt="" />
+    <span class="logo-text">CASEY KEOWN | CUSTOM WEB ARCHITECTURE</span>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span class="status-tag"><span class="status-dot"></span>SYSTEM STATUS: OPERATIONAL</span>
+    <span class="status-tag">caseykeown.com</span>
+    <span class="status-tag">MISSION TYPE: WEB ARCHITECTURE &nbsp;◆&nbsp; LAW ENFORCEMENT OWNED &amp; OPERATED</span>
+  </div>
+</div>
+</body>
+</html>
