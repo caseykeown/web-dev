@@ -1054,7 +1054,7 @@
       backdrop-filter: blur(4px);
     }
     .form-panel::before {
-      content: '// INITIATE CONTACT PROTOCOL';
+      content: '// REQUEST A QUOTE';
       display: block;
       font-family: var(--mono);
       font-size: 0.55rem;
@@ -1064,6 +1064,12 @@
       padding-bottom: 1rem;
       border-bottom: 1px solid rgba(85,107,77,0.3);
     }
+
+    .cta-copy { font-family: var(--cond); font-size: 0.95rem; color: var(--ghost); line-height: 1.8; margin-bottom: 1.8rem; max-width: 480px; }
+    .cta-btn { display: inline-flex; }
+    .cta-disclaimer { margin-top: 2.2rem; padding-top: 1.6rem; border-top: 1px solid rgba(85,107,77,0.3); }
+    .cta-disclaimer p { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.02em; line-height: 1.85; color: rgba(245,245,245,0.55); margin-bottom: 0.5rem; }
+    .cta-disclaimer p:last-child { margin-bottom: 0; }
 
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; }
 
@@ -1616,59 +1622,13 @@
 
       <div class="reveal" style="transition-delay:.1s">
         <div class="form-panel">
-          <form action="https://formsubmit.co/4e44f783c323d3776a8aea2157f2e229" method="POST" novalidate>
-            <input type="hidden" name="_subject" value="New Project Inquiry — CaseyKeown.dev" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Jane Smith" required />
-              </div>
-              <div class="form-field">
-                <label for="business">Business Name</label>
-                <input type="text" id="business" name="business_name" placeholder="Acme Co." />
-              </div>
-              <div class="form-field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="jane@example.com" required />
-              </div>
-              <div class="form-field">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="(270) 555-0100" />
-              </div>
-              <div class="form-field full-width">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="123 Main St, Elizabethtown, KY" />
-              </div>
-              <div class="form-field">
-                <label for="budget">Estimated Budget</label>
-                <input type="text" id="budget" name="budget" placeholder="$100 – $1,000" />
-              </div>
-              <div class="form-field">
-                <label for="timeline">Timeline Needed</label>
-                <select id="timeline" name="timeline" required>
-                  <option value="" disabled selected>Select timeframe</option>
-                  <option value="1-2 weeks">1–2 Weeks</option>
-                  <option value="3-5 weeks">3–5 Weeks</option>
-                  <option value="6+ weeks">6+ Weeks</option>
-                </select>
-              </div>
-              <div class="form-field full-width">
-                <div class="checkbox-field">
-                  <label>Own a Domain?</label>
-                  <div class="toggle-group">
-                    <label class="toggle-label"><input type="radio" name="owns_domain" value="Yes" /> Yes</label>
-                    <label class="toggle-label"><input type="radio" name="owns_domain" value="No" checked /> No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-submit-row">
-              <span class="form-note">// Your information is never shared or sold.</span>
-              <button type="submit" class="btn-submit">Transmit</button>
-            </div>
-          </form>
+          <p class="cta-copy">Submit your project brief, budget, and up to twenty reference photos through the secure intake form.</p>
+          <a href="https://caseykeown.com/leads" class="btn-primary cta-btn">Request a Quote</a>
+          <div class="cta-disclaimer">
+            <p>Quotes are valid for 30 days from the date issued. After 30 days, pricing is subject to change.</p>
+            <p>Payment is processed securely through Stripe.</p>
+            <p>All client information is encrypted in transit and at rest.</p>
+          </div>
         </div>
       </div>
 
