@@ -1,749 +1,655 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Submit a project brief to Casey Keown — Mission Critical Web Development. Serving Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt, and Nelson Counties and the Louisville Metro Area." />
-  <meta name="robots" content="noindex" />
-  <title>Submit a Project | Casey Keown | Mission Critical Web Development</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tell Casey Keown about your website project. Submit your goals, timeline, budget, and reference photos.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#003399">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Request a Website | Casey's Space</title>
 
   <style>
-    /* ═══════════════════════════════════════════════════════════════
-       RESET & TOKENS — matched to caseykeown.com/index.html
-    ═══════════════════════════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cmd-black:   #0A0A0A;
-      --tac-green:   #1F2A1F;
-      --lei-green:   #556B4D;
-      --mission-org: #E66A1A;
-      --org-lt:      #FF8C3A;
-      --org-dk:      #B84E0E;
-      --org-dim:     rgba(230,106,26,0.12);
-      --clean-white: #F5F5F5;
-      --ghost:       rgba(245,245,245,0.7);
-      --ghost-dim:   rgba(245,245,245,0.2);
-      --ghost-faint: rgba(245,245,245,0.08);
-
-      --alert-red:   #C23B22;
-      --alert-dim:   rgba(194,59,34,0.12);
-
-      --camo-tan:  #B8A06A;
-      --camo-rust: #8C4A2A;
-      --camo-dkgr: #2D3A22;
-      --camo-blk:  #1A1A14;
-
-      --mono: 'Share Tech Mono', monospace;
-      --cond: 'Barlow Condensed', sans-serif;
-      --body: 'Barlow', sans-serif;
-      --disp: 'Bebas Neue', sans-serif;
-
-      --side: clamp(1.5rem, 4vw, 4rem);
-      --max-w: 1240px;
-      --ease: cubic-bezier(0.4,0,0.2,1);
-      --dur: 0.3s;
+    .intake-layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      gap: 18px;
+      padding: 0 16px 24px;
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
-
-    body {
-      background: var(--cmd-black);
-      color: var(--clean-white);
-      font-family: var(--body);
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-      cursor: crosshair;
+    .intake-sidebar { min-width: 0; }
+    .intake-sidebar .profile-pic { width: 120px; height: 120px; }
+    .intake-sidebar .profile-picture-container {
+      grid-template-columns: 120px minmax(0, 1fr);
     }
-    a, button, [role="button"], .nav-cta, .btn-submit, .toggle-label, .toggle-label input,
-    .dropzone, .thumb-remove { cursor: pointer; }
-    input[type="text"], input[type="email"], input[type="tel"], select, textarea { cursor: text; }
-    select { cursor: pointer; }
+    .intake-sidebar .profile-facts { min-height: 120px; }
+    .intake-sidebar .profile-facts p { margin-bottom: 7px; }
 
-    ::selection { background: var(--mission-org); color: var(--cmd-black); }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
-      pointer-events: none;
-      z-index: 9000;
+    .sidebar-box {
+      margin-top: 12px;
+      border: 2px solid var(--border-blue);
     }
+    .sidebar-box h2 {
+      margin: 0;
+      padding: 3px 7px;
+      color: #fff;
+      background: var(--border-blue);
+      font-size: 12px;
+    }
+    .sidebar-box-body {
+      padding: 8px;
+      background: var(--pale-blue);
+      line-height: 1.5;
+    }
+    .sidebar-box-body ol { margin: 0; padding-left: 20px; }
+    .sidebar-box-body li + li { margin-top: 7px; }
+    .sidebar-box-body p { margin: 0; }
 
-    /* ═══════════════════════════════════════════════════════════════
-       HUD TICKER
-    ═══════════════════════════════════════════════════════════════ */
-    #hud-ticker {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 9500;
-      background: var(--mission-org);
-      color: var(--cmd-black);
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.13em;
-      line-height: 1;
-      height: 1.7rem;
-      display: flex;
-      align-items: center;
-      padding: 0;
+    .intake-main { min-width: 0; padding-top: 15px; }
+    .intake-intro { margin-bottom: 12px; }
+    .intake-intro p { margin: 5px 0; }
+    .required-note { color: #555; font-size: 9px; }
+
+    .wizard-panel {
+      border: 1px solid #777;
+      background: #fff;
+    }
+    .wizard-top {
+      padding: 8px;
+      background: var(--pale-blue);
+      border-bottom: 1px solid var(--border-blue);
+    }
+    .wizard-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .wizard-step-label {
+      padding: 5px 4px;
+      color: #555;
+      background: #fff;
+      border: 1px solid #aaa;
+      text-align: center;
+      font-size: 9px;
+      font-weight: bold;
+    }
+    .wizard-step-label.active {
+      color: #fff;
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
+    }
+    .progress-track {
+      height: 7px;
+      margin-top: 7px;
       overflow: hidden;
-      white-space: nowrap;
+      background: #fff;
+      border: 1px inset #999;
     }
-    .ticker-track { display: inline-block; animation: ticker-scroll 40s linear infinite; }
-    .ticker-track:hover { animation-play-state: paused; }
-    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .t-sep { margin: 0 1.8rem; opacity: 0.5; }
+    #progress-fill {
+      display: block;
+      width: 33.333%;
+      height: 100%;
+      background: var(--orange);
+      transition: width .2s ease;
+    }
 
-    /* ═══════════════════════════════════════════════════════════════
-       HEADER / NAV
-    ═══════════════════════════════════════════════════════════════ */
-    #site-header {
-      position: fixed;
-      top: 1.7rem;
-      left: 0; right: 0;
-      z-index: 500;
-      padding: 0.9rem var(--side);
+    .form-step { display: none; padding: 10px; }
+    .form-step.active { display: block; }
+    .step-heading {
+      margin: 0 0 8px;
+      padding: 4px 7px;
+      color: var(--orange);
+      background: var(--orange-light);
+      font-size: 13px;
+    }
+    .step-copy { margin: 0 0 10px; color: #444; }
+
+    .contact-grid, .question-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+    .contact-grid { margin-bottom: 12px; }
+    .question {
+      padding: 8px;
+      background: #f5f5f5;
+      border: 1px solid #aaa;
+    }
+    .question.full { grid-column: 1 / -1; }
+    .question label, .question legend {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--blue-dark);
+      font-weight: bold;
+      line-height: 1.35;
+    }
+    .question legend { padding: 0; }
+    .q-num {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      margin-right: 4px;
+      color: #fff;
+      background: var(--blue-dark);
+      font-size: 9px;
+    }
+    .optional {
+      color: #777;
+      font-size: 9px;
+      font-weight: normal;
+    }
+    .question input, .question textarea, .question select {
+      width: 100%;
+      padding: 6px;
+      color: #111;
+      background: #fff;
+      border: 1px solid #888;
+      border-radius: 0;
+    }
+    .question textarea { min-height: 74px; resize: vertical; line-height: 1.4; }
+    .question input:focus, .question textarea:focus, .question select:focus {
+      outline: 2px solid #ffcc33;
+      outline-offset: 1px;
+    }
+    .question fieldset { margin: 0; padding: 0; border: 0; }
+    .radio-row { display: flex; flex-wrap: wrap; gap: 5px 14px; }
+    .radio-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin: 0;
+      color: #111;
+      font-weight: normal;
+    }
+    .radio-row input { width: auto; }
+
+    .wizard-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), top 0.2s var(--ease);
-      border-bottom: 1px solid transparent;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #bbb;
     }
-    #site-header.scrolled {
-      top: 0;
-      background: rgba(10,10,10,0.97);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom-color: var(--mission-org);
+    .wizard-actions.end { justify-content: flex-end; }
+    .retro-action {
+      min-height: 26px;
+      padding: 4px 12px;
+      color: #111;
+      background: linear-gradient(#fff, #d9d9d9);
+      border: 2px outset #ddd;
+      border-radius: 0;
+      font-weight: bold;
     }
-    .logo-wrap { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
-    .logo-img { width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(230,106,26,0.85)) drop-shadow(0 0 14px rgba(230,106,26,0.45)); }
-    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-    .logo-name { font-family: var(--disp); font-size: 1.35rem; letter-spacing: 0.08em; color: var(--clean-white); }
-    .logo-sub { font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.2em; color: var(--mission-org); text-transform: uppercase; }
-
-    nav { display: flex; align-items: center; gap: 0.2rem; }
-    nav a {
-      font-family: var(--cond);
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ghost);
-      padding: 0.38rem 0.85rem;
-      border: 1px solid transparent;
-      transition: all var(--dur) var(--ease);
+    .retro-action:active { border-style: inset; }
+    .retro-action.primary {
+      color: #fff;
+      background: var(--blue-dark);
+      border-color: #7c98ce;
     }
-    nav a:hover { color: var(--mission-org); border-color: var(--mission-org); }
-    .nav-fb { display: inline-flex; align-items: center; gap: 0.35rem; }
-    .nav-fb svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
-    .nav-cta { background: var(--mission-org) !important; color: var(--cmd-black) !important; border-color: var(--mission-org) !important; font-weight: 700; }
-    .nav-cta:hover { background: var(--org-lt) !important; }
+    .retro-action:disabled { opacity: .55; cursor: wait; }
 
-    /* ═══════════════════════════════════════════════════════════════
-       HAMBURGER
-    ═══════════════════════════════════════════════════════════════ */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      background: transparent;
-      border: 2px solid var(--mission-org);
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-      clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
-      transition: background var(--dur) var(--ease);
+    .upload-box {
+      grid-column: 1 / -1;
+      padding: 8px;
+      background: var(--pale-blue);
+      border: 2px solid var(--border-blue);
     }
-    .menu-toggle:hover { background: rgba(230,106,26,0.1); }
-    .menu-toggle .bar { display: block; width: 22px; height: 2px; background: var(--mission-org); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); transform-origin: center; }
-    .menu-toggle[aria-expanded="true"] .bar-top { transform: translateY(8px) rotate(45deg); }
-    .menu-toggle[aria-expanded="true"] .bar-mid { opacity: 0; }
-    .menu-toggle[aria-expanded="true"] .bar-bot { transform: translateY(-8px) rotate(-45deg); }
-    body.menu-open { overflow: hidden; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       REVEAL
-    ═══════════════════════════════════════════════════════════════ */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
-    .reveal.in-view { opacity: 1; transform: none; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       SECTION EYEBROW (shared with homepage section numbering)
-    ═══════════════════════════════════════════════════════════════ */
-    .section-eyebrow { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
-    .eyebrow-num { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; color: var(--mission-org); }
-    .eyebrow-line { width: 50px; height: 1px; background: var(--mission-org); opacity: 0.4; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       LEAD PAGE — mirrors #contact's background treatment
-    ═══════════════════════════════════════════════════════════════ */
-    #lead-page {
-      background: var(--cmd-black);
-      padding: calc(7rem + var(--side)) var(--side) 6rem;
-      position: relative;
-      overflow: hidden;
-      min-height: 100vh;
-    }
-    #lead-page::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('https://geomart.com/cdn/shop/products/KENTUCKY_Topographical_720x.jpg?v=1602112238');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.04;
-      pointer-events: none;
-    }
-    #lead-page::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('https://raw.githubusercontent.com/caseykeown/web-dev/main/IMG_2502.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: grayscale(1) brightness(0.2) contrast(1.5);
-      opacity: 0.15;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .lp-corner { position: absolute; width: 36px; height: 36px; pointer-events: none; z-index: 2; }
-    .lp-corner-tl { top: 1.4rem; left: var(--side); border-top: 1.5px solid var(--mission-org); border-left: 1.5px solid var(--mission-org); }
-    .lp-corner-br { bottom: 1.4rem; right: var(--side); border-bottom: 1.5px solid var(--mission-org); border-right: 1.5px solid var(--mission-org); }
-
-    .lp-inner {
-      max-width: 880px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .lp-heading {
-      font-family: var(--disp);
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      line-height: 0.92;
-      letter-spacing: 0.04em;
-      color: var(--clean-white);
-      margin-bottom: 1.2rem;
-    }
-    .lp-heading span { color: var(--mission-org); }
-    .lp-copy { font-family: var(--cond); font-size: 0.95rem; color: var(--ghost); line-height: 1.8; margin-bottom: 2rem; max-width: 620px; }
-
-    .lp-intel { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-bottom: 3.5rem; }
-    .c-detail { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; color: var(--mission-org); display: block; margin-bottom: 0.3rem; }
-    .c-detail + a, .c-detail + span {
-      font-family: var(--cond); font-size: 0.92rem; color: var(--ghost); text-decoration: none;
-      display: block; max-width: 360px; transition: color var(--dur) var(--ease);
-    }
-    .c-detail + a:hover { color: var(--mission-org); }
-
-    /* ═══════════════════════════════════════════════════════════════
-       FORM PANEL
-    ═══════════════════════════════════════════════════════════════ */
-    .form-panel {
-      background: rgba(31,42,31,0.4);
-      border: 1px solid rgba(85,107,77,0.35);
-      padding: 2rem;
-      position: relative;
-      backdrop-filter: blur(4px);
-    }
-    .form-panel::before {
-      content: '// TRANSMIT PROJECT BRIEF';
-      display: block;
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: var(--mission-org);
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(85,107,77,0.3);
-    }
-
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; }
-
-    .form-field { padding: 1.2rem 0; border-bottom: 1px solid rgba(85,107,77,0.3); position: relative; }
-    .form-field:nth-child(odd) { padding-right: 1.5rem; border-right: 1px solid rgba(85,107,77,0.3); }
-    .form-field:nth-child(even) { padding-left: 1.5rem; }
-    .form-field.full-width { grid-column: 1/-1; padding-right: 0; border-right: none; padding-left: 0; }
-    .form-field label { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mission-org); margin-bottom: 0.5rem; }
-    .form-field input, .form-field select, .form-field textarea {
-      width: 100%; background: transparent; border: none; outline: none;
-      font-family: var(--cond); font-weight: 400; font-size: 0.95rem;
-      color: var(--clean-white); padding: 0.2rem 0;
-      appearance: none; -webkit-appearance: none;
-      transition: color var(--dur) var(--ease);
-      resize: vertical;
-    }
-    .form-field textarea { min-height: 6rem; line-height: 1.6; }
-    .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(245,245,245,0.18); font-family: var(--cond); }
-    .form-field select {
-      cursor: pointer; color: var(--ghost);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23E66A1A'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 0 center; padding-right: 1.2rem;
-    }
-    .form-field select option { background: var(--tac-green); color: var(--clean-white); }
-    .form-field::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 1px; background: var(--mission-org); transition: width 0.4s var(--ease); }
-    .form-field.full-width::after { display: none; }
-    .form-field:focus-within::after { width: 100%; }
-
-    .checkbox-field { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-    .checkbox-field label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; color: var(--mission-org); flex-shrink: 0; }
-    .toggle-group { display: flex; gap: 0.8rem; }
-    .toggle-label { display: flex; align-items: center; gap: 0.4rem; cursor: pointer; font-family: var(--cond); font-size: 0.88rem; color: var(--ghost); transition: color var(--dur) var(--ease); }
-    .toggle-label input[type="radio"] { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 1px solid rgba(85,107,77,0.5); border-radius: 50%; position: relative; flex-shrink: 0; cursor: pointer; transition: border-color var(--dur) var(--ease); }
-    .toggle-label input[type="radio"]:checked { border-color: var(--mission-org); }
-    .toggle-label input[type="radio"]:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--mission-org); }
-    .toggle-label:has(input:checked) { color: var(--clean-white); }
-
-    /* Honeypot — hidden from real users */
-    .hp-field { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       PHOTO UPLOAD
-    ═══════════════════════════════════════════════════════════════ */
-    .upload-field { grid-column: 1/-1; padding: 1.4rem 0; border-bottom: 1px solid rgba(85,107,77,0.3); }
-    .upload-field > label { display: block; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mission-org); margin-bottom: 0.8rem; }
-    .upload-field > label .lp-optional { color: var(--ghost-dim); text-transform: none; letter-spacing: 0; font-family: var(--cond); font-size: 0.7rem; }
-
+    .upload-box > h3 { margin: 0 0 4px; color: var(--blue-dark); font-size: 11px; }
+    .upload-box > p { margin: 0 0 8px; }
     .dropzone {
-      border: 1px dashed rgba(85,107,77,0.5);
-      background: rgba(10,10,10,0.3);
-      padding: 2rem 1.5rem;
+      padding: 18px 10px;
       text-align: center;
+      background: #fff;
+      border: 2px dashed #777;
       cursor: pointer;
-      transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
     }
-    .dropzone:hover, .dropzone.dragover { border-color: var(--mission-org); background: rgba(230,106,26,0.06); }
-    .dropzone-title { font-family: var(--cond); font-weight: 600; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--clean-white); margin-bottom: 0.4rem; }
-    .dropzone-sub { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--ghost-dim); }
-    .dropzone input[type="file"] { display: none; }
-
-    .upload-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; color: var(--ghost-dim); }
-    .upload-meta strong { color: var(--mission-org); font-weight: 400; }
-
-    .field-warning { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.02em; color: var(--alert-red); margin-top: 0.7rem; line-height: 1.6; }
-
-    .thumb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 0.6rem; margin-top: 1.2rem; }
-    .thumb { position: relative; aspect-ratio: 1; border: 1px solid rgba(85,107,77,0.4); background: rgba(10,10,10,0.4); overflow: hidden; }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.92); }
+    .dropzone:hover, .dropzone:focus, .dropzone.dragover {
+      background: #fffbe4;
+      border-color: var(--orange);
+      outline: none;
+    }
+    .dropzone-title { color: var(--blue-dark); font-size: 12px; font-weight: bold; }
+    .dropzone-sub { margin-top: 4px; color: #555; font-size: 9px; }
+    .dropzone input { display: none; }
+    .upload-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+      font-size: 9px;
+    }
+    .upload-meta strong { color: #c00; }
+    .field-warning { margin: 7px 0 0; color: #a40000; font-weight: bold; }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .thumb {
+      position: relative;
+      min-width: 0;
+      background: #fff;
+      border: 1px solid #777;
+    }
+    .thumb img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
     .thumb-caption {
-      position: absolute; left: 0; right: 0; bottom: 0; padding: 0.3rem 0.4rem;
-      font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.02em; color: var(--ghost);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 3px;
+      overflow: hidden;
+      color: #333;
+      font-size: 7px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .thumb-remove {
-      position: absolute; top: 4px; right: 4px; width: 22px; height: 22px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(10,10,10,0.85); border: 1px solid var(--mission-org); color: var(--mission-org);
-      font-family: var(--mono); font-size: 0.9rem; line-height: 1; cursor: pointer;
-      clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
-      transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      color: #fff;
+      background: #c00;
+      border: 1px solid #fff;
+      font-weight: bold;
     }
-    .thumb-remove:hover { background: var(--mission-org); color: var(--cmd-black); }
     .thumb-compressing {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: rgba(10,10,10,0.85); font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--mission-org); text-align: center; padding: 0 0.3rem;
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      color: var(--blue-dark);
+      background: var(--pale-blue);
+      font-size: 8px;
+      font-weight: bold;
     }
 
-    /* reCAPTCHA — reuses the brief-panel treatment from the homepage hero */
-    .recaptcha-field { grid-column: 1/-1; padding: 1.6rem 0; border-bottom: 1px solid rgba(85,107,77,0.3); }
-    .brief-panel {
-      border: 1px solid rgba(230,106,26,0.25);
-      border-left: 2px solid var(--mission-org);
-      background: rgba(31,42,31,0.35);
-      padding: 1.4rem 1.6rem;
-      position: relative;
+    .recaptcha-wrap {
+      margin-top: 10px;
+      padding: 8px;
+      overflow-x: auto;
+      background: #f5f5f5;
+      border: 1px solid #aaa;
     }
-    .brief-panel::before {
-      content: attr(data-label);
-      position: absolute; top: -0.52rem; left: 1rem;
-      background: var(--cmd-black); padding: 0 0.6rem;
-      font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.22em; color: var(--mission-org); text-transform: uppercase;
-    }
+    .privacy-note { margin: 8px 0 0; color: #555; font-size: 9px; }
 
-    /* Status banner */
-    .status-banner { display: none; grid-column: 1/-1; margin-top: 0.4rem; padding: 1rem 1.4rem; border: 1px solid var(--mission-org); background: var(--org-dim); }
+    .status-banner {
+      display: none;
+      margin-top: 10px;
+      padding: 9px;
+      border: 2px solid;
+    }
     .status-banner.visible { display: block; }
-    .status-banner.error { border-color: var(--alert-red); background: var(--alert-dim); }
-    .sb-title { font-family: var(--cond); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mission-org); margin-bottom: 0.4rem; }
-    .status-banner.error .sb-title { color: var(--alert-red); }
-    .sb-msg { font-family: var(--mono); font-size: 0.72rem; line-height: 1.7; color: var(--ghost); }
+    .status-banner.success { color: #145d22; background: #e7f6e9; border-color: #29863c; }
+    .status-banner.error { color: #8b0000; background: #ffe7e7; border-color: #b40000; }
+    .status-title { margin-bottom: 3px; font-weight: bold; }
 
-    .form-submit-row { grid-column: 1/-1; padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-    .form-note { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; color: var(--ghost-dim); }
-    .btn-submit {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.9rem 2.2rem; background: var(--mission-org); color: var(--cmd-black);
-      font-family: var(--cond); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.18em;
-      text-transform: uppercase; border: 2px solid var(--mission-org); cursor: pointer;
-      transition: all var(--dur) var(--ease); appearance: none;
-      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
-    }
-    .btn-submit:hover:not(:disabled) { background: transparent; color: var(--mission-org); }
-    .btn-submit::before { content: '◉'; font-size: 0.65rem; }
-    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* ═══════════════════════════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════════════════════════ */
-    footer {
-      background: #060806;
-      border-top: 4px solid transparent;
-      border-image: linear-gradient(90deg,
-        var(--camo-tan) 0%, var(--camo-rust) 12%, var(--camo-blk) 25%,
-        var(--camo-dkgr) 38%, var(--camo-tan) 50%, var(--camo-blk) 62%,
-        var(--camo-rust) 75%, var(--camo-dkgr) 88%, var(--camo-tan) 100%
-      ) 1;
-      padding: 2.5rem var(--side);
-    }
-    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo-wrap { display: flex; align-items: center; gap: 0.6rem; }
-    .footer-logo-img { width: 26px; height: 26px; object-fit: contain; opacity: 0.6; }
-    .footer-logo-text { font-family: var(--disp); font-size: 1rem; letter-spacing: 0.06em; color: var(--ghost-dim); }
-    .footer-copy { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ghost-dim); }
-    .footer-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
-    .footer-links a { font-family: var(--cond); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost-dim); text-decoration: none; transition: color var(--dur) var(--ease); }
-    .footer-links a:hover { color: var(--mission-org); }
-
-    /* ═══════════════════════════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════════════════════════ */
-    @media (max-width: 760px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .form-field:nth-child(odd) { padding-right: 0; border-right: none; }
-      .form-field:nth-child(even) { padding-left: 0; }
-    }
-    @media (max-width: 600px) {
-      #site-header { padding: 0.7rem var(--side); }
-      .logo-name { font-size: 1.15rem; }
-      .menu-toggle { display: flex; }
-      .logo-sub { display: none; }
-      nav {
-        position: absolute; top: 100%; left: 0; right: 0;
-        flex-direction: column;
-        background: rgba(10,10,10,0.98);
-        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--mission-org);
-        padding: 1rem; gap: 0.5rem;
-        opacity: 0; visibility: hidden; transform: translateY(-10px);
-        transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
-        z-index: -1;
-      }
-      nav.open { opacity: 1; visibility: visible; transform: translateY(0); }
-      nav a { width: 100%; text-align: center; padding: 0.9rem 1rem; min-height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid transparent; }
-      nav a:hover { border-color: var(--mission-org); }
-      .nav-fb { gap: 0.5rem; }
-      .lp-corner { display: none; }
-      .form-panel { padding: 1.25rem; }
-      .ticker-track { animation-duration: 80s; }
-      .form-submit-row { flex-direction: column; align-items: flex-start; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
+    .hp-field {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation: none !important; }
-      .scroll-line::after { animation: none !important; }
-      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
+    @media (max-width: 720px) {
+      .intake-layout { grid-template-columns: 1fr; padding: 0 12px 22px; }
+      .intake-sidebar { max-width: 440px; width: 100%; margin: 0 auto; }
+      .intake-main { padding-top: 0; }
+    }
+
+    @media (max-width: 470px) {
+      .contact-grid, .question-grid { grid-template-columns: 1fr; }
+      .question.full { grid-column: auto; }
+      .wizard-step-label { font-size: 8px; }
+      .thumb-grid { grid-template-columns: repeat(3, 1fr); }
+      .wizard-actions { flex-wrap: wrap; }
     }
   </style>
 </head>
+
 <body>
-
-  <div id="top"></div>
-
-  <!-- HUD TICKER -->
-  <div id="hud-ticker">
-    <span class="ticker-track">
-      TRANSMISSION CHANNEL: OPEN
-      <span class="t-sep">◆</span>
-      SECURE FIELD REPORT INTAKE
-      <span class="t-sep">◆</span>
-      OPERATOR: CASEY KEOWN
-      <span class="t-sep">◆</span>
-      ENCRYPTION: VERIFIED
-      <span class="t-sep">◆</span>
-      STATUS: ACCEPTING NEW DEPLOYMENTS
-      <span class="t-sep">◆</span>
-      WHEN FAILURE ISN'T AN OPTION
-      <span class="t-sep">◆</span>
-      TRANSMISSION CHANNEL: OPEN
-      <span class="t-sep">◆</span>
-      SECURE FIELD REPORT INTAKE
-      <span class="t-sep">◆</span>
-      OPERATOR: CASEY KEOWN
-      <span class="t-sep">◆</span>
-      ENCRYPTION: VERIFIED
-      <span class="t-sep">◆</span>
-      STATUS: ACCEPTING NEW DEPLOYMENTS
-      <span class="t-sep">◆</span>
-      WHEN FAILURE ISN'T AN OPTION
-      <span class="t-sep">◆</span>
-    </span>
-  </div>
-
-  <!-- HEADER -->
-  <header id="site-header">
-    <a href="index.html" class="logo-wrap">
-      <img src="https://raw.githubusercontent.com/caseykeown/web-dev/main/ck-logo-white.png" alt="CK" class="logo-img" onerror="this.style.display='none'" />
-      <div class="logo-text">
-        <span class="logo-name">CASEY KEOWN</span>
-        <span class="logo-sub">Mission Critical Web Development</span>
-      </div>
-    </a>
-    <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
-      <span class="bar bar-top"></span>
-      <span class="bar bar-mid"></span>
-      <span class="bar bar-bot"></span>
-    </button>
-    <nav id="primary-nav">
-      <a href="index.html#services">Capabilities</a>
-      <a href="index.html#philosophy">Mission</a>
-      <a href="index.html#about">About</a>
-      <a href="https://caseykeown.gumroad.com/l/TrooperTranscribe" target="_blank" rel="noopener">Applications</a>
-      <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener" class="nav-fb">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook
-      </a>
-      <a href="index.html" class="nav-cta">Home</a>
-    </nav>
-  </header>
-
-  <!-- LEAD INTAKE -->
-  <section id="lead-page">
-    <div class="lp-corner lp-corner-tl"></div>
-    <div class="lp-corner lp-corner-br"></div>
-
-    <div class="lp-inner">
-
-      <div class="reveal">
-        <div class="section-eyebrow">
-          <span class="eyebrow-num">// MISSION INTAKE — 05</span>
-          <div class="eyebrow-line"></div>
-        </div>
-        <h1 class="lp-heading">SUBMIT MISSION<br /><span>BRIEF</span></h1>
-        <p class="lp-copy">Share your project details below, along with as many reference photos as are useful — up to twenty. Every transmission is reviewed personally, with a response within one business day.</p>
-
-        <div class="lp-intel">
-          <div>
-            <span class="c-detail">// Secure Channel</span>
-            <a href="mailto:me@caseykeown.com">me@caseykeown.com</a>
-          </div>
-          <div>
-            <span class="c-detail">// Theater of Operations</span>
-            <span>Hardin, Grayson, Breckinridge, Meade, LaRue, Bullitt &amp; Nelson Counties — Louisville Metro</span>
-          </div>
-        </div>
+  <div class="master-container">
+    <header class="main-header">
+      <div class="logo-row">
+        <a class="brand" href="index.html" aria-label="Casey's Space home">
+          <img src="caseyspace.png" alt="Casey's Space">
+        </a>
+        <nav class="utility-nav" aria-label="Utility navigation">
+          <a href="mailto:me@caseykeown.com">Mail</a>
+          <a href="index.html">Back to Profile</a>
+        </nav>
       </div>
 
-      <div class="reveal" style="transition-delay:.1s">
-        <div class="form-panel">
-          <form id="lead-form" novalidate>
+      <div class="search-bar">
+        <b>Casey's Website Request Space</b>
+        <span>Tell me what you need without writing a novel.</span>
+      </div>
 
-            <!-- Honeypot: real visitors never see or fill this -->
-            <div class="hp-field" aria-hidden="true">
-              <label for="company_website">Leave this field blank</label>
-              <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off" />
+      <nav class="navbar" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About Casey</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#seo-check">Free SEO Check</a>
+        <a href="mailto:me@caseykeown.com">Contact</a>
+      </nav>
+    </header>
+
+    <div class="intake-layout">
+      <aside class="intake-sidebar">
+        <header class="profile-name"><h1>Casey</h1></header>
+
+        <div class="profile-picture-container">
+          <img class="profile-pic" src="https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/drummer.png" alt="Casey Keown playing drums">
+          <div class="profile-facts">
+            <p><b>“Let's build something useful.”</b></p>
+            <ul>
+              <li>Web Developer</li>
+              <li>Kentucky</li>
+              <li>United States</li>
+            </ul>
+            <ul class="last-login">
+              <li><b>Reply Time:</b></li>
+              <li>Within 1 business day</li>
+            </ul>
+          </div>
+        </div>
+
+        <section class="contact-box">
+          <h2>Contacting Casey</h2>
+          <div class="contact-actions">
+            <a href="mailto:me@caseykeown.com"><span aria-hidden="true">✉</span> Send Message</a>
+            <a href="index.html#projects"><span aria-hidden="true">★</span> View Portfolio</a>
+            <a href="index.html#services"><span aria-hidden="true">☰</span> View Services</a>
+            <a href="index.html"><span aria-hidden="true">⌂</span> Back to Profile</a>
+          </div>
+        </section>
+
+        <section class="sidebar-box">
+          <h2>What Happens Next</h2>
+          <div class="sidebar-box-body">
+            <ol>
+              <li>You tell me about the project.</li>
+              <li>Your photos are placed in a private Google Drive folder.</li>
+              <li>I receive an email notification.</li>
+              <li>I review everything and contact you.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="sidebar-box">
+          <h2>Before You Start</h2>
+          <div class="sidebar-box-body">
+            <p>You only need to answer what you know. Questions marked with an asterisk are required; everything else can be figured out together later.</p>
+          </div>
+        </section>
+
+        <section class="myspace-url-box">
+          <h2>Casey's Space URL:</h2>
+          <p><a href="https://caseykeown.com">https://caseykeown.com</a></p>
+        </section>
+      </aside>
+
+      <main class="intake-main">
+        <section class="user-network">
+          <div>
+            <h2>You are in Casey's extended network</h2>
+            <p><b>Complete three short sections to request a website.</b></p>
+          </div>
+        </section>
+
+        <section class="intake-intro">
+          <header class="main-section-header"><h2>Casey's Project Request Form</h2></header>
+          <p>This form gives me enough information to understand your project and prepare for our first conversation.</p>
+          <p class="required-note">* Required. All other questions are optional.</p>
+        </section>
+
+        <form id="lead-form" novalidate>
+          <div class="hp-field" aria-hidden="true">
+            <label for="company_website">Leave this field blank</label>
+            <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+          </div>
+          <textarea id="project_details" name="project_details" hidden></textarea>
+
+          <div class="wizard-panel">
+            <div class="wizard-top">
+              <div class="wizard-steps" aria-label="Form progress">
+                <div class="wizard-step-label active" data-label-step="1">1. Your Business</div>
+                <div class="wizard-step-label" data-label-step="2">2. Website Plan</div>
+                <div class="wizard-step-label" data-label-step="3">3. Details &amp; Photos</div>
+              </div>
+              <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
             </div>
 
-            <div class="form-grid">
+            <section class="form-step active" data-step="1">
+              <h2 class="step-heading">Step 1 of 3 — You and Your Business</h2>
+              <p class="step-copy">Start with the basics. You do not need to have every detail figured out.</p>
 
-              <div class="form-field">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+              <div class="contact-grid">
+                <div class="question">
+                  <label for="name">Your name *</label>
+                  <input id="name" name="name" autocomplete="name" placeholder="Jane Smith" required>
+                </div>
+                <div class="question">
+                  <label for="email">Email address *</label>
+                  <input id="email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" required>
+                </div>
+                <div class="question full">
+                  <label for="phone">Phone number <span class="optional">(optional)</span></label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(270) 555-0100">
+                </div>
               </div>
 
-              <div class="form-field">
-                <label for="business">Business Name</label>
-                <input type="text" id="business" name="business" placeholder="Acme Co." />
+              <div class="question-grid">
+                <div class="question">
+                  <label for="business"><span class="q-num">1</span>What is the name of your business or organization? *</label>
+                  <input id="business" name="business" placeholder="Business name" required>
+                </div>
+                <div class="question">
+                  <label for="business_description"><span class="q-num">2</span>In a few sentences, what does your business do? *</label>
+                  <textarea id="business_description" name="business_description" placeholder="Tell me what you provide and where you operate." required></textarea>
+                </div>
+                <div class="question">
+                  <label for="primary_purpose"><span class="q-num">3</span>What is the main purpose of your new website? *</label>
+                  <select id="primary_purpose" name="primary_purpose" required>
+                    <option value="">Choose the closest answer</option>
+                    <option>Generate leads or quote requests</option>
+                    <option>Provide business information</option>
+                    <option>Showcase work or a portfolio</option>
+                    <option>Accept appointments or bookings</option>
+                    <option>Sell products or services</option>
+                    <option>Promote an organization or event</option>
+                    <option>Replace or improve an existing website</option>
+                    <option>Something else</option>
+                  </select>
+                </div>
+                <div class="question">
+                  <label for="target_audience"><span class="q-num">4</span>Who is your ideal customer or target audience? <span class="optional">(optional)</span></label>
+                  <textarea id="target_audience" name="target_audience" placeholder="Who are you trying to reach?"></textarea>
+                </div>
+                <div class="question full">
+                  <label for="primary_action"><span class="q-num">5</span>What is the most important action visitors should take? *</label>
+                  <input id="primary_action" name="primary_action" placeholder="Call, request a quote, book, buy, donate..." required>
+                </div>
               </div>
 
-              <div class="form-field">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+              <div class="wizard-actions end">
+                <button class="retro-action primary next-step" type="button">Continue to Website Plan &gt;&gt;</button>
+              </div>
+            </section>
+
+            <section class="form-step" data-step="2">
+              <h2 class="step-heading">Step 2 of 3 — Your Website Plan</h2>
+              <p class="step-copy">Give me the rough shape of the site. Suggestions and “not sure” are completely fine.</p>
+
+              <div class="question-grid">
+                <div class="question">
+                  <label for="pages_needed"><span class="q-num">6</span>What pages do you think the website needs? <span class="optional">(optional)</span></label>
+                  <textarea id="pages_needed" name="pages_needed" placeholder="Home, About, Services, Gallery, FAQ, Contact..."></textarea>
+                </div>
+                <div class="question">
+                  <label for="priority_offering"><span class="q-num">7</span>What services, products, or information need the most attention? <span class="optional">(optional)</span></label>
+                  <textarea id="priority_offering" name="priority_offering" placeholder="What should visitors notice first?"></textarea>
+                </div>
+                <div class="question">
+                  <label for="special_features"><span class="q-num">8</span>Does the website need any special features? <span class="optional">(optional)</span></label>
+                  <textarea id="special_features" name="special_features" placeholder="Forms, booking, payments, galleries, maps, reviews..."></textarea>
+                </div>
+                <div class="question">
+                  <label for="content_status"><span class="q-num">9</span>Do you already have written content, or would you like help writing it? <span class="optional">(optional)</span></label>
+                  <select id="content_status" name="content_status">
+                    <option value="">Select one</option>
+                    <option>I have finished content</option>
+                    <option>I have rough notes or partial content</option>
+                    <option>I need help writing everything</option>
+                    <option>I'm not sure yet</option>
+                  </select>
+                </div>
+                <div class="question full">
+                  <label for="brand_assets"><span class="q-num">10</span>Do you have a logo, brand colors, photographs, or other materials? <span class="optional">(optional)</span></label>
+                  <textarea id="brand_assets" name="brand_assets" placeholder="Describe what you have. You can upload photographs in Step 3."></textarea>
+                </div>
               </div>
 
-              <div class="form-field">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="(270) 555-0100" />
+              <div class="wizard-actions">
+                <button class="retro-action prev-step" type="button">&lt;&lt; Back</button>
+                <button class="retro-action primary next-step" type="button">Continue to Details &amp; Photos &gt;&gt;</button>
               </div>
+            </section>
 
-              <div class="form-field full-width">
-                <label for="project_details">Project Details</label>
-                <textarea id="project_details" name="project_details" placeholder="What are you looking to build, fix, or improve?" required></textarea>
-              </div>
+            <section class="form-step" data-step="3">
+              <h2 class="step-heading">Step 3 of 3 — Details, Timeline, and Photos</h2>
+              <p class="step-copy">Finish with logistics and any visual references that will help me understand your idea.</p>
 
-              <div class="form-field">
-                <label for="budget">Estimated Budget</label>
-                <input type="text" id="budget" name="budget" placeholder="$100 – $1,000" />
-              </div>
+              <div class="question-grid">
+                <div class="question">
+                  <label for="inspiration_sites"><span class="q-num">11</span>Are there websites you like? What do you like about them? <span class="optional">(optional)</span></label>
+                  <textarea id="inspiration_sites" name="inspiration_sites" placeholder="Paste links or describe the style you prefer."></textarea>
+                </div>
+                <div class="question">
+                  <fieldset>
+                    <legend><span class="q-num">12</span>Do you have a website, domain, or hosting account? <span class="optional">(optional)</span></legend>
+                    <div class="radio-row">
+                      <label><input type="radio" name="owns_domain" value="Yes"> Yes</label>
+                      <label><input type="radio" name="owns_domain" value="No"> No</label>
+                      <label><input type="radio" name="owns_domain" value="Not sure" checked> Not sure</label>
+                    </div>
+                    <textarea id="existing_web_presence" name="existing_web_presence" placeholder="Existing URL, provider, or anything you know." style="margin-top:7px;"></textarea>
+                  </fieldset>
+                </div>
+                <div class="question">
+                  <label for="public_contact_info"><span class="q-num">13</span>What contact and business information should appear on the site? <span class="optional">(optional)</span></label>
+                  <textarea id="public_contact_info" name="public_contact_info" placeholder="Phone, email, address, hours, and social media."></textarea>
+                </div>
+                <div class="question">
+                  <label for="timeline"><span class="q-num">14</span>Is there a deadline or important launch date? <span class="optional">(optional)</span></label>
+                  <input id="timeline" name="timeline" placeholder="A date, event, or general timeframe">
+                </div>
+                <div class="question full">
+                  <label for="budget"><span class="q-num">15</span>What budget range have you set, and will you need ongoing maintenance? <span class="optional">(optional)</span></label>
+                  <textarea id="budget" name="budget" placeholder="Your approximate budget and whether you want help after launch."></textarea>
+                </div>
 
-              <div class="form-field">
-                <label for="timeline">Timeline Needed</label>
-                <select id="timeline" name="timeline">
-                  <option value="" selected>Select timeframe</option>
-                  <option value="1-2 weeks">1&ndash;2 Weeks</option>
-                  <option value="3-5 weeks">3&ndash;5 Weeks</option>
-                  <option value="6+ weeks">6+ Weeks</option>
-                </select>
-              </div>
-
-              <div class="form-field full-width">
-                <div class="checkbox-field">
-                  <label>Own a Domain?</label>
-                  <div class="toggle-group">
-                    <label class="toggle-label"><input type="radio" name="owns_domain" value="Yes" /> Yes</label>
-                    <label class="toggle-label"><input type="radio" name="owns_domain" value="No" checked /> No</label>
+                <div class="upload-box">
+                  <h3>Reference Photos <span class="optional">(optional, up to 20)</span></h3>
+                  <p>Upload logos, existing branding, team photos, products, locations, inspiration, or anything else that helps explain the project.</p>
+                  <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Add photos">
+                    <div class="dropzone-title">Drag &amp; Drop Photos Here</div>
+                    <div class="dropzone-sub">OR CLICK TO BROWSE · JPG · PNG · HEIC · WEBP</div>
+                    <input type="file" id="file-input" accept="image/*,.heic,.heif" multiple>
                   </div>
+                  <div class="upload-meta">
+                    <span><strong id="file-count">0</strong> / 20 PHOTOS SELECTED</span>
+                    <span><strong id="file-size-total">0 MB</strong> / 25 MB</span>
+                  </div>
+                  <p class="field-warning" id="upload-warning" hidden></p>
+                  <div class="thumb-grid" id="thumb-grid"></div>
                 </div>
               </div>
 
-              <!-- Photo upload -->
-              <div class="upload-field">
-                <label>Reference Photos <span class="lp-optional">(optional, up to 20)</span></label>
-
-                <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Add photos">
-                  <div class="dropzone-title">Drag &amp; Drop Photos</div>
-                  <div class="dropzone-sub">// OR CLICK TO BROWSE · JPG · PNG · HEIC · WEBP</div>
-                  <input type="file" id="file-input" accept="image/*" multiple />
-                </div>
-
-                <div class="upload-meta">
-                  <span><strong id="file-count">0</strong> / 20 PHOTOS SELECTED</span>
-                  <span>EST. UPLOAD: <strong id="file-size-total">0 MB</strong> / 25 MB</span>
-                </div>
-
-                <p class="field-warning" id="upload-warning" style="display:none;"></p>
-
-                <div class="thumb-grid" id="thumb-grid"></div>
-              </div>
-
-              <!-- reCAPTCHA -->
-              <div class="recaptcha-field">
-                <div class="brief-panel" data-label="// Verify Operator">
-                  <!-- TODO: replace with your reCAPTCHA v2 Checkbox site key -->
-                  <div class="g-recaptcha" data-sitekey="6LcqDT4tAAAAACr0V9SAU5JCztMLIvz_1bM10jWb"></div>
-                </div>
+              <div class="recaptcha-wrap">
+                <div class="g-recaptcha" data-sitekey="6LcqDT4tAAAAACr0V9SAU5JCztMLIvz_1bM10jWb"></div>
+                <p class="privacy-note">Your answers and photographs are sent securely. Uploaded photos are organized in a private Google Drive folder, and Casey receives an email notification.</p>
               </div>
 
               <div class="status-banner" id="status-banner" role="status" aria-live="polite">
-                <div class="sb-title" id="status-title"></div>
-                <div class="sb-msg" id="status-message"></div>
+                <div class="status-title" id="status-title"></div>
+                <div id="status-message"></div>
               </div>
 
-              <div class="form-submit-row">
-                <span class="form-note">// Your information is never shared or sold.</span>
-                <button type="submit" class="btn-submit" id="submit-btn">Transmit</button>
+              <div class="wizard-actions">
+                <button class="retro-action prev-step" type="button">&lt;&lt; Back</button>
+                <button class="retro-action primary" type="submit" id="submit-btn">Send Website Request</button>
               </div>
-
-            </div>
-          </form>
-        </div>
-      </div>
-
+            </section>
+          </div>
+        </form>
+      </main>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo-wrap">
-        <img src="ck-logo.png" alt="CK" class="footer-logo-img" onerror="this.style.display='none'" />
-        <span class="footer-logo-text">CASEY KEOWN</span>
-      </div>
-      <span class="footer-copy">&copy; <span id="yr"></span> CASEY KEOWN // ALL RIGHTS RESERVED // me@caseykeown.com</span>
-      <div class="footer-links">
-        <a href="#top">Top</a>
-        <a href="index.html#services">Capabilities</a>
-        <a href="index.html#philosophy">Mission</a>
+    <footer class="footer">
+      <nav aria-label="Footer navigation">
         <a href="index.html">Home</a>
-        <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Facebook</a>
-      </div>
-    </div>
-  </footer>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="mailto:me@caseykeown.com">Contact</a>
+      </nav>
+      <p>© <span id="yr"></span> CASEY KEOWN | Custom Web Architecture. All Rights Reserved.</p>
+      <p class="best-viewed">Your project information is never sold or shared.</p>
+    </footer>
+  </div>
 
-  <!-- reCAPTCHA API -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    const header = document.getElementById('site-header');
-    const ticker = document.getElementById('hud-ticker');
-    const toggle = document.getElementById('menu-toggle');
-    const nav    = document.getElementById('primary-nav');
-
-    function getTickerH() { return ticker.offsetHeight; }
-    function updateHeader() {
-      if (window.scrollY > 40) {
-        header.classList.add('scrolled');
-        header.style.top = '0';
-      } else {
-        header.classList.remove('scrolled');
-        header.style.top = getTickerH() + 'px';
-      }
-    }
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
-    window.addEventListener('resize', updateHeader, { passive: true });
-
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    reveals.forEach(el => io.observe(el));
-
-    /* Mobile hamburger nav */
-    (function() {
-      const body = document.body;
-      if (!toggle || !nav) return;
-      function setOpen(open) {
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        nav.classList.toggle('open', open);
-        body.classList.toggle('menu-open', open);
-      }
-      function isOpen() { return toggle.getAttribute('aria-expanded') === 'true'; }
-      toggle.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!isOpen()); });
-      nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); } });
-      document.addEventListener('click', (e) => { if (!isOpen()) return; if (!nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false); });
-      window.addEventListener('resize', () => { if (window.innerWidth > 600 && isOpen()) setOpen(false); });
-    })();
-
-    // TODO: set this to your deployed Cloudflare Worker URL, e.g.
-    // "https://leads-intake.caseykeown.workers.dev"
     const WORKER_ENDPOINT = "https://leads-intake.caseykeown.workers.dev/";
-
     const MAX_FILES = 20;
-    const MAX_TOTAL_BYTES = 25 * 1024 * 1024; // 25MB raw, matches Worker-side limit
-    const COMPRESS_THRESHOLD = 1.5 * 1024 * 1024; // compress anything over 1.5MB
-    const MAX_DIMENSION = 2000; // longest edge, px, after compression
+    const MAX_TOTAL_BYTES = 25 * 1024 * 1024;
+    const COMPRESS_THRESHOLD = 1.5 * 1024 * 1024;
+    const MAX_DIMENSION = 2000;
 
-    let selectedFiles = []; // { file: File, id: string, compressing: bool }
+    const form = document.getElementById('lead-form');
+    const steps = Array.from(document.querySelectorAll('.form-step'));
+    const stepLabels = Array.from(document.querySelectorAll('.wizard-step-label'));
+    const progressFill = document.getElementById('progress-fill');
+    let currentStep = 1;
+
+    function showStep(stepNumber) {
+      currentStep = Math.max(1, Math.min(3, stepNumber));
+      steps.forEach(step => step.classList.toggle('active', Number(step.dataset.step) === currentStep));
+      stepLabels.forEach(label => label.classList.toggle('active', Number(label.dataset.labelStep) === currentStep));
+      progressFill.style.width = (currentStep * 33.333) + '%';
+      document.querySelector('.wizard-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function validateStep(stepNumber) {
+      const step = document.querySelector('.form-step[data-step="' + stepNumber + '"]');
+      const requiredFields = Array.from(step.querySelectorAll('[required]'));
+      const invalid = requiredFields.find(field => !field.checkValidity());
+      if (invalid) {
+        invalid.reportValidity();
+        invalid.focus();
+        return false;
+      }
+      return true;
+    }
+
+    document.querySelectorAll('.next-step').forEach(button => {
+      button.addEventListener('click', () => {
+        if (validateStep(currentStep)) showStep(currentStep + 1);
+      });
+    });
+    document.querySelectorAll('.prev-step').forEach(button => {
+      button.addEventListener('click', () => showStep(currentStep - 1));
+    });
+
+    let selectedFiles = [];
     let idCounter = 0;
 
     const dropzone = document.getElementById('dropzone');
@@ -754,52 +660,73 @@
     const uploadWarning = document.getElementById('upload-warning');
 
     dropzone.addEventListener('click', () => fileInput.click());
-    dropzone.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+    dropzone.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        fileInput.click();
+      }
     });
-    ['dragenter', 'dragover'].forEach(evt => {
-      dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropzone.addEventListener(eventName, event => {
+        event.preventDefault();
+        dropzone.classList.add('dragover');
+      });
     });
-    ['dragleave', 'drop'].forEach(evt => {
-      dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropzone.addEventListener(eventName, event => {
+        event.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
     });
-    dropzone.addEventListener('drop', (e) => handleIncomingFiles(e.dataTransfer.files));
-    fileInput.addEventListener('change', (e) => { handleIncomingFiles(e.target.files); fileInput.value = ''; });
+    dropzone.addEventListener('drop', event => handleIncomingFiles(event.dataTransfer.files));
+    fileInput.addEventListener('change', event => {
+      handleIncomingFiles(event.target.files);
+      fileInput.value = '';
+    });
 
-    function showWarning(msg) {
-      uploadWarning.textContent = msg;
-      uploadWarning.style.display = msg ? 'block' : 'none';
+    function showWarning(message) {
+      uploadWarning.textContent = message;
+      uploadWarning.hidden = !message;
     }
-    function currentTotalBytes() { return selectedFiles.reduce((sum, item) => sum + item.file.size, 0); }
+
+    function currentTotalBytes() {
+      return selectedFiles.reduce((sum, item) => sum + item.file.size, 0);
+    }
+
     function formatBytes(bytes) {
       if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
       return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
     }
 
+    function isImageFile(file) {
+      return file.type.startsWith('image/') || /\.(heic|heif|jpe?g|png|webp|gif)$/i.test(file.name);
+    }
+
     async function handleIncomingFiles(fileList) {
-      const incoming = Array.from(fileList).filter(f => f.type.startsWith('image/'));
-      if (incoming.length === 0) return;
+      const incoming = Array.from(fileList).filter(isImageFile);
+      if (!incoming.length) {
+        showWarning('Please select image files only.');
+        return;
+      }
 
       const remainingSlots = MAX_FILES - selectedFiles.length;
       if (remainingSlots <= 0) {
-        showWarning('You\'ve reached the 20-photo limit. Remove a photo to add another.');
+        showWarning('You have reached the 20-photo limit. Remove a photo to add another.');
         return;
       }
+
       const toProcess = incoming.slice(0, remainingSlots);
-      if (incoming.length > remainingSlots) {
-        showWarning(`Only ${remainingSlots} more photo(s) could be added (20 max). The rest were skipped.`);
-      } else {
-        showWarning('');
-      }
+      showWarning(incoming.length > remainingSlots
+        ? 'Only ' + remainingSlots + ' additional photo(s) could be added.'
+        : '');
 
       for (const file of toProcess) {
-        const id = 'f' + (idCounter++);
+        const id = 'f' + idCounter++;
         selectedFiles.push({ file, id, compressing: true });
         renderThumbs();
-
         const finalFile = await maybeCompressImage(file);
-        const idx = selectedFiles.findIndex(item => item.id === id);
-        if (idx !== -1) selectedFiles[idx] = { file: finalFile, id, compressing: false };
+        const index = selectedFiles.findIndex(item => item.id === id);
+        if (index !== -1) selectedFiles[index] = { file: finalFile, id, compressing: false };
         renderThumbs();
       }
       checkTotalSize();
@@ -808,14 +735,14 @@
     function checkTotalSize() {
       const total = currentTotalBytes();
       if (total > MAX_TOTAL_BYTES) {
-        showWarning(`Total photo size (${formatBytes(total)}) exceeds the 25 MB limit. Remove a few photos before transmitting.`);
+        showWarning('Total photo size (' + formatBytes(total) + ') exceeds the 25 MB limit. Remove a few photos.');
       }
     }
 
     function removeFile(id) {
-      const item = selectedFiles.find(f => f.id === id);
-      if (item && item._objectUrl) URL.revokeObjectURL(item._objectUrl);
-      selectedFiles = selectedFiles.filter(f => f.id !== id);
+      const item = selectedFiles.find(fileItem => fileItem.id === id);
+      if (item && item.objectUrl) URL.revokeObjectURL(item.objectUrl);
+      selectedFiles = selectedFiles.filter(fileItem => fileItem.id !== id);
       showWarning('');
       renderThumbs();
       checkTotalSize();
@@ -824,39 +751,36 @@
     function renderThumbs() {
       thumbGrid.innerHTML = '';
       selectedFiles.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'thumb';
-
-        if (!item.compressing) {
-          const url = URL.createObjectURL(item.file);
-          item._objectUrl = url;
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = item.file.name;
-          div.appendChild(img);
-        }
-
-        const caption = document.createElement('div');
-        caption.className = 'thumb-caption';
-        caption.textContent = `${item.file.name} · ${formatBytes(item.file.size)}`;
-        div.appendChild(caption);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'thumb';
 
         if (item.compressing) {
           const overlay = document.createElement('div');
           overlay.className = 'thumb-compressing';
-          overlay.textContent = 'ENCODING…';
-          div.appendChild(overlay);
+          overlay.textContent = 'OPTIMIZING...';
+          wrapper.appendChild(overlay);
+        } else {
+          const objectUrl = URL.createObjectURL(item.file);
+          item.objectUrl = objectUrl;
+          const image = document.createElement('img');
+          image.src = objectUrl;
+          image.alt = item.file.name;
+          wrapper.appendChild(image);
         }
 
-        const removeBtn = document.createElement('button');
-        removeBtn.type = 'button';
-        removeBtn.className = 'thumb-remove';
-        removeBtn.innerHTML = '&times;';
-        removeBtn.setAttribute('aria-label', `Remove ${item.file.name}`);
-        removeBtn.addEventListener('click', () => removeFile(item.id));
-        div.appendChild(removeBtn);
+        const caption = document.createElement('div');
+        caption.className = 'thumb-caption';
+        caption.textContent = item.file.name + ' · ' + formatBytes(item.file.size);
+        wrapper.appendChild(caption);
 
-        thumbGrid.appendChild(div);
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'thumb-remove';
+        removeButton.innerHTML = '&times;';
+        removeButton.setAttribute('aria-label', 'Remove ' + item.file.name);
+        removeButton.addEventListener('click', () => removeFile(item.id));
+        wrapper.appendChild(removeButton);
+        thumbGrid.appendChild(wrapper);
       });
 
       fileCountEl.textContent = selectedFiles.length;
@@ -867,7 +791,8 @@
       if (file.size <= COMPRESS_THRESHOLD) return file;
       try {
         const bitmap = await createImageBitmap(file);
-        let { width, height } = bitmap;
+        let width = bitmap.width;
+        let height = bitmap.height;
         if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
           const scale = MAX_DIMENSION / Math.max(width, height);
           width = Math.round(width * scale);
@@ -876,20 +801,45 @@
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(bitmap, 0, 0, width, height);
+        canvas.getContext('2d').drawImage(bitmap, 0, 0, width, height);
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.82));
         if (!blob) return file;
-        const newName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
-        return new File([blob], newName, { type: 'image/jpeg' });
-      } catch (err) {
-        console.warn('Could not optimize image, using original:', file.name, err);
+        const filename = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+        return new File([blob], filename, { type: 'image/jpeg' });
+      } catch (error) {
+        console.warn('Could not optimize image; using original file:', file.name);
         return file;
       }
     }
 
-    /* Form submission */
-    const form = document.getElementById('lead-form');
+    const summaryFields = [
+      ['1. Business or organization', 'business'],
+      ['2. What the business does', 'business_description'],
+      ['3. Main website purpose', 'primary_purpose'],
+      ['4. Ideal customer or audience', 'target_audience'],
+      ['5. Primary visitor action', 'primary_action'],
+      ['6. Pages needed', 'pages_needed'],
+      ['7. Priority services or information', 'priority_offering'],
+      ['8. Special features', 'special_features'],
+      ['9. Content status', 'content_status'],
+      ['10. Brand assets', 'brand_assets'],
+      ['11. Website inspiration', 'inspiration_sites'],
+      ['12. Existing website/domain/hosting', 'existing_web_presence'],
+      ['13. Public contact information', 'public_contact_info'],
+      ['14. Timeline or deadline', 'timeline'],
+      ['15. Budget and maintenance', 'budget']
+    ];
+
+    function buildProjectSummary() {
+      const ownsDomain = form.querySelector('input[name="owns_domain"]:checked');
+      const lines = summaryFields.map(([label, id]) => {
+        const field = document.getElementById(id);
+        return label + ':\n' + ((field && field.value.trim()) || 'Not provided');
+      });
+      lines.splice(12, 0, 'Domain/hosting selected answer:\n' + (ownsDomain ? ownsDomain.value : 'Not provided'));
+      return lines.join('\n\n');
+    }
+
     const submitBtn = document.getElementById('submit-btn');
     const statusBanner = document.getElementById('status-banner');
     const statusTitle = document.getElementById('status-title');
@@ -900,68 +850,76 @@
       statusTitle.textContent = title;
       statusMessage.textContent = message;
     }
+
     function clearStatus() {
       statusBanner.className = 'status-banner';
       statusTitle.textContent = '';
       statusMessage.textContent = '';
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
       clearStatus();
 
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-
+      if (!form.checkValidity()) {
+        const invalid = form.querySelector(':invalid');
+        const invalidStep = invalid && invalid.closest('.form-step');
+        if (invalidStep) showStep(Number(invalidStep.dataset.step));
+        form.reportValidity();
+        return;
+      }
       if (currentTotalBytes() > MAX_TOTAL_BYTES) {
-        setStatus('error', 'TRANSMISSION BLOCKED', 'Total photo size exceeds the 25 MB limit. Please remove a few photos and try again.');
+        setStatus('error', 'UPLOAD TOO LARGE', 'The photographs exceed the 25 MB total limit. Remove a few and try again.');
         return;
       }
       if (selectedFiles.some(item => item.compressing)) {
-        setStatus('error', 'STANDBY', 'Photos are still being optimized — please wait a moment and try again.');
+        setStatus('error', 'PLEASE WAIT', 'Your photographs are still being optimized.');
         return;
       }
 
       const recaptchaToken = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
       if (!recaptchaToken) {
-        setStatus('error', 'VERIFICATION REQUIRED', 'Please complete the reCAPTCHA check before transmitting.');
+        setStatus('error', 'VERIFICATION REQUIRED', 'Please complete the reCAPTCHA before sending your request.');
         return;
       }
 
+      document.getElementById('project_details').value = buildProjectSummary();
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Transmitting…';
+      submitBtn.textContent = 'Sending...';
 
       try {
-        const fd = new FormData(form);
-        selectedFiles.forEach(item => fd.append('photos', item.file, item.file.name));
-
-        const resp = await fetch(WORKER_ENDPOINT, { method: 'POST', body: fd });
+        const formData = new FormData(form);
+        selectedFiles.forEach(item => formData.append('photos', item.file, item.file.name));
+        const response = await fetch(WORKER_ENDPOINT, { method: 'POST', body: formData });
 
         let data;
-        try { data = await resp.json(); }
-        catch { data = { success: false, error: 'Unexpected response from the server.' }; }
+        try {
+          data = await response.json();
+        } catch (error) {
+          data = { success: false, error: 'Unexpected response from the server.' };
+        }
 
-        if (resp.ok && data.success) {
-          setStatus('success', 'TRANSMISSION CONFIRMED', "Your project brief has been received. Expect a response within one business day.");
+        if (response.ok && data.success) {
+          setStatus('success', 'REQUEST RECEIVED', 'Thank you! Your website request and photographs were received. Casey will respond within one business day.');
           form.reset();
-          selectedFiles.forEach(item => item._objectUrl && URL.revokeObjectURL(item._objectUrl));
+          selectedFiles.forEach(item => item.objectUrl && URL.revokeObjectURL(item.objectUrl));
           selectedFiles = [];
           renderThumbs();
           showWarning('');
           if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
         } else {
-          setStatus('error', 'TRANSMISSION FAILED', data.error || 'Something went wrong sending your brief. Please try again.');
+          setStatus('error', 'REQUEST NOT SENT', data.error || 'Something went wrong. Please try again.');
           if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
         }
-      } catch (err) {
-        console.error('Submission failed:', err);
-        setStatus('error', 'CHANNEL UNREACHABLE', 'Could not reach the server. Please check your connection and try again.');
+      } catch (error) {
+        console.error('Submission failed:', error);
+        setStatus('error', 'CONNECTION ERROR', 'The server could not be reached. Check your connection and try again.');
         if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Transmit';
+        submitBtn.textContent = 'Send Website Request';
       }
     });
   </script>
-
 </body>
 </html>
