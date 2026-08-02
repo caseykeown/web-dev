@@ -15,6 +15,7 @@ BLOG = ROOT / "blog"
 ARTICLES = BLOG / "articles"
 EXCLUDED_DIRS = {"articles", "assets"}
 EXCLUDED_FILES = {"README.md"}
+FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590846744430"
 
 
 def parse_front_matter(text: str) -> tuple[dict[str, str], str]:
@@ -127,6 +128,41 @@ def nice_date(value: str) -> str:
         return value or "Undated"
 
 
+def short_date(value: str) -> str:
+    try:
+        parsed = datetime.strptime(value[:10], "%Y-%m-%d")
+        return f"{parsed.month}/{parsed.day}/{parsed.year}"
+    except (ValueError, TypeError):
+        return value or "Undated"
+
+
+def update_homepage(posts: list[dict[str, str]]) -> None:
+    homepage_path = ROOT / "index.html"
+    homepage = homepage_path.read_text(encoding="utf-8")
+
+    if posts:
+        latest_items = "\n".join(
+            f'            <li><a href="{post["url"]}">{html.escape(post["title"])}</a> '
+            f'<span>({html.escape(short_date(post["date"]))})</span></li>'
+            for post in posts[:3]
+        )
+    else:
+        latest_items = '            <li><a href="/blog/">Visit Casey\'s Blog</a></li>'
+
+    latest_block = f'''        <section class="blog">
+          <p><b>Casey's Latest Blog Entries</b> [<a href="{FACEBOOK_URL}" target="_blank" rel="noopener">Subscribe to this Blog</a>]</p>
+          <ul>
+{latest_items}
+          </ul>
+        </section>'''
+
+    pattern = r'        <section class="blog">.*?</section>'
+    updated, replacements = re.subn(pattern, latest_block, homepage, count=1, flags=re.DOTALL)
+    if replacements != 1:
+        raise RuntimeError("Could not find the homepage blog section to update.")
+    homepage_path.write_text(updated, encoding="utf-8")
+
+
 def discover_sources() -> list[Path]:
     files: list[Path] = []
     for path in BLOG.rglob("*"):
@@ -212,6 +248,7 @@ def build() -> None:
         posts.append({"title": title, "slug": slug, "date": published, "description": description, "url": f"/blog/articles/{slug}/"})
 
     posts.sort(key=lambda item: item["date"], reverse=True)
+    update_homepage(posts)
     list_items = "\n".join(f'''<li data-search="{html.escape((post['title'] + ' ' + post['description']).lower(), quote=True)}"><h2><a href="{post['url']}">{html.escape(post['title'])}</a></h2><div class="post-meta">{html.escape(nice_date(post['date']))} · Casey Keown</div><p class="post-excerpt">{html.escape(post['description'])}</p></li>''' for post in posts)
     list_items += "\n".join(f'''<li data-search="{html.escape(item['title'].lower(), quote=True)}"><h2><a href="{item['url']}">{html.escape(item['title'])}<span class="file-badge">{item['type']}</span></a></h2><div class="post-meta">Downloadable Word document</div></li>''' for item in downloads)
     if not list_items:
