@@ -196,22 +196,3 @@ If you mainly need a professional online presence, a focused site may be enough.
 Start with the outcome, not the number of animations or the name of the platform. Then compare proposals line by line. The cheapest quote can be a good value when the scope is honest. A higher quote can also be a good value when it includes strategy, content, ownership, performance, and dependable support.
 
 The goal is not simply to own a website. It is to own a useful business asset that customers can find, understand, and trust.
-
-## SEO Notes & Next Steps
-
-### Suggested internal links
-
-- **small-business website design in Kentucky** → planned statewide web-design pillar page
-- **website builder or professional web designer** → queue item #7
-- **one-time versus monthly website costs** → queue item #42
-- **request a website estimate** → `https://caseykeown.com/leads`
-
-### Suggested CTA
-
-> Not sure which website budget fits your business? Tell Custom Web Architecture what you need, what is not working, and what you want customers to do. You will receive a straightforward recommendation without the mystery tech talk. [Request a website estimate](https://caseykeown.com/leads).
-
-### Suggested visual assets
-
-1. **Website cost ladder:** A MySpace-inspired infographic showing DIY, freelancer, local studio, agency, and custom application tiers, with “scope changes the price” across the top.
-2. **Total ownership diagram:** A simple retro flowchart connecting build cost, domain, hosting, maintenance, content, and marketing.
-3. **Proposal comparison checklist:** A printable 2000s-style checklist graphic showing pages, content, SEO, ownership, support, and recurring fees.
