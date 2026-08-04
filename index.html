@@ -107,7 +107,7 @@
               <button id="pause" type="button">Ⅱ Pause</button>
             </div>
             <div class="progress-shell" aria-hidden="true"><span id="music-progress"></span></div>
-            <p id="music-status" class="music-status" aria-live="polite">Attempting autoplay...</p>
+            <p id="music-status" class="music-status" aria-live="polite">Click Play to start the profile song.</p>
           </div>
         </section>
 
@@ -319,12 +319,6 @@
         if (myAudio.duration) progress.style.width = ((myAudio.currentTime / myAudio.duration) * 100) + '%';
       });
       myAudio.addEventListener('ended', function(){ status.textContent = 'Song ended — click Play to hear it again.'; });
-
-      var autoplayAttempt = myAudio.play();
-      if (autoplayAttempt !== undefined) {
-        autoplayAttempt.then(function(){ status.textContent = 'Now playing: Eden — TesseracT'; })
-          .catch(function(){ status.textContent = 'Autoplay was blocked. Click Play to start the profile song.'; });
-      }
     }
   </script>
 
