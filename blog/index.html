@@ -44,9 +44,9 @@
       gap: var(--space-2);
       margin-bottom: var(--space-3);
       padding: var(--space-2);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
+      background: var(--color-cream-soft);
+      border: 1px solid var(--color-gray);
+      border-radius: var(--radius);
       box-shadow: var(--shadow-sm);
     }
 
@@ -61,7 +61,7 @@
       left: 0.9rem;
       width: 1.1rem;
       height: 1.1rem;
-      color: var(--color-text-muted);
+      color: #5f5b55;
       transform: translateY(-50%);
       pointer-events: none;
     }
@@ -70,16 +70,16 @@
       width: 100%;
       min-height: 3rem;
       padding: 0.75rem 0.9rem 0.75rem 2.75rem;
-      color: var(--color-text);
+      color: var(--color-charcoal);
       background: var(--color-white);
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--color-gray);
       border-radius: var(--radius-sm);
       font: inherit;
     }
 
     .blog-search input:focus {
-      border-color: var(--color-focus);
-      outline: 3px solid var(--color-focus);
+      border-color: var(--color-orange);
+      outline: 3px solid var(--color-orange);
       outline-offset: 1px;
     }
 
@@ -103,15 +103,15 @@
       gap: var(--space-2) var(--space-3);
       align-items: start;
       padding: var(--space-3);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      background: var(--color-cream-soft);
+      border: 1px solid var(--color-gray);
+      border-radius: var(--radius);
+      transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
     }
 
     .article-card:hover {
       border-color: rgba(214, 96, 42, 0.55);
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow);
       transform: translateY(-2px);
     }
 
@@ -144,7 +144,7 @@
     .article-excerpt {
       max-width: 68ch;
       margin: 0;
-      color: var(--color-text-muted);
+      color: #5f5b55;
     }
 
     .article-link {
@@ -155,11 +155,11 @@
     .blog-empty {
       margin: var(--space-3) 0 0;
       padding: var(--space-3);
-      color: var(--color-text-muted);
+      color: #5f5b55;
       text-align: center;
-      background: var(--color-surface);
-      border: 1px dashed var(--color-border);
-      border-radius: var(--radius-md);
+      background: var(--color-cream-soft);
+      border: 1px dashed var(--color-gray);
+      border-radius: var(--radius);
     }
 
     @media (max-width: 700px) {
@@ -182,30 +182,7 @@
     }
   </style>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Custom Web Architecture Blog",
-    "description": "Practical website development, SEO, and small-business technology articles from Casey Keown.",
-    "url": "https://caseykeown.com/blog/",
-    "inLanguage": "en-US",
-    "author": {
-      "@type": "Person",
-      "name": "Casey Keown",
-      "url": "https://caseykeown.com/about.html"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Custom Web Architecture",
-      "url": "https://caseykeown.com/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://caseykeown.com/assets/cwa-horizontal-black.png"
-      }
-    }
-  }
-  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://caseykeown.com/#business","name":"Custom Web Architecture","url":"https://caseykeown.com/","logo":"https://caseykeown.com/assets/cwa-monogram-transparent-black.png","image":"https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/blog-social-image.jpg","email":"mailto:me@caseykeown.com","founder":{"@id":"https://caseykeown.com/#casey"},"areaServed":"Kentucky","sameAs":["https://www.facebook.com/profile.php?id=61590846744430"]},{"@type":"Person","@id":"https://caseykeown.com/#casey","name":"Casey Keown","url":"https://caseykeown.com/about.html","image":"https://caseykeown.com/assets/headshot-640.webp","jobTitle":"Web Developer","worksFor":{"@id":"https://caseykeown.com/#business"}},{"@type":"Blog","@id":"https://caseykeown.com/blog/#blog","url":"https://caseykeown.com/blog/","name":"Custom Web Architecture Blog","description":"Practical website development, SEO, and small-business technology articles from Casey Keown.","publisher":{"@id":"https://caseykeown.com/#business"},"author":{"@id":"https://caseykeown.com/#casey"},"blogPost":[{"@id":"https://caseykeown.com/blog/articles/static-html-linktree-alternative/#article"},{"@id":"https://caseykeown.com/blog/articles/website-cost-kentucky/#article"},{"@id":"https://caseykeown.com/blog/articles/small-business-website-cost/#article"}],"inLanguage":"en-US"}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -217,14 +194,14 @@
       </a>
 
       <nav class="main-nav" aria-label="Main navigation">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" id="nav-toggle">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M3 6h18M3 12h18M3 18h18"></path>
           </svg>
-          <span class="sr-only">Menu</span>
+          <span class="sr-only">Open menu</span>
         </button>
 
-        <ul class="nav-links" id="nav-links" data-open="false">
+        <ul class="nav-links" id="nav-links" data-open="false" data-nav-links>
           <li><a href="/">Home</a></li>
           <li><a href="/services.html">Services</a></li>
           <li><a href="/work.html">Work</a></li>
@@ -272,7 +249,7 @@
         </div>
 
         <div class="article-grid" id="post-list" role="list">
-          <article class="article-card" role="listitem" data-search="a static html alternative to linktree custom link in bio page small business branding control platform limitations">
+          <article class="article-card" role="listitem" data-search="a static html alternative to linktree learn when a custom static html link-in-bio page gives a small business more control, better branding, and fewer platform limitations.">
             <div>
               <p class="article-meta"><time datetime="2026-08-04">August 4, 2026</time> &middot; Casey Keown</p>
               <h2><a href="/blog/articles/static-html-linktree-alternative/">A Static HTML Alternative to Linktree</a></h2>
@@ -281,22 +258,22 @@
             <a class="btn btn-quiet article-link" href="/blog/articles/static-html-linktree-alternative/" aria-label="Read A Static HTML Alternative to Linktree">Read article &rarr;</a>
           </article>
 
-          <article class="article-card" role="listitem" data-search="what does a website cost in kentucky pricing quote recurring costs compare proposals scope small business website">
+          <article class="article-card" role="listitem" data-search="what does a website cost in kentucky? see realistic kentucky website pricing, what changes a quote, recurring costs, and how to compare proposals without buying the wrong scope.">
             <div>
               <p class="article-meta"><time datetime="2026-08-03">August 3, 2026</time> &middot; Casey Keown</p>
               <h2><a href="/blog/articles/website-cost-kentucky/">What Does a Website Cost in Kentucky?</a></h2>
               <p class="article-excerpt">See realistic Kentucky website pricing, what changes a quote, recurring costs, and how to compare proposals without buying the wrong scope.</p>
             </div>
-            <a class="btn btn-quiet article-link" href="/blog/articles/website-cost-kentucky/" aria-label="Read What Does a Website Cost in Kentucky">Read article &rarr;</a>
+            <a class="btn btn-quiet article-link" href="/blog/articles/website-cost-kentucky/" aria-label="Read What Does a Website Cost in Kentucky?">Read article &rarr;</a>
           </article>
 
-          <article class="article-card" role="listitem" data-search="how much does a small business website cost 2026 budget price pricing kentucky business owners">
+          <article class="article-card" role="listitem" data-search="how much does a small business website cost? learn what a small business website costs in 2026, what changes the price, and how kentucky owners can set a realistic budget.">
             <div>
               <p class="article-meta"><time datetime="2026-07-21">July 21, 2026</time> &middot; Casey Keown</p>
               <h2><a href="/blog/articles/small-business-website-cost/">How Much Does a Small Business Website Cost?</a></h2>
               <p class="article-excerpt">Learn what a small business website costs in 2026, what changes the price, and how Kentucky owners can set a realistic budget.</p>
             </div>
-            <a class="btn btn-quiet article-link" href="/blog/articles/small-business-website-cost/" aria-label="Read How Much Does a Small Business Website Cost">Read article &rarr;</a>
+            <a class="btn btn-quiet article-link" href="/blog/articles/small-business-website-cost/" aria-label="Read How Much Does a Small Business Website Cost?">Read article &rarr;</a>
           </article>
         </div>
 
@@ -346,12 +323,12 @@
     </div>
 
     <div class="wrap footer-bottom">
-      <span>&copy; <span id="year">2026</span> Casey Keown | Custom Web Architecture. All rights reserved.</span>
+      <span>&copy; <span data-current-year>2026</span> Casey Keown | Custom Web Architecture. All rights reserved.</span>
       <span>Websites built by Casey Keown.</span>
     </div>
   </footer>
 
-  <script src="/scripts/site.js"></script>
+  <script src="/scripts/site.js" defer></script>
   <script>
     (function () {
       var filter = document.getElementById('post-filter');
