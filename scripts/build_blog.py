@@ -188,7 +188,7 @@ def shared_header(title: str, description: str, canonical: str) -> str:
   <meta property="og:description" content="{html.escape(description, quote=True)}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{html.escape(canonical, quote=True)}">
-  <meta property="og:image" content="https://caseykeown.com/ck-logo.png">
+  <meta property="og:image" content="https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/blog-social-image.jpg">
   <link rel="stylesheet" href="/blog/assets/blog.css">
 </head>
 <body>
