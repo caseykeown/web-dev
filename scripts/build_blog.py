@@ -245,7 +245,7 @@ def header_html(active: str = "blog") -> str:
     return f'''<header class="site-header">
   <div class="wrap header-bar">
     <a class="brand-mark" href="/" aria-label="Custom Web Architecture home">
-      <img class="brand-logo" src="/assets/cwa-horizontal-black.png" alt="Custom Web Architecture" width="1200" height="200">
+      <img class="brand-logo" src="/assets/cwa-horizontal-black.svg" alt="Custom Web Architecture" width="1200" height="200">
     </a>
     <nav class="main-nav" aria-label="Main navigation">
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>

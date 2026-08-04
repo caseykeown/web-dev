@@ -29,7 +29,7 @@
   <header class="site-header">
     <div class="wrap header-bar">
       <a class="brand-mark" href="/">
-        <img class="brand-logo" src="/assets/cwa-horizontal-black.png" alt="Custom Web Architecture" width="200" height="34">
+        <img class="brand-logo" src="/assets/cwa-horizontal-black.svg" alt="Custom Web Architecture" width="200" height="34">
       </a>
 
       <nav class="main-nav" aria-label="Main navigation">
@@ -68,7 +68,10 @@
           </div>
         </div>
         <div class="hero-art">
-          <img src="/assets/headshot.jpg" alt="Casey Keown, founder of Custom Web Architecture" loading="lazy">
+          <picture>
+            <source type="image/webp" srcset="/assets/headshot-640.webp 640w, /assets/headshot-960.webp 960w" sizes="(max-width: 768px) 80vw, 32vw">
+            <img src="/assets/headshot-640.jpg" srcset="/assets/headshot-640.jpg 640w, /assets/headshot-960.jpg 960w" sizes="(max-width: 768px) 80vw, 32vw" alt="Casey Keown, founder of Custom Web Architecture" width="640" height="962" loading="eager" fetchpriority="high" decoding="async">
+          </picture>
         </div>
       </div>
     </section>

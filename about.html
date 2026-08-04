@@ -29,7 +29,7 @@
   <header class="site-header">
     <div class="wrap header-bar">
       <a class="brand-mark" href="/">
-        <img class="brand-logo" src="/assets/cwa-horizontal-black.png" alt="Custom Web Architecture" width="200" height="34">
+        <img class="brand-logo" src="/assets/cwa-horizontal-black.svg" alt="Custom Web Architecture" width="200" height="34">
       </a>
       <nav class="main-nav" aria-label="Main navigation">
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" id="nav-toggle">
@@ -58,7 +58,10 @@
           <p class="hero-lede">I build websites because I like solving real problems for real people&mdash;and because a good website should feel like it was actually made for the business it represents.</p>
         </div>
         <div class="hero-art">
-          <img src="/assets/headshot.jpg" alt="Casey Keown" loading="lazy">
+          <picture>
+            <source type="image/webp" srcset="/assets/headshot-640.webp 640w, /assets/headshot-960.webp 960w" sizes="(max-width: 768px) 80vw, 32vw">
+            <img src="/assets/headshot-640.jpg" srcset="/assets/headshot-640.jpg 640w, /assets/headshot-960.jpg 960w" sizes="(max-width: 768px) 80vw, 32vw" alt="Casey Keown" width="640" height="962" loading="eager" fetchpriority="high" decoding="async">
+          </picture>
         </div>
       </div>
     </section>
