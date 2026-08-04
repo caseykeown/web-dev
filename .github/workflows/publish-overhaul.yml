@@ -1,0 +1,73 @@
+name: Publish site overhaul
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".publish-payload/**"
+      - ".github/workflows/publish-overhaul.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-site-overhaul
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Preserve source content and required media
+        run: |
+          mkdir -p /tmp/cwa-preserve/blog /tmp/cwa-preserve/assets
+          cp blog/*.md /tmp/cwa-preserve/blog/
+          cp "Eden - TesseracT (128k).mp3" /tmp/cwa-preserve/
+          cp blog-social-image.jpg /tmp/cwa-preserve/
+          cp assets/cwa-horizontal-black.png /tmp/cwa-preserve/assets/
+          cp assets/favicon.svg /tmp/cwa-preserve/assets/
+          cp assets/favicon-96x96.png /tmp/cwa-preserve/assets/
+          cp assets/apple-touch-icon.png /tmp/cwa-preserve/assets/
+          cp assets/web-app-manifest-192x192.png /tmp/cwa-preserve/assets/
+          cp assets/web-app-manifest-512x512.png /tmp/cwa-preserve/assets/
+
+      - name: Rebuild clean repository tree
+        run: |
+          cat .publish-payload/part-* | base64 --decode > /tmp/cwa-site.zip
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          unzip -q /tmp/cwa-site.zip -d .
+          mkdir -p blog assets
+          cp /tmp/cwa-preserve/blog/*.md blog/
+          cp "/tmp/cwa-preserve/Eden - TesseracT (128k).mp3" .
+          cp /tmp/cwa-preserve/blog-social-image.jpg .
+          cp /tmp/cwa-preserve/assets/* assets/
+          python3 scripts/build_blog.py
+
+      - name: Validate rebuilt site
+        run: |
+          python3 -m py_compile scripts/*.py
+          node --check scripts/site.js
+          node --check scripts/leads.js
+          node --check scripts/blog.js
+          python3 scripts/audit_site.py
+
+      - name: Commit and push clean site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish site overhaul and remove unused files"
+          git push
