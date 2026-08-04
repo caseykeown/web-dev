@@ -6,6 +6,8 @@ on:
     paths:
       - ".publish-payload/**"
       - ".github/workflows/publish-overhaul.yml"
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
