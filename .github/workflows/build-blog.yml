@@ -9,6 +9,7 @@ on:
       - "blog/**.doc"
       - "blog/**.docx"
       - "scripts/build_blog.py"
+      - "scripts/build_blog_index.py"
       - ".github/workflows/build-blog.yml"
   workflow_dispatch: {}
 
@@ -27,8 +28,13 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Preserve branded blog index
+        run: cp blog/index.html "$RUNNER_TEMP/blog-index-template.html"
+
       - name: Build blog
-        run: python3 scripts/build_blog.py
+        run: |
+          python3 scripts/build_blog.py
+          python3 scripts/build_blog_index.py "$RUNNER_TEMP/blog-index-template.html"
 
       - name: Commit generated site
         run: |
