@@ -3,376 +3,289 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Casey's Space — custom websites, web applications, SEO, and website maintenance by Kentucky web developer Casey Keown.">
-  <meta name="theme-color" content="#003399">
-  <meta property="og:title" content="Casey's Space | Custom Web Architecture">
-  <meta property="og:description" content="A little 2006 internet nostalgia. A lot of modern website development.">
+  <title>Custom Web Architecture | Websites Built by Casey Keown</title>
+  <meta name="description" content="I build straightforward, custom websites for small businesses in Kentucky. Personal service, honest guidance, and a site you'll be proud to share.">
+  <link rel="canonical" href="https://caseykeown.com/">
+  <meta property="og:title" content="Custom Web Architecture | Websites Built by Casey Keown">
+  <meta property="og:description" content="Straightforward websites for small businesses, built by one person from first conversation to launch.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://caseykeown.com/">
-  <meta property="og:image" content="https://raw.githubusercontent.com/caseykeown/web-dev/main/casey%E2%80%99s%20space.png">
-  <link rel="canonical" href="https://caseykeown.com/">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <title>Casey's Space | Custom Web Architecture</title>
+  <meta property="og:image" content="https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/blog-social-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#F47A3C">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
-
 <body>
-  <div class="audio-embed" aria-hidden="true">
-    <audio id="myAudio" preload="none">
-      <source src="https://github.com/caseykeown/web-dev/raw/refs/heads/main/Eden%20-%20TesseracT%20(128k).mp3" type="audio/mpeg">
-    </audio>
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="master-container">
-    <header class="main-header">
-      <div class="logo-row">
-        <a class="brand" href="#top" aria-label="Casey's Space home">
-          <img src="caseyspace.png" alt="Casey's Space">
-        </a>
+  <header class="site-header">
+    <div class="wrap header-bar">
+      <a class="brand-mark" href="/">
+        <img class="brand-logo" src="/assets/cwa-horizontal-black.png" alt="Custom Web Architecture" width="200" height="34">
+      </a>
 
-        <nav class="utility-nav" aria-label="Utility navigation">
-          <a href="mailto:me@caseykeown.com">Mail</a>
-          <a href="https://caseykeown.com/leads">Request a Quote</a>
-        </nav>
-      </div>
-
-      <div class="search-bar">
-        <span>Search Casey's Space:</span>
-        <form id="site-search" role="search">
-          <label class="sr-only" for="site-search-input">Search this page</label>
-          <input id="site-search-input" type="search" placeholder="websites, SEO, apps...">
-          <button type="submit">Search</button>
-        </form>
-      </div>
-
-      <nav class="navbar" aria-label="Main navigation">
-        <a href="#top">Home</a>
-        <a href="#about">About</a>
-        <a href="/blog/">Blog</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#seo-check">Free SEO Check</a>
-        <a href="#contact">Contact</a>
-        <a href="https://caseykeown.gumroad.com/l/TrooperTranscribe" target="_blank" rel="noopener">Applications</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" id="nav-toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <span class="sr-only">Menu</span>
+        </button>
+        <ul class="nav-links" id="nav-links" data-open="false">
+          <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/leads.html">Contact</a></li>
+          <li><a class="btn btn-primary" href="/leads.html">Request a Quote</a></li>
+        </ul>
       </nav>
-    </header>
-
-    <div id="top" class="page-content-container">
-      <aside class="profile-sidebar">
-        <header class="profile-name">
-          <h1>Casey</h1>
-        </header>
-
-        <div class="profile-picture-container">
-          <img class="profile-pic" src="https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/profile-pic.webp" alt="Casey Keown playing drums">
-
-          <div class="profile-facts">
-            <p class="personal-msg"><b>“Your website is in my Top 8.”</b></p>
-            <ul>
-              <li>Male</li>
-              <li>Kentucky</li>
-              <li>United States</li>
-            </ul>
-            <ul class="last-login">
-              <li><b>Last Login:</b></li>
-              <li>Right now</li>
-            </ul>
-          </div>
-
-          <p class="pics-videos">View My: <a href="#projects"><b>Projects</b></a> | <a href="#services"><b>Services</b></a></p>
-        </div>
-
-        <section id="contact" class="contact-box">
-          <h2>Contacting Casey</h2>
-          <div class="contact-actions">
-            <a href="mailto:me@caseykeown.com"><span aria-hidden="true">✉</span> Send Message</a>
-            <a href="https://caseykeown.com/leads"><span aria-hidden="true">＋</span> Request Quote</a>
-            <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener"><span aria-hidden="true">f</span> Add on Facebook</a>
-            <a href="#projects"><span aria-hidden="true">★</span> View Portfolio</a>
-            <a href="#seo-check"><span aria-hidden="true">↗</span> Check Your SEO</a>
-          </div>
-        </section>
-
-        <section class="myspace-url-box">
-          <h2>Casey's Space URL:</h2>
-          <p><a href="https://caseykeown.com">https://caseykeown.com</a></p>
-        </section>
-
-        <section class="music-box" aria-labelledby="music-title">
-          <h2 id="music-title">Casey's Profile Song</h2>
-          <div class="music-body">
-            <p><b>“Eden” — TesseracT</b></p>
-            <div class="player-controls">
-              <button id="play" type="button">▶ Play</button>
-              <button id="pause" type="button">Ⅱ Pause</button>
-            </div>
-            <div class="progress-shell" aria-hidden="true"><span id="music-progress"></span></div>
-            <p id="music-status" class="music-status" aria-live="polite">Click Play to start the profile song.</p>
-          </div>
-        </section>
-
-        <section class="interests">
-          <table class="sidebar-table">
-            <caption><h2>Casey's Interests</h2></caption>
-            <tbody>
-              <tr>
-                <th scope="row">General</th>
-                <td>Building websites, solving problems, music, drums, guitar, family, Kentucky communities, running, and turning big ideas into useful things.</td>
-              </tr>
-              <tr>
-                <th scope="row">Web</th>
-                <td>HTML, CSS, JavaScript, GitHub Pages, responsive design, accessibility, performance, SEO, WordPress, Shopify, Webflow, and custom applications.</td>
-              </tr>
-              <tr>
-                <th scope="row">Music</th>
-                <td>TesseracT, Joshua Slone, Mumford & Sons, Silverstein, Coldplay, Cory Asbury, The Fall of Troy, Skrillex, Tors, and anything with a great drum part.</td>
-              </tr>
-              <tr>
-                <th scope="row">Heroes</th>
-                <td>People who serve their communities, take ownership of their work, and build things that outlast them.</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section class="details">
-          <table class="sidebar-table">
-            <caption><h2>Casey's Details</h2></caption>
-            <tbody>
-              <tr><th scope="row">Status:</th><td>Taking on projects</td></tr>
-              <tr><th scope="row">Here For:</th><td>Websites, apps, SEO, maintenance, and good ideas</td></tr>
-              <tr><th scope="row">Hometown:</th><td>Grayson County, Kentucky</td></tr>
-              <tr><th scope="row">Occupation:</th><td>Web Developer</td></tr>
-              <tr><th scope="row">Business:</th><td>Custom Web Architecture</td></tr>
-              <tr><th scope="row">Response:</th><td>Usually within one business day</td></tr>
-            </tbody>
-          </table>
-        </section>
-      </aside>
-
-      <main>
-        <section class="user-network">
-          <h2>Casey is in your extended network</h2>
-          <p><b>A little 2006 internet nostalgia. A lot of modern website development.</b></p>
-        </section>
-
-        <section class="blog">
-          <p><b>Casey's Latest Blog Entries</b> [<a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Subscribe to this Blog</a>]</p>
-          <ul>
-            <li><a href="/blog/articles/static-html-linktree-alternative/">A Static HTML Alternative to Linktree</a> <span>(8/4/2026)</span></li>
-            <li><a href="/blog/articles/website-cost-kentucky/">What Does a Website Cost in Kentucky?</a> <span>(8/3/2026)</span></li>
-            <li><a href="/blog/articles/small-business-website-cost/">How Much Does a Small Business Website Cost?</a> <span>(7/21/2026)</span></li>
-          </ul>
-        </section>
-
-        <section id="about" class="blurbs">
-          <header class="main-section-header"><h2>Casey's Blurbs</h2></header>
-          <h3>About me:</h3>
-          <p>I'm Casey Keown, the developer behind <b>Custom Web Architecture</b>. I build fast, mobile-friendly websites and practical web applications for small businesses, nonprofits, and organizations that need their online presence to do real work.</p>
-          <p>My approach comes from a career where details matter: understand the objective, account for the evidence, communicate clearly, and finish the job. That means no mystery tech talk, no disappearing after launch, and no generic template passed off as a custom solution.</p>
-          <p>I serve clients throughout Kentucky and work remotely with good people anywhere. If you have a project in mind, <a href="https://caseykeown.com/leads">tell me what you're building</a>.</p>
-
-          <h3>Who I'd like to meet:</h3>
-          <p>Business owners, founders, nonprofits, artists, and community organizations with a good story and a website that does not tell it yet.</p>
-        </section>
-
-        <section id="services" class="services-section">
-          <header class="main-section-header"><h2>Casey's Web Development Services</h2></header>
-          <div class="service-grid">
-            <article>
-              <h3>Custom Websites</h3>
-              <p>Responsive, accessible sites built around your goals, voice, and customers—not a one-size-fits-all theme.</p>
-            </article>
-            <article>
-              <h3>Front-End Development</h3>
-              <p>Clean HTML, CSS, and JavaScript with thoughtful interaction, strong performance, and mobile-first layouts.</p>
-            </article>
-            <article>
-              <h3>Platforms &amp; Commerce</h3>
-              <p>WordPress, Shopify, Webflow, GitHub Pages, CMS customization, integrations, and streamlined workflows.</p>
-            </article>
-            <article>
-              <h3>Maintenance &amp; SEO</h3>
-              <p>Content updates, repairs, speed improvements, technical cleanup, Core Web Vitals, and on-page SEO.</p>
-            </article>
-            <article>
-              <h3>Custom Applications</h3>
-              <p>Focused tools that automate repetitive work, organize information, or make a specialized workflow easier.</p>
-            </article>
-            <article>
-              <h3>Small-Business Packages</h3>
-              <p>Focused landing pages and full business websites with clear scope, practical pricing, and personal support.</p>
-            </article>
-          </div>
-          <p class="section-cta"><a class="retro-button" href="https://caseykeown.com/leads">Request a Quote</a></p>
-        </section>
-
-        <section id="projects" class="friends">
-          <header class="main-section-header"><h2>Casey's Client Space</h2></header>
-          <p><b>Casey has <span class="focus-highlight">8</span> featured projects.</b></p>
-          <div class="friend-pic-container">
-            <a class="friend-card ground" href="https://groundprosky.com" target="_blank" rel="noopener"><span>GROUND<br>PROS</span><b>Ground Pros LLC</b></a>
-            <a class="friend-card nalls" href="https://caseykeown.github.io/nalls-hauling" target="_blank" rel="noopener"><span>NALL'S</span><b>Nall's Hauling</b></a>
-            <a class="friend-card trooper" href="https://caseykeown.gumroad.com/l/TrooperTranscribe" target="_blank" rel="noopener"><span>TT</span><b>Trooper Transcribe</b></a>
-            <a class="friend-card caneyville" href="https://caneyville.org" target="_blank" rel="noopener"><span>C</span><b>City of Caneyville</b></a>
-            <a class="friend-card skate" href="https://twinlakesskatepark.org" target="_blank" rel="noopener"><span>TLSP</span><b>Twin Lakes Skatepark</b></a>
-            <a class="friend-card salon" href="https://caseykeown.github.io/blush-brass-vintage/" target="_blank" rel="noopener"><span>B&amp;B</span><b>Blush &amp; Brass Vintage</b></a>
-            <a class="friend-card hannah" href="https://caseykeown.github.io/hannahkeownhomes" target="_blank" rel="noopener"><span>HKH</span><b>Hannah Keown Homes</b></a>
-            <a class="friend-card pure" href="https://caseykeown.github.io/pure-can-cleaning" target="_blank" rel="noopener"><span>PURE</span><b>Pure Can Cleaning</b></a>
-          </div>
-          <p class="friends-list-link"><a href="mailto:me@caseykeown.com?subject=Website%20Project">Make Your Business Casey's Next Top Friend</a></p>
-        </section>
-
-        <section id="seo-check" class="seo-section">
-          <header class="main-section-header"><h2>Free Local SEO Performance Check</h2></header>
-          <div class="seo-intro">
-            <p>See how your business ranks across a 3×3 Google Maps grid for a local keyword. The free scan is provided by <a href="https://www.rank.ai/free-tools/geo-grid" target="_blank" rel="noopener">Rank.ai</a>.</p>
-            <p class="small-note">Your information is entered on Rank.ai to run the scan. Casey's Space does not submit it to or store it on this website.</p>
-          </div>
-
-          <form id="seo-form" class="seo-form">
-            <div class="seo-fields">
-              <label for="ggc-keyword">Keyword
-                <input id="ggc-keyword" name="keyword" placeholder="e.g. web designer" maxlength="120" required>
-              </label>
-              <label for="ggc-business">Business name
-                <input id="ggc-business" name="business" placeholder="As shown on Google" maxlength="200" required>
-              </label>
-              <label for="ggc-address">Address or city
-                <input id="ggc-address" name="address" placeholder="Leitchfield, KY" maxlength="200" required>
-              </label>
-              <label for="ggc-email">Email <span>(optional)</span>
-                <input id="ggc-email" name="email" placeholder="you@company.com" type="email">
-              </label>
-            </div>
-            <div class="seo-actions">
-              <button id="load-sample" type="button">Load sample</button>
-              <button class="run-check" type="submit">Run free check ↗</button>
-            </div>
-            <p id="seo-status" class="seo-status" aria-live="polite"></p>
-          </form>
-        </section>
-
-        <section class="comment-wall">
-          <header class="main-section-header"><h2>Casey's Friends Comments</h2></header>
-          <p class="comment-counter"><b>Displaying <span class="focus-highlight">4</span> of <span class="focus-highlight">2006</span> comments</b></p>
-          <div class="comment-row">
-            <div class="comment-user browser-card"><b>Internet<br>Explorer 6</b><span>View Profile</span></div>
-            <div><h3>7/20/2026 1:37 PM</h3><p>dude this site looks weird in my browser. everybody's site looks weird in my browser.</p></div>
-          </div>
-          <div class="comment-row">
-            <div class="comment-user css-card"><b>CSS<br>Wizard</b><span>View Profile</span></div>
-            <div><h3>7/20/2026 1:22 PM</h3><p>your layout is totally valid. thanks 4 not using tables for everything... wait.</p></div>
-          </div>
-          <div class="comment-row">
-            <div class="comment-user seo-card"><b>SEO<br>Spider</b><span>View Profile</span></div>
-            <div><h3>7/20/2026 12:58 PM</h3><p>crawled it. indexed it. added you to my top 8.</p></div>
-          </div>
-          <div class="comment-row">
-            <div class="comment-user dial-card"><b>Dial-Up<br>Dave</b><span>View Profile</span></div>
-            <div><h3>7/20/2026 12:41 PM</h3><p>the page loaded before mom picked up the phone. 10/10.</p></div>
-          </div>
-          <p class="add-comment"><a href="mailto:me@caseykeown.com?subject=Comment%20from%20Casey's%20Space">Add Comment</a></p>
-        </section>
-      </main>
     </div>
+  </header>
 
-    <footer class="footer">
-      <nav aria-label="Footer navigation">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#seo-check">SEO Check</a>
-        <a href="mailto:me@caseykeown.com">Contact</a>
-        <a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Facebook</a>
-      </nav>
-      <p>© 2026 CASEY KEOWN | Custom Web Architecture. All Rights Reserved.</p>
-      <p class="best-viewed">Best viewed with a modern browser and a deeply unreasonable amount of nostalgia.</p>
-    </footer>
-  </div>
+  <main id="main">
 
-  <script>
-    window.onload = function(){
-      var myAudio = document.getElementById('myAudio');
-      var play = document.getElementById('play');
-      var pause = document.getElementById('pause');
-      var status = document.getElementById('music-status');
-      var progress = document.getElementById('music-progress');
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Kentucky web development</p>
+          <h1>Straightforward websites for small businesses.</h1>
+          <p class="hero-lede">I build professional, custom websites for businesses that want personal service without agency prices or template-site headaches.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="/leads.html">Request a Quote</a>
+            <a class="btn btn-secondary" href="/work.html">View My Work</a>
+          </div>
+          <div class="hero-note">
+            <strong>You do not need to understand web development.</strong>
+            Tell me about your business, what you need, and what is not working. I will help you choose a practical solution and explain everything in plain English.
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="/assets/headshot.jpg" alt="Casey Keown, founder of Custom Web Architecture" loading="lazy">
+        </div>
+      </div>
+    </section>
 
-      play.onclick = playAudio;
-      pause.onclick = pauseAudio;
+    <section class="section section-alt">
+      <div class="wrap">
+        <div class="section-head text-center" style="margin-inline:auto;">
+          <p class="eyebrow" style="justify-self:center;">Why Custom Web Architecture</p>
+          <h2>You work directly with me. Not an account manager.</h2>
+          <p>There's no rotating team and no anonymous ticket queue. From our first conversation through launch and beyond, you're talking to the person actually building your site.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">1</div>
+            <h3>Personal, from day one</h3>
+            <p>You'll hear back from me directly, not a project coordinator relaying your notes to someone else.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">2</div>
+            <h3>Plain-English guidance</h3>
+            <p>Domains, hosting, SEO, and content management explained clearly, so you understand what you're paying for.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">3</div>
+            <h3>Built to finish</h3>
+            <p>I follow through until the site is live and working, and I stick around after launch if you need help.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      function playAudio() {
-        var promise = myAudio.play();
-        if (promise !== undefined) {
-          promise.then(function(){ status.textContent = 'Now playing: Eden — TesseracT'; })
-            .catch(function(){ status.textContent = 'Your browser blocked playback. Click Play to try again.'; });
-        }
-      }
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">What I build</p>
+          <h2>Services</h2>
+          <p>Practical websites and web tools, scoped to what your business actually needs.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <h3>Custom Websites</h3>
+            <p>Responsive, accessible sites built around your goals, your customers, and your voice&mdash;not a one-size-fits-all theme.</p>
+          </div>
+          <div class="card">
+            <h3>Website Redesigns</h3>
+            <p>A tired or outdated site gets rebuilt with a clear structure, faster performance, and a design that fits your business today.</p>
+          </div>
+          <div class="card">
+            <h3>Platforms &amp; Commerce</h3>
+            <p>WordPress, Shopify, and other platforms set up and customized so you can manage your own content going forward.</p>
+          </div>
+          <div class="card">
+            <h3>Search-Engine Fundamentals</h3>
+            <p>On-page SEO, technical cleanup, and Core Web Vitals work so people can actually find your site.</p>
+          </div>
+          <div class="card">
+            <h3>Maintenance &amp; Updates</h3>
+            <p>Content changes, repairs, and small improvements after launch, without waiting weeks for a callback.</p>
+          </div>
+          <div class="card">
+            <h3>Custom Applications</h3>
+            <p>Focused tools that automate repetitive work or make a specialized workflow easier for your team.</p>
+          </div>
+        </div>
+        <p class="section-cta" style="text-align:right; margin-top:var(--space-3);"><a class="btn btn-quiet" href="/services.html">See all services &rarr;</a></p>
+      </div>
+    </section>
 
-      function pauseAudio() {
-        myAudio.pause();
-        status.textContent = 'Paused';
-      }
+    <section class="section section-alt">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recent work</p>
+          <h2>Selected projects</h2>
+          <p>A few businesses and organizations I've built websites for.</p>
+        </div>
+        <div class="card-grid">
+          <div class="project-card">
+            <div class="project-thumb">GP</div>
+            <div class="project-body">
+              <h3>Ground Pros LLC</h3>
+              <p class="project-meta">Land &amp; property services</p>
+              <p>A clean, mobile-friendly site that makes it easy for customers to understand services and get in touch.</p>
+              <a class="project-link" href="https://groundprosky.com" target="_blank" rel="noopener">Visit site &rarr;</a>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-thumb">C</div>
+            <div class="project-body">
+              <h3>City of Caneyville</h3>
+              <p class="project-meta">Local government</p>
+              <p>A standalone municipal website giving residents a clear, dependable place to find city information.</p>
+              <a class="project-link" href="https://caneyville.org" target="_blank" rel="noopener">Visit site &rarr;</a>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-thumb">TLSP</div>
+            <div class="project-body">
+              <h3>Twin Lakes Skatepark</h3>
+              <p class="project-meta">Community nonprofit</p>
+              <p>A simple, welcoming site built to support a community project and keep supporters informed.</p>
+              <a class="project-link" href="https://twinlakesskatepark.org" target="_blank" rel="noopener">Visit site &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <p class="section-cta" style="text-align:right; margin-top:var(--space-3);"><a class="btn btn-quiet" href="/work.html">View all work &rarr;</a></p>
+      </div>
+    </section>
 
-      myAudio.addEventListener('timeupdate', function(){
-        if (myAudio.duration) progress.style.width = ((myAudio.currentTime / myAudio.duration) * 100) + '%';
-      });
-      myAudio.addEventListener('ended', function(){ status.textContent = 'Song ended — click Play to hear it again.'; });
-    }
-  </script>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2>A simple, honest process</h2>
+        </div>
+        <ol class="process-list">
+          <li>
+            <h3>Tell me about your business.</h3>
+            <p>We start with a conversation about what you do, who you serve, and what your website needs to accomplish.</p>
+          </li>
+          <li>
+            <h3>We choose a practical plan.</h3>
+            <p>I recommend an approach that fits your goals and budget&mdash;nothing more complicated than you actually need.</p>
+          </li>
+          <li>
+            <h3>I design and build the site.</h3>
+            <p>You'll see progress along the way, not silence until the big reveal.</p>
+          </li>
+          <li>
+            <h3>You review it and provide feedback.</h3>
+            <p>We refine the details together until it's right.</p>
+          </li>
+          <li>
+            <h3>I launch it and help you understand what comes next.</h3>
+            <p>You'll know how to update your site and who to call if something needs attention.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-  <script>
-    (function(){
-      var searchForm = document.getElementById('site-search');
-      searchForm.addEventListener('submit', function(event){
-        event.preventDefault();
-        var query = document.getElementById('site-search-input').value.trim().toLowerCase();
-        if (!query) return;
-        var sections = Array.from(document.querySelectorAll('main section'));
-        var match = sections.find(function(section){ return section.textContent.toLowerCase().includes(query); });
-        if (match) {
-          match.scrollIntoView({behavior: 'smooth', block: 'start'});
-          match.classList.add('search-hit');
-          window.setTimeout(function(){ match.classList.remove('search-hit'); }, 1600);
-        } else {
-          alert('No results found in Casey\'s Space. Try “SEO,” “websites,” “projects,” or “apps.”');
-        }
-      });
+    <section class="section section-alt">
+      <div class="wrap wrap-narrow text-center">
+        <p class="eyebrow" style="justify-self:center;">About Casey</p>
+        <h2>A website developer you can actually reach.</h2>
+        <p class="text-muted">I'm Casey Keown, the developer behind Custom Web Architecture. My approach comes from a career where details matter: understand the objective, communicate clearly, and finish the job. That means no mystery tech talk and no disappearing after launch. I build websites outside my full-time public-service career, bringing the same attention to detail and follow-through to every project.</p>
+        <p><a class="btn btn-quiet" href="/about.html">More about me &rarr;</a></p>
+      </div>
+    </section>
 
-      var seoForm = document.getElementById('seo-form');
-      var seoStatus = document.getElementById('seo-status');
-      document.getElementById('load-sample').addEventListener('click', function(){
-        document.getElementById('ggc-keyword').value = 'web designer';
-        document.getElementById('ggc-business').value = 'Custom Web Architecture';
-        document.getElementById('ggc-address').value = 'Leitchfield, KY';
-        document.getElementById('ggc-email').value = '';
-        seoStatus.textContent = 'Sample loaded. Replace it with your business information or run the example.';
-      });
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">From the blog</p>
+          <h2>Latest articles</h2>
+        </div>
+        <div class="card-grid" id="latest-posts">
+          <div class="card">
+            <h3><a href="/blog/articles/static-html-linktree-alternative/">A Static HTML Alternative to Linktree</a></h3>
+            <p>Learn when a custom static HTML link-in-bio page gives a small business more control and better branding.</p>
+          </div>
+          <div class="card">
+            <h3><a href="/blog/articles/website-cost-kentucky/">What Does a Website Cost in Kentucky?</a></h3>
+            <p>Realistic Kentucky website pricing, what changes a quote, and how to compare proposals.</p>
+          </div>
+          <div class="card">
+            <h3><a href="/blog/articles/small-business-website-cost/">How Much Does a Small Business Website Cost?</a></h3>
+            <p>What a small business website costs in 2026, and how to set a realistic budget.</p>
+          </div>
+        </div>
+        <p class="section-cta" style="text-align:right; margin-top:var(--space-3);"><a class="btn btn-quiet" href="/blog/">Read the blog &rarr;</a></p>
+      </div>
+    </section>
 
-      seoForm.addEventListener('submit', function(event){
-        event.preventDefault();
-        if (!seoForm.reportValidity()) return;
+    <section class="section">
+      <div class="wrap">
+        <div class="cta-band">
+          <h2>Ready to talk about your website?</h2>
+          <p>Tell me about your business and what you need. I'll follow up with honest guidance and a practical plan.</p>
+          <div class="btn-row" style="justify-content:center;">
+            <a class="btn btn-primary" href="/leads.html">Request a Quote</a>
+            <a class="btn btn-secondary" href="mailto:me@caseykeown.com">Email Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        var details = {
-          keyword: document.getElementById('ggc-keyword').value.trim(),
-          business: document.getElementById('ggc-business').value.trim(),
-          address: document.getElementById('ggc-address').value.trim(),
-          email: document.getElementById('ggc-email').value.trim()
-        };
-        try { sessionStorage.setItem('caseySeoCheck', JSON.stringify(details)); } catch (error) {}
+  </main>
 
-        var copyText = 'Keyword: ' + details.keyword + '\nBusiness: ' + details.business + '\nAddress: ' + details.address + (details.email ? '\nEmail: ' + details.email : '');
-        if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(copyText).catch(function(){});
-          seoStatus.textContent = 'Details copied. Paste them into Rank.ai if its form is not prefilled.';
-        } else {
-          seoStatus.textContent = 'Opening the Rank.ai checker. Your entries remain here if you need to copy them.';
-        }
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <h2>Custom Web Architecture</h2>
+        <p>Websites built with care and common sense, for small businesses and organizations across Kentucky.</p>
+      </div>
+      <div>
+        <h2>Site</h2>
+        <ul class="footer-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul class="footer-links">
+          <li><a href="mailto:me@caseykeown.com">me@caseykeown.com</a></li>
+          <li><a href="/leads.html">Request a Quote</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>&copy; <span id="year">2026</span> Casey Keown | Custom Web Architecture. All rights reserved.</span>
+      <span>Websites built by Casey Keown.</span>
+    </div>
+  </footer>
 
-        window.open('https://www.rank.ai/free-tools/geo-grid', '_blank', 'noopener');
-      });
-    })();
-  </script>
+  <script src="/scripts/site.js"></script>
 </body>
 </html>
