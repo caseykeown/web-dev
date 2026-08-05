@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
-"""Build Casey's Space static blog from Markdown and Word files in /blog."""
+"""Build the Custom Web Architecture static blog from Markdown files in /blog.
+
+Generated files:
+- /blog/index.html
+- /blog/articles/<slug>/index.html
+- /blog/feed.xml
+- /sitemap.xml
+- the marked Latest Articles block in /index.html
+"""
 
 from __future__ import annotations
 
 import html
+import json
 import re
 import shutil
-from datetime import date, datetime
+from datetime import date, datetime, timezone
+from email.utils import format_datetime
 from pathlib import Path
 from urllib.parse import quote
 
@@ -15,32 +25,63 @@ BLOG = ROOT / "blog"
 ARTICLES = BLOG / "articles"
 EXCLUDED_DIRS = {"articles", "assets"}
 EXCLUDED_FILES = {"README.md"}
+SITE_URL = "https://caseykeown.com"
+SITE_NAME = "Custom Web Architecture"
+FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590846744430"
+BOOKING_URL = "https://calendar.app.google/ZXUK3d3zYTUcgLhw5"
+OG_IMAGE = "https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/blog-social-image.jpg"
+AUDIO_PATH = "/Eden%20-%20TesseracT%20(128k).mp3"
+
+STATIC_URLS = [
+    ("/", None),
+    ("/services.html", None),
+    ("/work.html", None),
+    ("/about.html", None),
+    ("/leads.html", None),
+    ("/blog/", None),
+]
 
 
 def parse_front_matter(text: str) -> tuple[dict[str, str], str]:
     meta: dict[str, str] = {}
-    if not text.startswith("---\n"):
-        return meta, text
-    closing = text.find("\n---\n", 4)
+    normalized = text.replace("\r\n", "\n")
+    if not normalized.startswith("---\n"):
+        return meta, normalized
+    closing = normalized.find("\n---\n", 4)
     if closing == -1:
-        return meta, text
-    for line in text[4:closing].splitlines():
+        return meta, normalized
+    for line in normalized[4:closing].splitlines():
         if ":" not in line:
             continue
         key, value = line.split(":", 1)
         meta[key.strip().lower()] = value.strip().strip('"\'')
-    return meta, text[closing + 5 :]
+    return meta, normalized[closing + 5 :]
+
+
+def slugify(value: str) -> str:
+    value = value.lower().replace("&", " and ")
+    return re.sub(r"[^a-z0-9]+", "-", value).strip("-") or "article"
 
 
 def inline_markdown(value: str) -> str:
-    value = html.escape(value, quote=False)
-    value = re.sub(r"!\[([^]]*)\]\((https?://[^ )]+)\)", r'<img src="\2" alt="\1" loading="lazy">', value)
-    value = re.sub(r"\[([^]]+)\]\((https?://[^ )]+|/[^ )]+)\)", r'<a href="\2">\1</a>', value)
-    value = re.sub(r"`([^`]+)`", r"<code>\1</code>", value)
-    value = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", value)
-    value = re.sub(r"__([^_]+)__", r"<strong>\1</strong>", value)
-    value = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", value)
-    return value
+    escaped = html.escape(value, quote=False)
+
+    # Images before links so the link pattern does not consume image syntax.
+    escaped = re.sub(
+        r"!\[([^]]*)\]\((https?://[^ )]+|/[^ )]+)\)",
+        r'<img src="\2" alt="\1" loading="lazy" decoding="async">',
+        escaped,
+    )
+    escaped = re.sub(
+        r"\[([^]]+)\]\((https?://[^ )]+|/[^ )]+)\)",
+        r'<a href="\2">\1</a>',
+        escaped,
+    )
+    escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
+    escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+    escaped = re.sub(r"__([^_]+)__", r"<strong>\1</strong>", escaped)
+    escaped = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", escaped)
+    return escaped
 
 
 def markdown_to_html(markdown: str) -> str:
@@ -49,7 +90,9 @@ def markdown_to_html(markdown: str) -> str:
     paragraph: list[str] = []
     list_type: str | None = None
     in_code = False
+    code_language = ""
     code_lines: list[str] = []
+    used_ids: dict[str, int] = {}
 
     def flush_paragraph() -> None:
         if paragraph:
@@ -62,38 +105,60 @@ def markdown_to_html(markdown: str) -> str:
             output.append(f"</{list_type}>")
             list_type = None
 
+    def unique_heading_id(text: str) -> str:
+        base = slugify(re.sub(r"[`*_]", "", text))
+        used_ids[base] = used_ids.get(base, 0) + 1
+        return base if used_ids[base] == 1 else f"{base}-{used_ids[base]}"
+
     for raw in lines:
         line = raw.rstrip()
-        if line.startswith("```"):
+
+        fence = re.match(r"^```\s*([\w+-]*)", line)
+        if fence:
             flush_paragraph()
             close_list()
             if in_code:
-                output.append("<pre><code>" + html.escape("\n".join(code_lines)) + "</code></pre>")
+                language_class = f' class="language-{html.escape(code_language)}"' if code_language else ""
+                output.append(f"<pre><code{language_class}>{html.escape(chr(10).join(code_lines))}</code></pre>")
                 code_lines.clear()
+                code_language = ""
                 in_code = False
             else:
+                code_language = fence.group(1)
                 in_code = True
             continue
+
         if in_code:
             code_lines.append(raw)
             continue
+
         if not line.strip():
             flush_paragraph()
             close_list()
             continue
-        heading = re.match(r"^(#{1,3})\s+(.+)$", line)
+
+        if re.match(r"^\s*([-*_])(?:\s*\1){2,}\s*$", line):
+            flush_paragraph()
+            close_list()
+            output.append("<hr>")
+            continue
+
+        heading = re.match(r"^(#{1,4})\s+(.+?)\s*#*$", line)
         if heading:
             flush_paragraph()
             close_list()
             level = len(heading.group(1))
-            output.append(f"<h{level}>{inline_markdown(heading.group(2))}</h{level}>")
+            text = heading.group(2).strip()
+            output.append(f'<h{level} id="{unique_heading_id(text)}">{inline_markdown(text)}</h{level}>')
             continue
+
         quote_match = re.match(r"^>\s?(.*)$", line)
         if quote_match:
             flush_paragraph()
             close_list()
-            output.append(f"<blockquote>{inline_markdown(quote_match.group(1))}</blockquote>")
+            output.append(f"<blockquote><p>{inline_markdown(quote_match.group(1))}</p></blockquote>")
             continue
+
         unordered = re.match(r"^\s*[-*+]\s+(.+)$", line)
         ordered = re.match(r"^\s*\d+[.)]\s+(.+)$", line)
         if unordered or ordered:
@@ -104,146 +169,457 @@ def markdown_to_html(markdown: str) -> str:
                 list_type = wanted
                 output.append(f"<{wanted}>")
             match = unordered or ordered
+            assert match is not None
             output.append(f"<li>{inline_markdown(match.group(1))}</li>")
             continue
+
         paragraph.append(line.strip())
 
     flush_paragraph()
     close_list()
     if in_code:
-        output.append("<pre><code>" + html.escape("\n".join(code_lines)) + "</code></pre>")
+        language_class = f' class="language-{html.escape(code_language)}"' if code_language else ""
+        output.append(f"<pre><code{language_class}>{html.escape(chr(10).join(code_lines))}</code></pre>")
     return "\n".join(output)
 
 
-def slugify(value: str) -> str:
-    value = value.lower().replace("&", " and ")
-    return re.sub(r"[^a-z0-9]+", "-", value).strip("-") or "article"
+def parse_date(value: str) -> datetime:
+    try:
+        parsed = datetime.strptime(value[:10], "%Y-%m-%d")
+    except (ValueError, TypeError):
+        parsed = datetime.combine(date.today(), datetime.min.time())
+    return parsed.replace(tzinfo=timezone.utc)
 
 
 def nice_date(value: str) -> str:
-    try:
-        return datetime.strptime(value[:10], "%Y-%m-%d").strftime("%B %-d, %Y")
-    except (ValueError, TypeError):
-        return value or "Undated"
+    parsed = parse_date(value)
+    return f"{parsed.strftime('%B')} {parsed.day}, {parsed.year}"
+
+
+def short_date(value: str) -> str:
+    parsed = parse_date(value)
+    return f"{parsed.month}/{parsed.day}/{parsed.year}"
+
+
+def organization_schema() -> dict[str, object]:
+    return {
+        "@type": "Organization",
+        "@id": f"{SITE_URL}/#business",
+        "name": SITE_NAME,
+        "url": f"{SITE_URL}/",
+        "logo": f"{SITE_URL}/assets/cwa-monogram-transparent-black.png",
+        "image": OG_IMAGE,
+        "email": "mailto:me@caseykeown.com",
+        "founder": {"@id": f"{SITE_URL}/#casey"},
+        "areaServed": "Kentucky",
+        "sameAs": [FACEBOOK_URL],
+    }
+
+
+def person_schema() -> dict[str, object]:
+    return {
+        "@type": "Person",
+        "@id": f"{SITE_URL}/#casey",
+        "name": "Casey Keown",
+        "url": f"{SITE_URL}/about.html",
+        "image": f"{SITE_URL}/assets/headshot-640.webp",
+        "jobTitle": "Web Developer",
+        "worksFor": {"@id": f"{SITE_URL}/#business"},
+    }
+
+
+def header_html(active: str = "blog") -> str:
+    links = [
+        ("home", "/", "Home"),
+        ("services", "/services.html", "Services"),
+        ("work", "/work.html", "Work"),
+        ("about", "/about.html", "About"),
+        ("blog", "/blog/", "Blog"),
+        ("contact", "/leads.html", "Contact"),
+    ]
+    items = []
+    for key, href, label in links:
+        current = ' aria-current="page"' if key == active else ""
+        items.append(f'<li><a href="{href}"{current}>{label}</a></li>')
+    items.append('<li><a class="btn btn-primary" href="/leads.html">Request a Quote</a></li>')
+    return f'''<header class="site-header">
+  <div class="wrap header-bar">
+    <a class="brand-mark" href="/" aria-label="Custom Web Architecture home">
+      <img class="brand-logo" src="/assets/cwa-horizontal-black.svg" alt="Custom Web Architecture" width="1200" height="200">
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <span class="sr-only">Open menu</span>
+      </button>
+      <ul class="nav-links" id="nav-links" data-open="false" data-nav-links>{''.join(items)}</ul>
+    </nav>
+  </div>
+</header>'''
+
+
+def footer_html() -> str:
+    return f'''<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <h2>{SITE_NAME}</h2>
+      <p>Websites built with care and common sense for small businesses and organizations across Kentucky.</p>
+      <p>Websites built by Casey Keown.</p>
+    </div>
+    <div>
+      <h2>Site</h2>
+      <ul class="footer-links">
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Contact</h2>
+      <ul class="footer-links">
+        <li><a href="mailto:me@caseykeown.com">me@caseykeown.com</a></li>
+        <li><a href="/leads.html">Request a Quote</a></li>
+        <li><a href="{BOOKING_URL}" target="_blank" rel="noopener">Book a Consultation</a></li>
+        <li><a href="{FACEBOOK_URL}" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </div>
+    <div class="music-player" data-music-player>
+      <h2 class="music-title">Site soundtrack</h2>
+      <p class="music-track">“Eden” — TesseracT</p>
+      <audio preload="none" data-src="{AUDIO_PATH}"></audio>
+      <div class="music-controls">
+        <button class="music-toggle" type="button" data-music-toggle aria-label="Play Eden by TesseracT">▶</button>
+        <input class="music-progress" type="range" min="0" max="0" value="0" step="0.1" data-music-progress aria-label="Music progress">
+        <span class="music-time" data-music-time>0:00 / 0:00</span>
+      </div>
+      <p class="music-status" data-music-status aria-live="polite">Press play to listen.</p>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>&copy; <span data-current-year>{date.today().year}</span> Casey Keown | {SITE_NAME}. All rights reserved.</span>
+    <span>Serving Kentucky and working remotely.</span>
+  </div>
+</footer>'''
+
+
+def head_html(
+    *,
+    title: str,
+    description: str,
+    canonical: str,
+    page_type: str = "website",
+    published: str | None = None,
+) -> str:
+    article_meta = f'\n  <meta property="article:published_time" content="{html.escape(published)}">' if published else ""
+    return f'''<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(title)}</title>
+  <meta name="description" content="{html.escape(description, quote=True)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="{html.escape(canonical, quote=True)}">
+  <meta property="og:site_name" content="{SITE_NAME}">
+  <meta property="og:title" content="{html.escape(title, quote=True)}">
+  <meta property="og:description" content="{html.escape(description, quote=True)}">
+  <meta property="og:type" content="{page_type}">
+  <meta property="og:url" content="{html.escape(canonical, quote=True)}">
+  <meta property="og:image" content="{OG_IMAGE}">
+  <meta property="og:image:alt" content="{SITE_NAME} by Casey Keown">{article_meta}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{html.escape(title, quote=True)}">
+  <meta name="twitter:description" content="{html.escape(description, quote=True)}">
+  <meta name="twitter:image" content="{OG_IMAGE}">
+  <meta name="theme-color" content="#F47A3C">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="{SITE_NAME} Blog" href="/blog/feed.xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>'''
 
 
 def discover_sources() -> list[Path]:
     files: list[Path] = []
     for path in BLOG.rglob("*"):
-        if not path.is_file() or any(part in EXCLUDED_DIRS for part in path.relative_to(BLOG).parts):
+        if not path.is_file():
             continue
-        if path.name in EXCLUDED_FILES:
+        relative_parts = path.relative_to(BLOG).parts
+        if any(part in EXCLUDED_DIRS for part in relative_parts) or path.name in EXCLUDED_FILES:
             continue
         if path.suffix.lower() in {".md", ".markdown", ".doc", ".docx"}:
             files.append(path)
-    return files
+    return sorted(files)
 
 
-def shared_header(title: str, description: str, canonical: str) -> str:
-    return f'''<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{html.escape(title)}</title>
-  <meta name="description" content="{html.escape(description, quote=True)}">
-  <link rel="canonical" href="{html.escape(canonical, quote=True)}">
-  <meta property="og:title" content="{html.escape(title, quote=True)}">
-  <meta property="og:description" content="{html.escape(description, quote=True)}">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="{html.escape(canonical, quote=True)}">
-  <meta property="og:image" content="https://caseykeown.com/ck-logo.png">
-  <link rel="stylesheet" href="/blog/assets/blog.css">
-</head>
-<body>
-<header class="site-header">
-  <div class="site-shell header-top">
-    <a class="brand" href="/" aria-label="Casey's Space home"><img src="/caseyspace.png" alt="Casey's Space"></a>
-    <div class="utility-links"><a href="mailto:me@caseykeown.com">Mail</a><span>|</span><a href="/leads">Request a Quote</a></div>
-  </div>
-  <div class="search-strip"><span>Search Casey's Blog:</span><input id="site-search" type="search" placeholder="Search articles..." aria-label="Search articles"><button type="button" id="search-button">Search</button></div>
-  <nav class="main-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/blog/" aria-current="page">Blog</a><a href="/#services">Services</a><a href="/#projects">Projects</a><a href="/leads">Request a Quote</a><a href="mailto:me@caseykeown.com">Contact</a></nav>
-</header>'''
+def update_homepage(posts: list[dict[str, str]]) -> None:
+    path = ROOT / "index.html"
+    homepage = path.read_text(encoding="utf-8")
+    cards = []
+    for post in posts[:3]:
+        cards.append(f'''<div class="card">
+  <h3><a href="{post['url']}">{html.escape(post['title'])}</a></h3>
+  <p>{html.escape(post['description'])}</p>
+</div>''')
+    if not cards:
+        cards.append('<div class="card"><h3><a href="/blog/">Read the blog</a></h3><p>Practical website and SEO guidance for small businesses.</p></div>')
+    block = f'''<!-- BLOG_POSTS_START -->
+<div class="card-grid" id="latest-posts">
+{chr(10).join(cards)}
+</div>
+<!-- BLOG_POSTS_END -->'''
+    pattern = r"<!-- BLOG_POSTS_START -->.*?<!-- BLOG_POSTS_END -->"
+    updated, count = re.subn(pattern, block, homepage, count=1, flags=re.DOTALL)
+    if count != 1:
+        raise RuntimeError("Homepage blog markers were not found exactly once.")
+    path.write_text(updated, encoding="utf-8")
 
 
-def sidebar() -> str:
-    return '''<aside class="blog-sidebar">
-  <h2 class="profile-name">Casey</h2>
-  <div class="profile-card"><img src="/drummer.png" alt="Casey Keown playing drums"><p><strong>Casey's Blog</strong></p><p class="online">Online Now!</p><p>Kentucky web developer writing about websites, SEO, and useful technology.</p></div>
-  <section class="sidebar-box"><h2 class="box-title">Contacting Casey</h2><ul><li><a href="mailto:me@caseykeown.com">Send Message</a></li><li><a href="/leads">Request a Quote</a></li><li><a href="/">View Profile</a></li><li><a href="/blog/feed.xml">Subscribe via RSS</a></li></ul></section>
-</aside>'''
-
-
-def footer() -> str:
-    return '''<footer class="site-footer"><p><a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/leads">Request a Quote</a> | <a href="mailto:me@caseykeown.com">Contact</a></p><p>© 2026 CASEY KEOWN | Custom Web Architecture. All Rights Reserved.</p><p>Best viewed with a modern browser and a deeply unreasonable amount of nostalgia.</p></footer>'''
+def build_article_schema(post: dict[str, str]) -> dict[str, object]:
+    canonical = f"{SITE_URL}{post['url']}"
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            organization_schema(),
+            person_schema(),
+            {
+                "@type": "BlogPosting",
+                "@id": f"{canonical}#article",
+                "mainEntityOfPage": {"@id": canonical},
+                "headline": post["title"],
+                "description": post["description"],
+                "datePublished": post["date"],
+                "dateModified": post.get("modified") or post["date"],
+                "author": {"@id": f"{SITE_URL}/#casey"},
+                "publisher": {"@id": f"{SITE_URL}/#business"},
+                "image": [OG_IMAGE],
+                "inLanguage": "en-US",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{canonical}#breadcrumbs",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE_URL}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{SITE_URL}/blog/"},
+                    {"@type": "ListItem", "position": 3, "name": post["title"], "item": canonical},
+                ],
+            },
+        ],
+    }
 
 
 def build() -> None:
+    BLOG.mkdir(parents=True, exist_ok=True)
     if ARTICLES.exists():
         shutil.rmtree(ARTICLES)
     ARTICLES.mkdir(parents=True, exist_ok=True)
+
     posts: list[dict[str, str]] = []
     downloads: list[dict[str, str]] = []
 
     for source in discover_sources():
         relative = source.relative_to(BLOG).as_posix()
         if source.suffix.lower() in {".doc", ".docx"}:
-            downloads.append({"title": source.stem.replace("-", " ").title(), "url": "/blog/" + quote(relative), "type": source.suffix[1:]})
+            downloads.append({
+                "title": source.stem.replace("-", " ").title(),
+                "url": "/blog/" + quote(relative),
+                "type": source.suffix[1:].upper(),
+            })
             continue
+
         meta, markdown = parse_front_matter(source.read_text(encoding="utf-8"))
+        if meta.get("draft", "false").lower() in {"true", "yes", "1"}:
+            continue
+
         first_heading = re.search(r"^#\s+(.+)$", markdown, re.MULTILINE)
-        title = meta.get("title") or (first_heading.group(1) if first_heading else source.stem.replace("-", " ").title())
-        slug = slugify(meta.get("slug") or re.sub(r"^\d{4}-\d{2}-\d{2}-", "", source.stem))
-        published = meta.get("date") or (re.match(r"^(\d{4}-\d{2}-\d{2})", source.name).group(1) if re.match(r"^(\d{4}-\d{2}-\d{2})", source.name) else date.today().isoformat())
-        description = meta.get("meta_description") or meta.get("description") or "Practical website development and SEO advice from Custom Web Architecture."
-        seo_title = meta.get("meta_title") or title
-        article_url = f"https://caseykeown.com/blog/articles/{slug}/"
+        title = meta.get("title") or (first_heading.group(1).strip() if first_heading else source.stem.replace("-", " ").title())
+        slug_source = meta.get("slug") or re.sub(r"^\d{4}-\d{2}-\d{2}-", "", source.stem)
+        slug = slugify(slug_source)
+        filename_date = re.match(r"^(\d{4}-\d{2}-\d{2})", source.name)
+        published = meta.get("date") or (filename_date.group(1) if filename_date else date.today().isoformat())
+        modified = meta.get("modified") or published
+        description = meta.get("meta_description") or meta.get("description") or "Practical website development and SEO guidance from Custom Web Architecture."
+        seo_title = meta.get("meta_title") or f"{title} | Custom Web Architecture"
+        article_url = f"/blog/articles/{slug}/"
+        canonical = f"{SITE_URL}{article_url}"
         body = markdown_to_html(markdown)
-        if body.startswith("<h1>"):
-            body = re.sub(r"^<h1>.*?</h1>\s*", "", body, count=1, flags=re.DOTALL)
-        article_html = shared_header(seo_title, description, article_url) + f'''
-<div class="site-shell blog-layout">
-  {sidebar()}
-  <main><div class="network-banner">Casey is in your extended network — <strong>and your search results.</strong></div><section class="content-box article-shell"><p class="back-link">&laquo; <a href="/blog/">Back to Casey's Blog</a></p><header class="article-header"><h1>{html.escape(title)}</h1><p class="post-meta">Posted {html.escape(nice_date(published))} · Custom Web Architecture</p><p class="article-description">{html.escape(description)}</p></header><article class="article-body">{body}</article></section></main>
-</div>{footer()}</body></html>'''
+        body = re.sub(r'^<h1[^>]*>.*?</h1>\s*', "", body, count=1, flags=re.DOTALL)
+
+        post = {
+            "title": title,
+            "seo_title": seo_title,
+            "slug": slug,
+            "date": published,
+            "modified": modified,
+            "description": description,
+            "url": article_url,
+        }
+        posts.append(post)
+
+        schema_json = json.dumps(build_article_schema(post), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        article_html = f'''<!doctype html>
+<html lang="en">
+{head_html(title=seo_title, description=description, canonical=canonical, page_type="article", published=published)}
+<body class="article-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {header_html("blog")}
+  <main id="main">
+    <section class="hero section-tight">
+      <div class="wrap wrap-narrow">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">{html.escape(title)}</li></ol></nav>
+        <p class="eyebrow">Website guidance</p>
+        <h1>{html.escape(title)}</h1>
+        <p class="hero-lede">{html.escape(description)}</p>
+        <p class="post-meta">Published {html.escape(nice_date(published))} · Casey Keown</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap article-layout">
+        <article class="article-body">{body}</article>
+        <aside class="blog-sidebar" aria-label="About the author">
+          <h2>Written by Casey</h2>
+          <p>I build straightforward websites and practical web tools for small businesses and organizations.</p>
+          <p><a class="btn btn-primary" href="/leads.html">Request a Quote</a></p>
+          <p><a href="/blog/">View all articles</a></p>
+        </aside>
+      </div>
+    </section>
+  </main>
+  {footer_html()}
+  <script type="application/ld+json">{schema_json}</script>
+  <script src="/scripts/site.js" defer></script>
+</body>
+</html>
+'''
         output_dir = ARTICLES / slug
         output_dir.mkdir(parents=True, exist_ok=True)
         (output_dir / "index.html").write_text(article_html, encoding="utf-8")
-        posts.append({"title": title, "slug": slug, "date": published, "description": description, "url": f"/blog/articles/{slug}/"})
 
-    posts.sort(key=lambda item: item["date"], reverse=True)
-    list_items = "\n".join(f'''<li data-search="{html.escape((post['title'] + ' ' + post['description']).lower(), quote=True)}"><h2><a href="{post['url']}">{html.escape(post['title'])}</a></h2><div class="post-meta">{html.escape(nice_date(post['date']))} · Casey Keown</div><p class="post-excerpt">{html.escape(post['description'])}</p></li>''' for post in posts)
-    list_items += "\n".join(f'''<li data-search="{html.escape(item['title'].lower(), quote=True)}"><h2><a href="{item['url']}">{html.escape(item['title'])}<span class="file-badge">{item['type']}</span></a></h2><div class="post-meta">Downloadable Word document</div></li>''' for item in downloads)
+    posts.sort(key=lambda item: parse_date(item["date"]), reverse=True)
+    update_homepage(posts)
+
+    list_items = []
+    for post in posts:
+        search_text = f"{post['title']} {post['description']}".lower()
+        list_items.append(f'''<li data-search="{html.escape(search_text, quote=True)}">
+  <p class="post-meta">{html.escape(nice_date(post['date']))}</p>
+  <h2><a href="{post['url']}">{html.escape(post['title'])}</a></h2>
+  <p>{html.escape(post['description'])}</p>
+</li>''')
+    for item in downloads:
+        list_items.append(f'''<li data-search="{html.escape(item['title'].lower(), quote=True)}">
+  <p class="post-meta">Downloadable {item['type']} document</p>
+  <h2><a href="{item['url']}">{html.escape(item['title'])}</a></h2>
+</li>''')
     if not list_items:
-        list_items = '<li class="empty-state">Casey is writing the first post now. Check back soon—or hit refresh like it’s 2006.</li>'
+        list_items.append('<li><h2>Articles are coming soon.</h2><p>Check back for practical website and SEO guidance.</p></li>')
 
-    index_description = "Website development, SEO, and small-business technology articles from Casey Keown of Custom Web Architecture in Kentucky."
-    index_html = shared_header("Casey's Blog | Web Design & SEO Articles", index_description, "https://caseykeown.com/blog/") + f'''
-<div class="site-shell blog-layout">
-  {sidebar()}
-  <main><div class="network-banner">Casey is in your extended network — <strong>and your search results.</strong></div><section class="content-box"><div class="blog-intro"><h1>Casey's Blog</h1><p><strong>Web development and SEO without the mystery tech talk.</strong></p><p>Practical answers for Kentucky small businesses, nonprofits, and people who want their websites to do real work.</p></div><div class="blog-toolbar"><input id="post-filter" type="search" placeholder="Filter Casey's blog entries..." aria-label="Filter blog posts"><span class="post-count">{len(posts)} article{'s' if len(posts) != 1 else ''}</span></div><ul class="post-list" id="post-list">{list_items}</ul></section></main>
-</div>{footer()}
-<script>
-(function(){{
-  var filter = document.getElementById('post-filter');
-  var topSearch = document.getElementById('site-search');
-  function run(value) {{
-    var query = value.trim().toLowerCase();
-    document.querySelectorAll('#post-list > li').forEach(function(item) {{ item.hidden = query && !(item.dataset.search || item.textContent.toLowerCase()).includes(query); }});
-  }}
-  if (filter) filter.addEventListener('input', function() {{ run(filter.value); }});
-  document.getElementById('search-button').addEventListener('click', function() {{ if (filter) filter.value = topSearch.value; run(topSearch.value); }});
-  topSearch.addEventListener('keydown', function(event) {{ if (event.key === 'Enter') {{ event.preventDefault(); if (filter) filter.value = topSearch.value; run(topSearch.value); }} }});
-}})();
-</script></body></html>'''
+    index_title = "Web Design & SEO Blog | Custom Web Architecture"
+    index_description = "Practical website development, SEO, performance, and small-business technology guidance from Kentucky web developer Casey Keown."
+    index_schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            organization_schema(),
+            person_schema(),
+            {
+                "@type": "Blog",
+                "@id": f"{SITE_URL}/blog/#blog",
+                "url": f"{SITE_URL}/blog/",
+                "name": f"{SITE_NAME} Blog",
+                "description": index_description,
+                "publisher": {"@id": f"{SITE_URL}/#business"},
+                "author": {"@id": f"{SITE_URL}/#casey"},
+                "blogPost": [{"@id": f"{SITE_URL}{post['url']}#article"} for post in posts],
+                "inLanguage": "en-US",
+            },
+        ],
+    }
+    index_schema_json = json.dumps(index_schema, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    index_html = f'''<!doctype html>
+<html lang="en">
+{head_html(title=index_title, description=index_description, canonical=f"{SITE_URL}/blog/")}
+<body class="blog-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {header_html("blog")}
+  <main id="main">
+    <section class="hero section-tight">
+      <div class="wrap wrap-narrow">
+        <p class="eyebrow">From the blog</p>
+        <h1>Web development without the mystery tech talk.</h1>
+        <p class="hero-lede">Practical answers about websites, search visibility, performance, and useful technology for small businesses.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap blog-shell">
+        <div>
+          <div class="blog-toolbar">
+            <label class="sr-only" for="post-filter">Filter articles</label>
+            <input id="post-filter" type="search" placeholder="Search articles…" autocomplete="off">
+            <span class="post-meta"><span id="visible-post-count">{len(posts)}</span> article{'s' if len(posts) != 1 else ''}</span>
+          </div>
+          <ul class="blog-list" id="post-list">{chr(10).join(list_items)}</ul>
+          <p id="no-post-results" hidden>No articles matched that search.</p>
+        </div>
+        <aside class="blog-sidebar">
+          <h2>About this blog</h2>
+          <p>I write about practical website decisions, local search fundamentals, accessibility, performance, and owning your online presence.</p>
+          <p><a href="/blog/feed.xml">Subscribe with RSS</a></p>
+          <p><a class="btn btn-primary" href="/leads.html">Request a Quote</a></p>
+        </aside>
+      </div>
+    </section>
+  </main>
+  {footer_html()}
+  <script type="application/ld+json">{index_schema_json}</script>
+  <script src="/scripts/site.js" defer></script>
+  <script src="/scripts/blog.js" defer></script>
+</body>
+</html>
+'''
     (BLOG / "index.html").write_text(index_html, encoding="utf-8")
 
-    rss_items = "\n".join(f'''<item><title>{html.escape(post['title'])}</title><link>https://caseykeown.com{post['url']}</link><guid>https://caseykeown.com{post['url']}</guid><pubDate>{html.escape(post['date'])}</pubDate><description>{html.escape(post['description'])}</description></item>''' for post in posts[:20])
-    (BLOG / "feed.xml").write_text(f'''<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Casey's Blog</title><link>https://caseykeown.com/blog/</link><description>{html.escape(index_description)}</description>{rss_items}</channel></rss>''', encoding="utf-8")
+    rss_items = []
+    for post in posts[:20]:
+        published_rfc = format_datetime(parse_date(post["date"]))
+        rss_items.append(
+            "<item>"
+            f"<title>{html.escape(post['title'])}</title>"
+            f"<link>{SITE_URL}{post['url']}</link>"
+            f"<guid isPermaLink=\"true\">{SITE_URL}{post['url']}</guid>"
+            f"<pubDate>{published_rfc}</pubDate>"
+            f"<description>{html.escape(post['description'])}</description>"
+            "</item>"
+        )
+    rss = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0"><channel>'
+        f"<title>{SITE_NAME} Blog</title><link>{SITE_URL}/blog/</link>"
+        f"<description>{html.escape(index_description)}</description>"
+        '<language>en-us</language>'
+        + "".join(rss_items)
+        + "</channel></rss>\n"
+    )
+    (BLOG / "feed.xml").write_text(rss, encoding="utf-8")
 
-    urls = ["https://caseykeown.com/", "https://caseykeown.com/leads", "https://caseykeown.com/blog/"] + ["https://caseykeown.com" + post["url"] for post in posts]
-    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(f"  <url><loc>{html.escape(url)}</loc></url>" for url in urls) + "\n</urlset>\n", encoding="utf-8")
-    print(f"Built {len(posts)} article(s) and {len(downloads)} Word download(s).")
+    sitemap_entries = list(STATIC_URLS)
+    sitemap_entries.extend((post["url"], post["modified"] or post["date"]) for post in posts)
+    sitemap_lines = []
+    for url, lastmod in sitemap_entries:
+        lastmod_tag = f"<lastmod>{html.escape(lastmod)}</lastmod>" if lastmod else ""
+        sitemap_lines.append(f"  <url><loc>{SITE_URL}{html.escape(url)}</loc>{lastmod_tag}</url>")
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(sitemap_lines)
+        + "\n</urlset>\n"
+    )
+    (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    print(f"Built {len(posts)} article(s) and {len(downloads)} document download(s).")
 
 
 if __name__ == "__main__":

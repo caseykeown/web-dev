@@ -3,13 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Request a Quote | Custom Web Architecture</title>
   <meta name="description" content="Tell Casey Keown about your website project. Submit your goals, timeline, budget, and reference photos.">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#003399">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <title>Request a Website | Casey's Space</title>
-
+  <meta name="theme-color" content="#F47A3C">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/styles.css">
   <style>
     .intake-layout {
       display: grid;
@@ -310,105 +316,43 @@
       .wizard-actions { flex-wrap: wrap; }
     }
   </style>
-</head>
 
 <body>
-  <div class="master-container">
-    <header class="main-header">
-      <div class="logo-row">
-        <a class="brand" href="index.html" aria-label="Casey's Space home">
-          <img src="caseyspace.png" alt="Casey's Space">
-        </a>
-        <nav class="utility-nav" aria-label="Utility navigation">
-          <a href="mailto:me@caseykeown.com">Mail</a>
-          <a href="index.html">Back to Profile</a>
-        </nav>
-      </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-      <div class="search-bar">
-        <b>Casey's Website Request Space</b>
-        <span>Tell me what you need without writing a novel.</span>
-      </div>
-
-      <nav class="navbar" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="index.html#about">About Casey</a>
-        <a href="index.html#services">Services</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#seo-check">Free SEO Check</a>
-        <a href="mailto:me@caseykeown.com">Contact</a>
+  <header class="site-header">
+    <div class="wrap header-bar">
+      <a class="brand-mark" href="/">
+        <img class="brand-logo" src="/assets/cwa-horizontal-black.svg" alt="Custom Web Architecture" width="200" height="34">
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" id="nav-toggle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <span class="sr-only">Menu</span>
+        </button>
+        <ul class="nav-links" id="nav-links" data-open="false">
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/leads.html" aria-current="page">Contact</a></li>
+        </ul>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <div class="intake-layout">
-      <aside class="intake-sidebar">
-        <header class="profile-name"><h1>Casey</h1></header>
+  <main id="main">
+    <section class="hero section-tight">
+      <div class="wrap wrap-narrow">
+        <p class="eyebrow">Request a Quote</p>
+        <h1>Tell me about your project.</h1>
+        <p class="hero-lede">Three short sections. Answer what you know&mdash;the rest we can figure out together. Photos are placed in a private Google Drive folder and I get notified right away, usually replying within one business day.</p>
+      </div>
+    </section>
 
-        <div class="profile-picture-container">
-          <img class="profile-pic" src="https://raw.githubusercontent.com/caseykeown/web-dev/refs/heads/main/drummer.png" alt="Casey Keown playing drums">
-          <div class="profile-facts">
-            <p><b>“Let's build something useful.”</b></p>
-            <ul>
-              <li>Web Developer</li>
-              <li>Kentucky</li>
-              <li>United States</li>
-            </ul>
-            <ul class="last-login">
-              <li><b>Reply Time:</b></li>
-              <li>Within 1 business day</li>
-            </ul>
-          </div>
-        </div>
-
-        <section class="contact-box">
-          <h2>Contacting Casey</h2>
-          <div class="contact-actions">
-            <a href="mailto:me@caseykeown.com"><span aria-hidden="true">✉</span> Send Message</a>
-            <a href="index.html#projects"><span aria-hidden="true">★</span> View Portfolio</a>
-            <a href="index.html#services"><span aria-hidden="true">☰</span> View Services</a>
-            <a href="index.html"><span aria-hidden="true">⌂</span> Back to Profile</a>
-          </div>
-        </section>
-
-        <section class="sidebar-box">
-          <h2>What Happens Next</h2>
-          <div class="sidebar-box-body">
-            <ol>
-              <li>You tell me about the project.</li>
-              <li>Your photos are placed in a private Google Drive folder.</li>
-              <li>I receive an email notification.</li>
-              <li>I review everything and contact you.</li>
-            </ol>
-          </div>
-        </section>
-
-        <section class="sidebar-box">
-          <h2>Before You Start</h2>
-          <div class="sidebar-box-body">
-            <p>You only need to answer what you know. Questions marked with an asterisk are required; everything else can be figured out together later.</p>
-          </div>
-        </section>
-
-        <section class="myspace-url-box">
-          <h2>Casey's Space URL:</h2>
-          <p><a href="https://caseykeown.com">https://caseykeown.com</a></p>
-        </section>
-      </aside>
-
-      <main class="intake-main">
-        <section class="user-network">
-          <div>
-            <h2>You are in Casey's extended network</h2>
-            <p><b>Complete three short sections to request a website.</b></p>
-          </div>
-        </section>
-
-        <section class="intake-intro">
-          <header class="main-section-header"><h2>Casey's Project Request Form</h2></header>
-          <p>This form gives me enough information to understand your project and prepare for our first conversation.</p>
-          <p class="required-note">* Required. All other questions are optional.</p>
-        </section>
-
+    <section class="section section-tight">
+      <div class="wrap wrap-narrow">
         <form id="lead-form" novalidate>
           <div class="hp-field" aria-hidden="true">
             <label for="company_website">Leave this field blank</label>
@@ -589,21 +533,41 @@
             </section>
           </div>
         </form>
-      </main>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <h2>Custom Web Architecture</h2>
+        <p>Websites built with care and common sense, for small businesses and organizations across Kentucky.</p>
+      </div>
+      <div>
+        <h2>Site</h2>
+        <ul class="footer-links">
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul class="footer-links">
+          <li><a href="mailto:me@caseykeown.com">me@caseykeown.com</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61590846744430" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
     </div>
+    <div class="wrap footer-bottom">
+      <span>&copy; <span id="yr">2026</span> Casey Keown | Custom Web Architecture. All rights reserved.</span>
+      <span>Websites built by Casey Keown.</span>
+    </div>
+  </footer>
 
-    <footer class="footer">
-      <nav aria-label="Footer navigation">
-        <a href="index.html">Home</a>
-        <a href="index.html#services">Services</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="mailto:me@caseykeown.com">Contact</a>
-      </nav>
-      <p>© <span id="yr"></span> CASEY KEOWN | Custom Web Architecture. All Rights Reserved.</p>
-      <p class="best-viewed">Your project information is never sold or shared.</p>
-    </footer>
-  </div>
-
+  <script src="/scripts/site.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     document.getElementById('yr').textContent = new Date().getFullYear();
@@ -613,6 +577,8 @@
     const MAX_TOTAL_BYTES = 25 * 1024 * 1024;
     const COMPRESS_THRESHOLD = 1.5 * 1024 * 1024;
     const MAX_DIMENSION = 2000;
+    const SUBMISSION_LOCK_KEY = 'cwaLeadSubmission';
+    const SUBMISSION_LOCK_MS = 15 * 60 * 1000;
 
     const form = document.getElementById('lead-form');
     const steps = Array.from(document.querySelectorAll('.form-step'));
@@ -857,9 +823,52 @@
       statusMessage.textContent = '';
     }
 
+    function createSubmissionId() {
+      if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+      return 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+    }
+
+    function readSubmissionLock() {
+      try {
+        const lock = JSON.parse(sessionStorage.getItem(SUBMISSION_LOCK_KEY) || 'null');
+        if (!lock || !lock.startedAt || Date.now() - lock.startedAt > SUBMISSION_LOCK_MS) {
+          sessionStorage.removeItem(SUBMISSION_LOCK_KEY);
+          return null;
+        }
+        return lock;
+      } catch (error) {
+        sessionStorage.removeItem(SUBMISSION_LOCK_KEY);
+        return null;
+      }
+    }
+
+    function writeSubmissionLock(lock) {
+      try { sessionStorage.setItem(SUBMISSION_LOCK_KEY, JSON.stringify(lock)); } catch (error) {}
+    }
+
+    const existingSubmission = readSubmissionLock();
+    if (existingSubmission) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = existingSubmission.completed ? 'Request Received' : 'Request Processing';
+      setStatus(
+        'success',
+        existingSubmission.completed ? 'REQUEST RECEIVED' : 'REQUEST PROCESSING',
+        existingSubmission.completed
+          ? 'Your website request was already received. Casey will respond within one business day.'
+          : 'Your request may already be processing. Please do not submit it again. Casey will follow up within one business day.'
+      );
+    }
+
     form.addEventListener('submit', async event => {
       event.preventDefault();
       clearStatus();
+
+      if (readSubmissionLock()) {
+        setStatus('success', 'REQUEST ALREADY SENT', 'This request is already processing. Please do not submit it again.');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Request Processing';
+        return;
+      }
 
       if (!form.checkValidity()) {
         const invalid = form.querySelector(':invalid');
@@ -884,42 +893,55 @@
       }
 
       document.getElementById('project_details').value = buildProjectSummary();
+      const submission = {
+        id: createSubmissionId(),
+        startedAt: Date.now(),
+        completed: false
+      };
+      writeSubmissionLock(submission);
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
+      let allowRetry = false;
 
       try {
         const formData = new FormData(form);
+        formData.append('submission_id', submission.id);
         selectedFiles.forEach(item => formData.append('photos', item.file, item.file.name));
         const response = await fetch(WORKER_ENDPOINT, { method: 'POST', body: formData });
 
-        let data;
-        try {
-          data = await response.json();
-        } catch (error) {
-          data = { success: false, error: 'Unexpected response from the server.' };
-        }
+        let data = null;
+        try { data = await response.json(); } catch (error) {}
 
-        if (response.ok && data.success) {
+        if (response.ok) {
+          submission.completed = true;
+          writeSubmissionLock(submission);
           setStatus('success', 'REQUEST RECEIVED', 'Thank you! Your website request and photographs were received. Casey will respond within one business day.');
           form.reset();
           selectedFiles.forEach(item => item.objectUrl && URL.revokeObjectURL(item.objectUrl));
           selectedFiles = [];
           renderThumbs();
           showWarning('');
-          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+          submitBtn.textContent = 'Request Received';
         } else {
-          setStatus('error', 'REQUEST NOT SENT', data.error || 'Something went wrong. Please try again.');
+          allowRetry = true;
+          sessionStorage.removeItem(SUBMISSION_LOCK_KEY);
+          setStatus('error', 'REQUEST NOT SENT', (data && data.error) || 'The server rejected the request. Please review the form and try again.');
           if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
         }
       } catch (error) {
-        console.error('Submission failed:', error);
-        setStatus('error', 'CONNECTION ERROR', 'The server could not be reached. Check your connection and try again.');
-        if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+        console.error('Submission response was uncertain:', error);
+        setStatus('success', 'REQUEST PROCESSING', 'Your request may already have been received. Please do not submit it again. Casey will follow up within one business day.');
+        submitBtn.textContent = 'Request Processing';
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Website Request';
+        if (allowRetry) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Website Request';
+        } else {
+          submitBtn.disabled = true;
+        }
       }
     });
   </script>
+
 </body>
 </html>
