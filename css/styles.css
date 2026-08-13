@@ -433,6 +433,29 @@ strong { font-weight: 700; }
 .breadcrumbs ol { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
 .breadcrumbs li:not(:last-child)::after { margin-left: .4rem; content: "/"; color: #aaa49b; }
 
+@media (min-width: 48.01rem) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem);
+    align-items: stretch;
+  }
+  .hero-art {
+    width: min(100%, 21rem);
+    min-height: 0;
+    justify-self: center;
+  }
+  .hero-art picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+  }
+  .hero-art img {
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: 72% 32%;
+  }
+}
+
 @media (max-width: 62rem) {
   .card-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .footer-grid { grid-template-columns: 1.35fr .75fr 1fr; }
