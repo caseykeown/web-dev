@@ -20,8 +20,6 @@ Effective website design for real estate agents gives buyers and sellers a relia
 
 ## Your Brokerage Profile Is Not Your Whole Brand
 
-A brokerage profile connects you to the company and may display listings. It can also change when the brokerage changes platforms or updates its directory.
-
 Your own website gives you a stable domain and a place to explain your approach. It can feature the communities you serve, the clients you help, and the best way to contact you.
 
 The site should still identify the brokerage accurately and follow broker review procedures. It is a durable marketing asset built within the rules that apply to your business.
@@ -29,8 +27,6 @@ The site should still identify the brokerage accurately and follow broker review
 Use the website as the center of your online presence. Social posts, email signatures, signs, and Google Business Profile can point to one current source. If a platform changes, your domain remains familiar.
 
 ## Design for Sellers and Buyers Separately
-
-Buyers and sellers visit an agent website with different concerns. A single paragraph promising excellent service to everyone does not answer either group well.
 
 ### Sellers need to understand your process
 
@@ -113,8 +109,6 @@ A designer should not guess at trademark use or turn REALTOR® into an SEO phras
 
 ## Make the Agent the Main Trust Signal
 
-Property photos attract attention, but clients hire a person. Give visitors enough information to decide whether they want to speak with you.
-
 A strong about page can include:
 
 - A current professional portrait
@@ -175,4 +169,4 @@ The strongest real estate agent website does not try to replace professional rel
 
 Build clear seller and buyer paths. Add IDX only when it serves the strategy. Publish original local content, follow advertising rules, protect lead information, and keep the mobile experience simple. That foundation can support listings, referrals, and long-term recognition better than a generic profile alone.
 
-If your real estate website does not reflect how you actually serve clients, Custom Web Architecture can help you plan a clearer replacement. [Request a website quote](/leads.html) and tell me about your brokerage, service area, lead process, and the tools you already use.
+If your real estate website does not reflect how you actually serve clients, Custom Web Architecture can help you plan a clearer replacement. [Request a website quote](/leads.html) and tell me about your brokerage, service area, lead process, and the tools you already use. If you do not need a website but want to explore agentic AI for your real estate business, I have created two comprehensive guides. [Claude AI for Beginners](https://customweb.gumroad.com/l/claude-for-beginners?layout=profile) is a four-part series that introduces Anthropic's Claude products. If you already know the basics, [Claude for REALTORS](https://customweb.gumroad.com/l/claude-for-real-estate) is a $15 one-time purchase covering practical uses for marketing, client communication, market analysis, listing preparation, and everyday productivity while keeping human judgment and compliance at the center.
