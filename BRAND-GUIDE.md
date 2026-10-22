@@ -1,4 +1,4 @@
-# Custom Web Architecture — Brand Guide
+# Twin Lakes Web Co. — Brand Guide
 
 This document records the brand and design decisions behind the site rebuild. Update it when the brand changes; don't let the site drift from it.
 
@@ -6,7 +6,7 @@ This document records the brand and design decisions behind the site rebuild. Up
 
 Approachable, dependable, skilled, practical, personal, kind. The test for any new copy or design decision: *does this feel like a capable, trustworthy neighbor who happens to be very good at building websites?*
 
-**Positioning statement:** Custom Web Architecture builds straightforward, professional websites for small businesses that want personal service, honest guidance, and a site they can be proud to share.
+**Positioning statement:** Twin Lakes Web Co. builds straightforward, professional websites for small businesses that want personal service, honest guidance, and a site they can be proud to share.
 
 **Primary tagline:** Websites built with care and common sense.
 **Supporting line:** Websites built by Casey Keown.
@@ -15,8 +15,8 @@ Approachable, dependable, skilled, practical, personal, kind. The test for any n
 
 Three approved marks live in `/assets/`:
 
-- `cwa-horizontal-black.png` — primary lockup (monogram + wordmark). Use in the site header and anywhere the full name should appear.
-- `cwa-monogram-transparent-black.png` / `cwa-monogram-transparent-white.png` — the standalone monogram. Use for compact spaces (social avatars, favicons-adjacent contexts) where the full wordmark won't fit.
+- `TLWC-horizontal-black.png` — primary lockup (monogram + wordmark). Use in the site header and anywhere the full name should appear.
+- `TLWC-monogram-transparent-black.png` / `TLWC-monogram-transparent-white.png` — the standalone monogram. Use for compact spaces (social avatars, favicons-adjacent contexts) where the full wordmark won't fit.
 - `favicon.svg`, `favicon.ico`, `favicon-96x96.png`, `apple-touch-icon.png`, `web-app-manifest-192x192.png`, `web-app-manifest-512x512.png`, `site.webmanifest` — the full favicon/PWA icon set, already wired into every page's `<head>`.
 
 Do not reintroduce the "Casey's Space" wordmark, the CK personal monogram, or `operator.png` (tactical AI-generated image — do not use anywhere on the site).
@@ -81,9 +81,3 @@ Reusable classes are defined once in `css/styles.css` and shared by every page a
 ## The blog pipeline
 
 `scripts/build_blog.py` regenerates `/blog/index.html`, every `/blog/articles/<slug>/index.html`, `/blog/feed.xml`, `/sitemap.xml`, and the "Latest articles" card grid on the homepage every time a markdown file is pushed to `/blog`. Its `shared_header()` and `footer()` functions contain the actual HTML template — if the brand changes again, update those functions, not just the static pages, or the next blog post will regenerate pages with stale branding.
-
-## Open decisions for Casey
-
-- Whether `drummer.png` should stay as a small About-page detail or be retired entirely.
-- Whether the "Book a Consultation" CTA needs a real booking link wired in (no booking tool was found in the current repo — it currently behaves the same as Request a Quote).
-- Confirming service pricing before anything specific is published (none was found in the audited repo, so `services.html` intentionally stays outcome-focused rather than quoting numbers).
